@@ -1,23 +1,13 @@
 import React from "react";
-import { Box, Heading, Grid, Button } from "@chakra-ui/react";
+import { Box, Heading, Grid, Button, Spacer } from "@chakra-ui/react";
 import { ColorModeSwitcher } from "./ColorModeSwitcher";
 import CreateTodo from "containers/CreateTodo";
-import { useAccount, useConnect, useNetwork } from "wagmi";
-import useTodoListContract from "hooks/todoListContract/useTodoListContract";
+import Todos from "containers/Todos";
+import { useConnect, useNetwork } from "wagmi";
 
 export const App = () => {
   const [{ data, error }, connect] = useConnect();
-  const [{ data: accountData }] = useAccount();
-  const { getCount } = useTodoListContract();
   const [{ data: networkData }] = useNetwork();
-
-  React.useEffect(() => {
-    (async () => {
-      if (accountData?.address) {
-        await getCount(accountData?.address);
-      }
-    })();
-  }, [accountData?.address, getCount]);
 
   return (
     <div>
@@ -47,6 +37,8 @@ export const App = () => {
         </Grid>
         <Grid justifyContent="center">
           <CreateTodo />
+          <Spacer mb="1rem" />
+          <Todos />
         </Grid>
       </Box>
     </div>

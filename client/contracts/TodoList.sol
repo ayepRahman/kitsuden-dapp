@@ -22,6 +22,7 @@ contract TodoList {
         uint256 taskCount = tasksCount[msg.sender];
         tasks[msg.sender][taskCount] = Task(taskCount, _content, false);
         emit TaskCreated(taskCount, _content, false);
+        tasksCount[msg.sender]++;
     }
 
     function toggleCompleted(uint256 _id) public {

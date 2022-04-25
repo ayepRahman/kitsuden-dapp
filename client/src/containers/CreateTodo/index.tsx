@@ -1,6 +1,7 @@
 import React from "react";
-import { Button, Flex, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import { Button, Flex, FormControl, Input } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
+import useTodoListContract from "hooks/todoListContract/useTodoListContract";
 
 export enum FieldNames {
   TODO = "todo",
@@ -8,10 +9,11 @@ export enum FieldNames {
 
 const CreateTodo = () => {
   const { handleSubmit, register } = useForm();
+  const { addTodo } = useTodoListContract();
 
-  const onSubmit = (values: any) => {
-    console.log("TRIGGER");
-    console.log("VALUES", values);
+  const onSubmit = async (values: any) => {
+    const todo = values[FieldNames.TODO];
+    await addTodo(todo);
   };
 
   return (
