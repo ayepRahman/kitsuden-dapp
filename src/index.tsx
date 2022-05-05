@@ -1,19 +1,20 @@
 import * as React from "react";
 import ReactDOM from "react-dom";
-import { Web3Provider } from "contexts/Web3Provider";
+import { WagmiProvider } from "wagmi";
 import { ChakraProvider, ColorModeScript, theme } from "@chakra-ui/react";
 import App from "containers/App";
+import { wagmiClient } from "config/wagmi";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Web3Provider>
+    <WagmiProvider client={wagmiClient}>
       <ChakraProvider theme={theme}>
         <ColorModeScript />
         <App />
       </ChakraProvider>
-    </Web3Provider>
+    </WagmiProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

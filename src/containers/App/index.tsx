@@ -1,47 +1,70 @@
 import React from "react";
-import { Box, Heading, Grid, Button, Spacer } from "@chakra-ui/react";
-import { ColorModeSwitcher } from "./ColorModeSwitcher";
-import CreateTodo from "containers/CreateTodo";
-import Todos from "containers/Todos";
-import { useConnect, useNetwork } from "wagmi";
+import {
+  Box,
+  Heading,
+  Grid,
+  Button,
+  Spacer,
+  Flex,
+  Input,
+  Code,
+  Image,
+} from "@chakra-ui/react";
+import { useAccount, useConnect, useEnsName, useNetwork } from "wagmi";
+import { generateAddress } from "utils/address";
+import metamaskImg from "assets/img/metamask.png";
+import { useOnlyAyepContract } from "hooks/contract";
 
 export const App = () => {
-  const [{ data, error }, connect] = useConnect();
-  const [{ data: networkData }] = useNetwork();
+  const { activeChain } = useNetwork();
+  const { data: account } = useAccount();
+
+  const { connect, isConnected, connectors, isConnecting } = useConnect();
+
+  // console.log("connectors", connectors);
+
+  useOnlyAyepContract();
 
   return (
-    <div>
-      <Box textAlign="center" fontSize="xl">
-        <div>
-          <div>Network name: {networkData.chain?.name} </div>
-          <div>Network id: {networkData.chain?.id} </div>
-        </div>
-        <div>
-          {!data?.connected &&
-            data.connectors.map((connector) => (
-              <Button
-                disabled={!connector.ready}
-                key={connector.id}
-                onClick={() => connect(connector)}
-              >
-                {connector.name}
-                {!connector.ready && " (unsupported)"}
-              </Button>
-            ))}
+    <Flex height="100vh" alignItems="center" justifyContent="center">
+      <Flex
+        direction="column"
+        alignItems="center"
+        background="gray.100"
+        p={12}
+        rounded={6}
+      >
+        <Heading mb={6}>Nft Project Name</Heading>
 
-          {error && <div>{error?.message ?? "Failed to connect"}</div>}
-        </div>
-        <Grid p={3}>
-          <ColorModeSwitcher justifySelf="flex-end" />
-          <Heading as="h1">Smart Contract Todo List</Heading>
-        </Grid>
-        <Grid justifyContent="center">
-          <CreateTodo />
-          <Spacer mb="1rem" />
-          <Todos />
-        </Grid>
-      </Box>
-    </div>
+        {account?.address && (
+          <Code px="0.5rem" colorScheme="teal" mb={6} variant="solid">
+            {generateAddress(account?.address || "")}
+          </Code>
+        )}
+
+        <Input
+          mb={6}
+          placeholder="Quantity Max 2"
+          variant="outline"
+          type="number"
+        />
+
+        <Button isFullWidth colorScheme="teal">
+          Mint
+        </Button>
+        {!isConnecting && !isConnected && (
+          <Button
+            mt={6}
+            onClick={() => connect()}
+            isFullWidth
+            colorScheme="orange"
+          >
+            <Image src={metamaskImg} height={6} width={6} mr={2} />
+            Metamask
+          </Button>
+        )}
+      </Flex>
+    </Flex>
   );
 };
 
