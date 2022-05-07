@@ -40,7 +40,10 @@ export const App = () => {
   const { disconnect } = useDisconnect();
   const { data: balance } = useBalance({
     addressOrName: account?.address,
-    enabled: Boolean(account?.address),
+    enabled: !!account?.address,
+    onError: (error) => {
+      console.log(error);
+    },
   });
 
   const { connect, isConnected, connectors, isConnecting, activeConnector } =
