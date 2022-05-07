@@ -14,16 +14,16 @@ error WrongEther();
 error InvalidMerkle();
 error WhitelistUsed();
 
-contract OnlyAyep is ERC721A, ReentrancyGuard, Ownable {
+contract Kitsuden is ERC721A, ReentrancyGuard, Ownable {
     using Address for address;
     using Strings for uint256;
     using MerkleProof for bytes32[];
 
     address proxyRegistryAddress;
 
-    bytes32 public merkleRoot; // 0xabcd1234
+    bytes32 public merkleRoot;
     uint256 public maxMints = 2;
-    uint256 public maxSupply = 500; // Genesis
+    uint256 public maxSupply = 6666;
     uint256 public mintRate = 0.07 ether;
     uint256 public whitelistMintRate = 0.05 ether;
     string public hiddenUri = "ipfs://<ID>/hidden.json";
@@ -35,7 +35,7 @@ contract OnlyAyep is ERC721A, ReentrancyGuard, Ownable {
 
     mapping(address => uint256) public usedAddresses;
 
-    constructor() ERC721A("OnlyAyep", "ONLYAYEP") {}
+    constructor() ERC721A("Kitsuden", "KSDN") {}
 
     function mint(uint256 quantity) external payable nonReentrant {
         if (!publicSale) revert PublicSaleNotLive();
