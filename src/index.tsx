@@ -1,21 +1,25 @@
 import * as React from "react";
 import ReactDOM from "react-dom";
-// import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 import { WagmiProvider } from "wagmi";
-import { ChakraProvider, ColorModeScript, theme } from "@chakra-ui/react";
+import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import App from "containers/App";
 import { wagmiClient } from "config/wagmi";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorker from "./serviceWorker";
+import { theme, Global } from "styles";
 
 ReactDOM.render(
   <React.StrictMode>
-    <WagmiProvider client={wagmiClient}>
-      <ChakraProvider theme={theme}>
-        <ColorModeScript />
-        <App />
-      </ChakraProvider>
-    </WagmiProvider>
+    <BrowserRouter>
+      <WagmiProvider client={wagmiClient}>
+        <ChakraProvider theme={theme}>
+          <ColorModeScript />
+          <Global />
+          <App />
+        </ChakraProvider>
+      </WagmiProvider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );

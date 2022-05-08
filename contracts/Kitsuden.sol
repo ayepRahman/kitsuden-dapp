@@ -22,10 +22,11 @@ contract Kitsuden is ERC721A, ReentrancyGuard, Ownable {
     address proxyRegistryAddress;
 
     bytes32 public merkleRoot;
-    uint256 public maxMints = 2;
-    uint256 public maxSupply = 6666;
-    uint256 public mintRate = 0.07 ether;
-    uint256 public whitelistMintRate = 0.05 ether;
+    uint256 public maxMints = 5;
+    uint256 public whiteListMaxMints = 2;
+    uint256 public maxSupply = 5555;
+    uint256 public mintRate = 0.07777 ether;
+    uint256 public whitelistMintRate = 0.05555 ether;
     string public hiddenUri = "ipfs://<ID>/hidden.json";
     string public baseExtension = ".json";
     string public baseURI = ""; // ipfs://<ID>/
@@ -33,6 +34,7 @@ contract Kitsuden is ERC721A, ReentrancyGuard, Ownable {
     bool public publicSale = false;
     bool public whitelistSale = false;
 
+    mapping(address => uint256) public whiteListUsedAddresses;
     mapping(address => uint256) public usedAddresses;
 
     constructor() ERC721A("Kitsuden", "KSDN") {}
