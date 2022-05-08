@@ -5,13 +5,11 @@ const Home = React.lazy(() => import("pages/Home"));
 
 export const App = () => {
   return (
-    <div>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Routes>
-          <Route path="/" element={Home} />
-        </Routes>
-      </Suspense>
-    </div>
+    <Suspense>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </Suspense>
   );
 };
 

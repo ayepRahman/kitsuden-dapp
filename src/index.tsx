@@ -1,5 +1,5 @@
 import * as React from "react";
-import ReactDOM from "react-dom";
+import * as ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { WagmiProvider } from "wagmi";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
@@ -9,7 +9,10 @@ import reportWebVitals from "./reportWebVitals";
 import * as serviceWorker from "./serviceWorker";
 import { theme, Global } from "styles";
 
-ReactDOM.render(
+const rootElement = document.getElementById("root");
+const root = ReactDOM.createRoot(rootElement as Element);
+
+root.render(
   <React.StrictMode>
     <BrowserRouter>
       <WagmiProvider client={wagmiClient}>
@@ -20,8 +23,7 @@ ReactDOM.render(
         </ChakraProvider>
       </WagmiProvider>
     </BrowserRouter>
-  </React.StrictMode>,
-  document.getElementById("root")
+  </React.StrictMode>
 );
 
 // If you want your app to work offline and load faster, you can change
