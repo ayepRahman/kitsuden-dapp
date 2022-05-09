@@ -6,21 +6,24 @@ import Button from "components/Button";
 
 const Hero = () => {
   return (
-    <Box width="full" position="relative" height="1080px">
+    <Box width="full" position="relative" height="80vh">
       <Image
         top="0"
         position="absolute"
         src={heroBg}
+        backgroundSize="cover"
         width="full"
         height="inherit"
       />
       <Box
         position="absolute"
-        top="calc(50% - 200px)"
-        left="calc(50% - 460px)"
+        top="50%"
+        left="50%"
+        margin="0 auto"
+        transform="translate(-50%,-50%)"
         textAlign="center"
       >
-        <Image width={920} src={kitsudenLog} />
+        <Image width="full" minW={360} src={kitsudenLog} />
         <Button size="lg" mt="2rem">
           COMING SOON
         </Button>

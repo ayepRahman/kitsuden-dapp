@@ -1,39 +1,12 @@
 import React from "react";
-import styled from "@emotion/styled";
-import { Box, Button, Container, Flex, Image, Link } from "@chakra-ui/react";
+import { Box, Container, Flex, Image } from "@chakra-ui/react";
 import logoImg from "assets/img/kitsuden_logo_1.png";
 import { ReactComponent as DiscordIcon } from "assets/img/discord.svg";
 import { ReactComponent as OpenseaIcon } from "assets/img/opensea.svg";
 import { ReactComponent as TwitterIcon } from "assets/img/twitter.svg";
 import { ReactComponent as EtherscanIcon } from "assets/img/etherscan.svg";
-import { ReactComponent as Clip } from "assets/img/headerClip.svg";
 import MetamaskButton from "containers/MetamaskButton";
-
-const HeaderLink = styled.div`
-  font-size: 1rem;
-  font-weight: 700;
-  font-style: normal;
-
-  cursor: pointer;
-
-  :hover {
-    color: ${(p) => p.theme.colors.brand[200]};
-  }
-`;
-
-const HeaderClip = styled(Clip)`
-  position: absolute;
-  bottom: -4rem;
-  left: 0;
-  width: 100%;
-  z-index: 1;
-`;
-
-const HeadLinkIcon = styled(Link)`
-  svg > path:hover {
-    fill: ${(p) => p.theme.colors.brand[200]};
-  }
-`;
+import { HeaderLink, HeadLinkIcon, HeaderClip } from "./styled";
 
 const Header = () => {
   const handleOnClick = (id: string) => {

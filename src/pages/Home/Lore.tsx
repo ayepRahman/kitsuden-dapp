@@ -2,23 +2,33 @@ import React from "react";
 import { Box, Container, Flex, Heading, Image, Text } from "@chakra-ui/react";
 import loreBg from "assets/img/bg_section_1.png";
 import loreBrushBg from "assets/img/lore_brush_bg.png";
-// import glbtest from "assets/glb/test.glb";
 
 const Lore = () => {
   return (
     <Box width="full" position="relative">
-      <Image top="-4rem" position="absolute" src={loreBg} />
+      <Image
+        top="-4rem"
+        position="absolute"
+        width="full"
+        height="100vh"
+        src={loreBg}
+      />
       <Container
         position="relative"
         zIndex={1}
-        maxW={1920}
+        maxW="container.xl"
         background="Background.100"
-        padding="10rem"
+        py="5rem"
       >
         <Flex gap="5rem">
           <Box width="50%" height="676px" position="relative">
-            <Image src={loreBrushBg} position="absolute" />
-
+            <Image
+              src={loreBrushBg}
+              position="absolute"
+              height="60vh"
+              left={0}
+              right={0}
+            />
             <model-viewer
               style={{
                 width: "100%",
@@ -35,7 +45,7 @@ const Lore = () => {
               ar
             ></model-viewer>
           </Box>
-          <Box maxW={647}>
+          <Box width="50%">
             <Heading
               color="black"
               fontWeight={400}

@@ -1,8 +1,9 @@
 import React from "react";
 import { Box } from "@chakra-ui/react";
 import Header from "containers/Header";
-import Hero from "components/Hero";
+import Hero from "./Hero";
 import Lore from "./Lore";
+import Path from "./Path";
 
 export const Home = () => {
   return (
@@ -10,6 +11,7 @@ export const Home = () => {
       <Header />
       <Hero />
       <Lore />
+      <Path />
     </Box>
   );
 };
