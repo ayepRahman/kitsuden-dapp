@@ -28,6 +28,11 @@ const Header = () => {
     onClose();
   };
 
+  const handleOpenLink = (link: string) => {
+    window.open(link);
+    onClose();
+  };
+
   return (
     <Box bg="brand.100" height="max-content" position="relative">
       <Container
@@ -76,7 +81,11 @@ const Header = () => {
               <HeadLinkIcon>
                 <DiscordIcon />
               </HeadLinkIcon>
-              <HeadLinkIcon>
+              <HeadLinkIcon
+                onClick={() =>
+                  handleOpenLink("https://twitter.com/kitsudennft")
+                }
+              >
                 <TwitterIcon />
               </HeadLinkIcon>
               <HeadLinkIcon>
@@ -154,7 +163,11 @@ const Header = () => {
                     <HeadLinkIcon>
                       <DiscordIcon />
                     </HeadLinkIcon>
-                    <HeadLinkIcon>
+                    <HeadLinkIcon
+                      onClick={() =>
+                        handleOpenLink("https://twitter.com/kitsudennft")
+                      }
+                    >
                       <TwitterIcon />
                     </HeadLinkIcon>
                     <HeadLinkIcon>
