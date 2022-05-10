@@ -1,30 +1,39 @@
 import React from "react";
-import { Box, Container, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  Flex,
+  Heading,
+  Image,
+  Text,
+  useMediaQuery,
+} from "@chakra-ui/react";
 import pathBg from "assets/img/bg_section_2.png";
-import loreBrushBg from "assets/img/lore_brush_bg.png";
+import pathBrushBg from "assets/img/path_bg.png";
 
 // timeline example
 
 // https://www.w3schools.com/howto/howto_css_timeline.asp
 
 const Path = () => {
+  const [isMobile] = useMediaQuery("(max-width: 767.98px)");
+
   return (
-    <Box width="full" position="relative">
-      <Image
-        top="-2rem"
-        position="absolute"
-        width="full"
-        height="100vh"
-        src={pathBg}
-      />
+    <Box top="-8rem" width="full" position="relative">
+      <Image position="absolute" width="full" height="100%" src={pathBg} />
       <Container
         position="relative"
         zIndex={1}
-        maxW={1600}
+        maxW="container.xl"
         background="Background.100"
+        py={isMobile ? "10rem" : "8rem"}
       >
-        <Flex gap="5rem">
-          <Box maxW={647}>
+        <Flex gap="4rem" flexWrap={isMobile ? "wrap" : "nowrap"}>
+          <Box
+            width={isMobile ? "100%" : "50%"}
+            height={isMobile ? "400px" : "700px"}
+            position="relative"
+          >
             <Heading
               fontWeight={400}
               fontSize={84}
@@ -47,8 +56,16 @@ const Path = () => {
               numquam adipisci temporibus, cumque corporis nihil expedita.
             </Text>
           </Box>
-          <Box width="50%" height="676px" position="relative">
-            <Image src={loreBrushBg} position="absolute" />
+          <Box
+            width={isMobile ? "100%" : "50%"}
+            height={isMobile ? "400px" : "700px"}
+            position="relative"
+          >
+            <Image
+              src={pathBrushBg}
+              position="absolute"
+              height={isMobile ? "400px" : "700px"}
+            />
 
             <model-viewer
               style={{

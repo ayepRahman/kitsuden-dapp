@@ -1,11 +1,12 @@
 import styled from "@emotion/styled";
-import { Link } from "@chakra-ui/react";
+import { Link, Box } from "@chakra-ui/react";
 import { ReactComponent as Clip } from "assets/img/headerClip.svg";
 
-export const HeaderLink = styled.div`
+export const HeaderLink = styled(Box)`
   font-size: 1rem;
   font-weight: 700;
   font-style: normal;
+  white-space: nowrap;
 
   cursor: pointer;
 

@@ -12,6 +12,22 @@ const theme = extendTheme({
       200: "#F36800",
     },
   },
+  components: {
+    // @link - fixing issue with overlay in modal/drawer/portal https://github.com/chakra-ui/chakra-ui/issues/2893
+    Drawer: {
+      variants: {
+        alwaysOpen: {
+          parts: ["dialog, dialogContainer"],
+          dialog: {
+            pointerEvents: "auto",
+          },
+          dialogContainer: {
+            pointerEvents: "none",
+          },
+        },
+      },
+    },
+  },
 });
 
 type Theme = typeof theme;

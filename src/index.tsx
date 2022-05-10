@@ -1,5 +1,5 @@
 import "@google/model-viewer/dist/model-viewer";
-import * as React from "react";
+import React from "react";
 import * as ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { WagmiProvider } from "wagmi";

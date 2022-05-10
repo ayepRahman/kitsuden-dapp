@@ -1,10 +1,10 @@
 import React from "react";
-import { Image, useToast } from "@chakra-ui/react";
+import { ButtonProps, Image, useToast } from "@chakra-ui/react";
 import { useConnect, useDisconnect } from "wagmi";
 import metamaskImg from "assets/img/metamask.png";
 import Button from "components/Button";
 
-const MetamaskButton = () => {
+const MetamaskButton: React.FC<ButtonProps> = ({ ...props }) => {
   const toast = useToast();
   const { disconnect } = useDisconnect();
   const { connect, isConnected, connectors, isConnecting, activeConnector } =
@@ -43,6 +43,7 @@ const MetamaskButton = () => {
       colorScheme="orange"
       display="flex"
       alignItems="center"
+      {...props}
     >
       {isConnected ? (
         "Connected"

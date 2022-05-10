@@ -1,31 +1,39 @@
 import React from "react";
-import { Box, Container, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  Flex,
+  Heading,
+  Image,
+  Text,
+  useMediaQuery,
+} from "@chakra-ui/react";
 import loreBg from "assets/img/bg_section_1.png";
 import loreBrushBg from "assets/img/lore_brush_bg.png";
 
 const Lore = () => {
+  const [isMobile] = useMediaQuery("(max-width: 767.98px)");
+
   return (
-    <Box width="full" position="relative">
-      <Image
-        top="-4rem"
-        position="absolute"
-        width="full"
-        height="100vh"
-        src={loreBg}
-      />
+    <Box top="-4rem" width="full" position="relative">
+      <Image position="absolute" width="full" height="100%" src={loreBg} />
       <Container
         position="relative"
         zIndex={1}
         maxW="container.xl"
         background="Background.100"
-        py="5rem"
+        py={isMobile ? "8rem" : "5rem"}
       >
-        <Flex gap="5rem">
-          <Box width="50%" height="676px" position="relative">
+        <Flex gap="4rem" flexWrap={isMobile ? "wrap" : "nowrap"}>
+          <Box
+            width={isMobile ? "100%" : "50%"}
+            height={isMobile ? "400px" : "700px"}
+            position="relative"
+          >
             <Image
               src={loreBrushBg}
               position="absolute"
-              height="60vh"
+              height={isMobile ? "400px" : "700px"}
               left={0}
               right={0}
             />
@@ -45,20 +53,20 @@ const Lore = () => {
               ar
             ></model-viewer>
           </Box>
-          <Box width="50%">
+          <Box width={isMobile ? "100%" : "50%"}>
             <Heading
               color="black"
               fontWeight={400}
-              fontSize={84}
-              lineHeight="76px"
+              fontSize={isMobile ? 46 : 84}
+              lineHeight={isMobile ? "30px" : "76px"}
             >
               The mysterious
             </Heading>
             <Heading
               color="black"
               fontWeight={400}
-              fontSize={84}
-              lineHeight="76px"
+              fontSize={isMobile ? 46 : 84}
+              lineHeight={isMobile ? "30px" : "76px"}
               textAlign="right"
             >
               hidden village...
@@ -67,7 +75,7 @@ const Lore = () => {
               color="black"
               lineHeight="160%"
               my="2rem"
-              fontSize={18}
+              fontSize={isMobile ? 16 : 18}
               fontWeight="400"
             >
               It is said there lies a hidden village located at the eastern part
@@ -79,7 +87,7 @@ const Lore = () => {
               color="black"
               lineHeight="160%"
               my="2rem"
-              fontSize={18}
+              fontSize={isMobile ? 16 : 18}
               fontWeight="400"
             >
               The only thing thats known about this village, is that locating it
@@ -93,7 +101,7 @@ const Lore = () => {
               color="black"
               lineHeight="160%"
               my="2rem"
-              fontSize={18}
+              fontSize={isMobile ? 16 : 18}
               fontWeight="400"
             >
               Little did we know that this piece of tech just let out a signal.
@@ -104,7 +112,7 @@ const Lore = () => {
               color="black"
               lineHeight="160%"
               my="2rem"
-              fontSize={18}
+              fontSize={isMobile ? 16 : 18}
               fontWeight="400"
             >
               As it beckons to you..are you brave enough to follow it?
