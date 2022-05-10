@@ -62,6 +62,13 @@ const TeamImage = styled(Box)<{ show: boolean }>`
   width: 272px;
   background-image: ${(p) => `url(${p.src})`};
   filter: ${(p) => p.show && "contrast(175%) brightness(10%)"};
+  background-size: cover;
+
+  /* Medium devices (tablets, less than 992px) */
+  @media (max-width: 767.98px) {
+    height: 168px;
+    width: 168px;
+  }
 `;
 
 const Team = () => {
@@ -97,13 +104,18 @@ const Team = () => {
           The team
         </Heading>
 
-        <Flex justifyContent="space-around" alignItems="center">
+        <Flex
+          justifyContent="space-around"
+          alignItems="center"
+          flexWrap={isMobile ? "wrap" : "nowrap"}
+          gap="1rem"
+        >
           {teams.map((t, i) => {
             return (
               <Box
                 position="relative"
-                height={272}
-                width={272}
+                height={isMobile ? 168 : 272}
+                width={isMobile ? 168 : 272}
                 onMouseOver={() => handlOnHover(i + 1)}
                 onMouseOut={() => handlOnHover(null)}
               >
