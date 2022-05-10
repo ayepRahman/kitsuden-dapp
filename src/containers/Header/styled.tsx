@@ -69,7 +69,9 @@ export const HeaderClip = styled(Clip)`
 `;
 
 export const HeadLinkIcon = styled(Link)`
-  svg > path:hover {
-    fill: ${(p) => p.theme.colors.brand[200]};
+  :hover {
+    svg > path {
+      fill: ${(p) => p.theme.colors.brand[200]};
+    }
   }
 `;
