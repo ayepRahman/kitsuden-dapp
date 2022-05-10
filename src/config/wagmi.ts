@@ -21,7 +21,6 @@ export const wagmiClient = createClient({
   autoConnect: true,
   connectors({ chainId }) {
     const chain = chains.find((x) => x.id === chainId) ?? defaultChain;
-    console.log("CHAIN", chain);
 
     const rpcUrl = chain.rpcUrls.alchemy
       ? ALCHEMY_API_URL

@@ -7,20 +7,17 @@ import Button from "components/Button";
 const MetamaskButton: React.FC<ButtonProps> = ({ ...props }) => {
   const toast = useToast();
   const { disconnect } = useDisconnect();
-  const { connect, isConnected, connectors, isConnecting, activeConnector } =
-    useConnect({
-      onError(error) {
-        console.log("Error", error);
-        toast({
-          title: `error ${error.message}`,
-          status: "error",
-          isClosable: true,
-        });
-      },
-    });
+  const { connect, isConnected, connectors, isConnecting } = useConnect({
+    onError(error) {
+      console.log("Error", error);
+      toast({
+        title: `error ${error.message}`,
+        status: "error",
+        isClosable: true,
+      });
+    },
+  });
 
-  console.log("activeConnector", activeConnector);
-  console.log("CONNNN", connectors);
   const metamaskConnector = connectors[0];
 
   return (
