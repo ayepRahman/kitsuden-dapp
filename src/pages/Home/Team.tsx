@@ -28,7 +28,7 @@ const teams = [
     },
   },
   {
-    name: "ARIF",
+    name: "AYEP",
     title: "FOUNDER",
     img: treamAvatar2,
     links: {
