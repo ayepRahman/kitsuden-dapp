@@ -4,6 +4,7 @@ import Header from "containers/Header";
 import Hero from "./Hero";
 import Lore from "./Lore";
 import Path from "./Path";
+import Team from "./Team";
 
 export const Home = () => {
   return (
@@ -12,6 +13,7 @@ export const Home = () => {
       <Hero />
       <Lore />
       <Path />
+      <Team />
     </Box>
   );
 };

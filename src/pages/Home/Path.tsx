@@ -8,7 +8,7 @@ import {
   useMediaQuery,
   Text,
 } from "@chakra-ui/react";
-import styled from "@emotion/styled";
+import { TimeLine, TimeLineItem } from "./path.styled";
 import pathBg from "assets/img/bg_section_2.png";
 import pathBrushBg from "assets/img/path_bg.png";
 import chapterIcon1 from "assets/img/chapter_1_icon.svg";
@@ -16,41 +16,6 @@ import chapterIcon2 from "assets/img/chapter_2_icon.svg";
 import chapterIcon3 from "assets/img/chapter_3_icon.svg";
 import chapterIcon4 from "assets/img/chapter_4_icon.svg";
 import lockIcon from "assets/img/lock.svg";
-
-const TimeLine = styled(Box)`
-  position: relative;
-  margin: 1rem;
-  color: white;
-
-  &:after {
-    content: "";
-    position: absolute;
-    width: 1px;
-    background-color: #e3e3e3;
-    top: 26px;
-    bottom: 26px;
-    left: 0;
-  }
-`;
-
-const TimeLineItem = styled(Box)<{ url: string; size: number }>`
-  padding: 0 0 1rem 2rem;
-  position: relative;
-
-  &:after {
-    content: "";
-    background-image: url(${(p) => p.url});
-    background-size: ${(p) => `${p.size}px ${p.size}px`};
-    position: absolute;
-    width: ${(p) => `${p.size}px`};
-    height: ${(p) => `${p.size}px`};
-    top: 0;
-    left: ${(p) => `-${p.size / 2}px`};
-    z-index: 1;
-  }
-`;
-
-// timeline example
 
 // https://www.w3schools.com/howto/howto_css_timeline.asp
 
@@ -78,10 +43,7 @@ const Path = () => {
           flexWrap={isMobile ? "wrap" : "nowrap"}
           flexDirection={isMobile ? "column-reverse" : "row"}
         >
-          <Box
-            //  width={isMobile ? "100%" : "50%"}
-            position="relative"
-          >
+          <Box position="relative">
             <Heading
               fontWeight={400}
               fontSize={84}
