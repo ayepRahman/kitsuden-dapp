@@ -76,11 +76,10 @@ const Path = () => {
         <Flex
           gap="4rem"
           flexWrap={isMobile ? "wrap" : "nowrap"}
-          flexDirection={isMobile ? "column-reverse" : "column"}
+          flexDirection={isMobile ? "column-reverse" : "row"}
         >
           <Box
-            width={isMobile ? "100%" : "50%"}
-            // height={isMobile ? "400px" : "700px"}
+            //  width={isMobile ? "100%" : "50%"}
             position="relative"
           >
             <Heading
@@ -88,6 +87,7 @@ const Path = () => {
               fontSize={84}
               lineHeight="76px"
               color="white"
+              textAlign={isMobile ? "center" : "left"}
             >
               The Path
             </Heading>
@@ -121,7 +121,7 @@ const Path = () => {
               </TimeLineItem>
               <TimeLineItem size={44} url={chapterIcon2}>
                 <Heading
-                  mb="1rem"
+                  mb="3rem"
                   fontWeight={400}
                   fontSize="54px"
                   lineHeight="54px"
@@ -134,7 +134,7 @@ const Path = () => {
               </TimeLineItem>
               <TimeLineItem size={46} url={chapterIcon3}>
                 <Heading
-                  mb="1rem"
+                  mb="3rem"
                   fontWeight={400}
                   fontSize="54px"
                   lineHeight="54px"
@@ -160,7 +160,7 @@ const Path = () => {
             </TimeLine>
           </Box>
           <Box
-            width={isMobile ? "100%" : "50%"}
+            width="full"
             height={isMobile ? "400px" : "700px"}
             position="relative"
           >
