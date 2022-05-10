@@ -5,11 +5,50 @@ import {
   Flex,
   Heading,
   Image,
-  Text,
   useMediaQuery,
+  Text,
 } from "@chakra-ui/react";
+import styled from "@emotion/styled";
 import pathBg from "assets/img/bg_section_2.png";
 import pathBrushBg from "assets/img/path_bg.png";
+import chapterIcon1 from "assets/img/chapter_1_icon.svg";
+import chapterIcon2 from "assets/img/chapter_2_icon.svg";
+import chapterIcon3 from "assets/img/chapter_3_icon.svg";
+import chapterIcon4 from "assets/img/chapter_4_icon.svg";
+import lockIcon from "assets/img/lock.svg";
+
+const TimeLine = styled(Box)`
+  position: relative;
+  margin: 1rem;
+  color: white;
+
+  &:after {
+    content: "";
+    position: absolute;
+    width: 1px;
+    background-color: #e3e3e3;
+    top: 26px;
+    bottom: 26px;
+    left: 0;
+  }
+`;
+
+const TimeLineItem = styled(Box)<{ url: string; size: number }>`
+  padding: 0 0 1rem 2rem;
+  position: relative;
+
+  &:after {
+    content: "";
+    background-image: url(${(p) => p.url});
+    background-size: ${(p) => `${p.size}px ${p.size}px`};
+    position: absolute;
+    width: ${(p) => `${p.size}px`};
+    height: ${(p) => `${p.size}px`};
+    top: 0;
+    left: ${(p) => `-${p.size / 2}px`};
+    z-index: 1;
+  }
+`;
 
 // timeline example
 
@@ -34,10 +73,14 @@ const Path = () => {
         background="Background.100"
         py={isMobile ? "10rem" : "8rem"}
       >
-        <Flex gap="4rem" flexWrap={isMobile ? "wrap" : "nowrap"}>
+        <Flex
+          gap="4rem"
+          flexWrap={isMobile ? "wrap" : "nowrap"}
+          flexDirection={isMobile ? "column-reverse" : "column"}
+        >
           <Box
             width={isMobile ? "100%" : "50%"}
-            height={isMobile ? "400px" : "700px"}
+            // height={isMobile ? "400px" : "700px"}
             position="relative"
           >
             <Heading
@@ -48,19 +91,73 @@ const Path = () => {
             >
               The Path
             </Heading>
-            <Text>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore
-              illo animi veniam ad iste itaque repellendus error eaque, ab quasi
-              adipisci quia earum rerum consectetur voluptate quisquam quod modi
-              ipsa, aut velit repudiandae voluptates? Suscipit aut, non, earum a
-              voluptas eaque odio dolore modi illo quod voluptatum voluptatibus,
-              libero iure tempora consequatur omnis. Consequatur officiis harum
-              quisquam? Earum, ea cum at impedit assumenda ipsa nihil, soluta ad
-              non, possimus vitae eum accusamus in libero nesciunt aliquam
-              blanditiis quam quisquam sit dolore quaerat voluptatum tenetur
-              placeat quas! Incidunt reprehenderit animi quod id doloribus error
-              numquam adipisci temporibus, cumque corporis nihil expedita.
-            </Text>
+            <TimeLine>
+              <TimeLineItem size={44} url={chapterIcon1}>
+                <Heading
+                  mb="1rem"
+                  fontWeight={400}
+                  fontSize="54px"
+                  lineHeight="54px"
+                  color="brand.200"
+                >
+                  Chapter 1
+                </Heading>
+                <Text fontSize={18} fontWeight={600} lineHeight="160%">
+                  The ancient tech known as the FOXFONE are available to be
+                  activated. who knows what it will uncover, Will the path to
+                  the hidden village finally be discovered?
+                </Text>
+                <Box width="full" height="1px" bgColor="#e3e3e3" my="1.5rem" />
+                <Text
+                  fontSize={18}
+                  fontWeight={400}
+                  lineHeight="160%"
+                  mb="1rem"
+                >
+                  5,5555 FOXFONE NFTs will be available to mint. There will be 3
+                  tiers of rarity (Common, Uncommon and Rare) that can be
+                  randomly minted.
+                </Text>
+              </TimeLineItem>
+              <TimeLineItem size={44} url={chapterIcon2}>
+                <Heading
+                  mb="1rem"
+                  fontWeight={400}
+                  fontSize="54px"
+                  lineHeight="54px"
+                  display="flex"
+                  alignItems="center"
+                >
+                  Chapter 2
+                  <Image ml="1rem" src={lockIcon} />
+                </Heading>
+              </TimeLineItem>
+              <TimeLineItem size={46} url={chapterIcon3}>
+                <Heading
+                  mb="1rem"
+                  fontWeight={400}
+                  fontSize="54px"
+                  lineHeight="54px"
+                  display="flex"
+                  alignItems="center"
+                >
+                  Chapter 3
+                  <Image ml="1rem" src={lockIcon} />
+                </Heading>
+              </TimeLineItem>
+              <TimeLineItem size={48} url={chapterIcon4}>
+                <Heading
+                  fontWeight={400}
+                  fontSize="54px"
+                  lineHeight="54px"
+                  display="flex"
+                  alignItems="center"
+                >
+                  Chapter 4
+                  <Image ml="1rem" src={lockIcon} />
+                </Heading>
+              </TimeLineItem>
+            </TimeLine>
           </Box>
           <Box
             width={isMobile ? "100%" : "50%"}

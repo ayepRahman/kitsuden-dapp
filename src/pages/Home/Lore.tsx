@@ -83,7 +83,7 @@ const Lore = () => {
               lineHeight="160%"
               my="2rem"
               fontSize={isMobile ? 16 : 18}
-              fontWeight="400"
+              fontWeight="600"
             >
               It is said there lies a hidden village located at the eastern part
               of the world. Deep within the forest of spirits where no man dares
@@ -95,7 +95,7 @@ const Lore = () => {
               lineHeight="160%"
               my="2rem"
               fontSize={isMobile ? 16 : 18}
-              fontWeight="400"
+              fontWeight="600"
             >
               The only thing thats known about this village, is that locating it
               requires a very special device. This device is known to be called
@@ -109,7 +109,7 @@ const Lore = () => {
               lineHeight="160%"
               my="2rem"
               fontSize={isMobile ? 16 : 18}
-              fontWeight="400"
+              fontWeight="600"
             >
               Little did we know that this piece of tech just let out a signal.
               It’s showing something of a map and the words “Loading, Finding
@@ -120,7 +120,7 @@ const Lore = () => {
               lineHeight="160%"
               my="2rem"
               fontSize={isMobile ? 16 : 18}
-              fontWeight="400"
+              fontWeight="600"
             >
               As it beckons to you..are you brave enough to follow it?
             </Text>
