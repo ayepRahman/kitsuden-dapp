@@ -20,7 +20,13 @@ const Path = () => {
 
   return (
     <Box top="-8rem" width="full" position="relative">
-      <Image position="absolute" width="full" height="100%" src={pathBg} />
+      <Image
+        position="absolute"
+        width="full"
+        height="100%"
+        src={pathBg}
+        objectFit={isMobile ? "cover" : "fill"}
+      />
       <Container
         position="relative"
         zIndex={1}
@@ -65,6 +71,7 @@ const Path = () => {
               src={pathBrushBg}
               position="absolute"
               height={isMobile ? "400px" : "700px"}
+              w="full"
             />
 
             <model-viewer

@@ -1,19 +1,21 @@
 import React from "react";
-import { Box, Image } from "@chakra-ui/react";
+import { Box, Image, useMediaQuery } from "@chakra-ui/react";
 import heroBg from "assets/img/hero_bg.png";
 import kitsudenLog from "assets/img/kitsuden_logo_0.png";
 import Button from "components/Button";
 
 const Hero = () => {
+  const [isMobile] = useMediaQuery("(max-width: 767.98px)");
+
   return (
     <Box width="full" position="relative" height="80vh">
       <Image
         top="0"
         position="absolute"
         src={heroBg}
-        backgroundSize="cover"
         width="full"
-        height="inherit"
+        height="100%"
+        objectFit={isMobile ? "cover" : "fill"}
       />
       <Box
         position="absolute"

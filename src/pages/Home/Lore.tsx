@@ -16,7 +16,13 @@ const Lore = () => {
 
   return (
     <Box top="-4rem" width="full" position="relative">
-      <Image position="absolute" width="full" height="100%" src={loreBg} />
+      <Image
+        position="absolute"
+        width="full"
+        height="100%"
+        src={loreBg}
+        objectFit={isMobile ? "cover" : "fill"}
+      />
       <Container
         position="relative"
         zIndex={1}
@@ -34,6 +40,7 @@ const Lore = () => {
               src={loreBrushBg}
               position="absolute"
               height={isMobile ? "400px" : "700px"}
+              w="full"
               left={0}
               right={0}
             />
