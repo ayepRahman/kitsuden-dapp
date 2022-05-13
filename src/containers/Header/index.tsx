@@ -146,7 +146,7 @@ const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
                     onClick={onClose}
                   />
 
-                  <LogoIcon />
+                  <LogoIcon width={94} height={94} />
 
                   <ScrollLink
                     mt="3rem"
