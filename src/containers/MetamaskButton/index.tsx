@@ -1,8 +1,9 @@
 import React from "react";
-import { ButtonProps, Image, useToast } from "@chakra-ui/react";
+import { ButtonProps, useToast } from "@chakra-ui/react";
 import { useConnect, useDisconnect } from "wagmi";
 import metamaskImg from "assets/img/metamask.png";
 import Button from "components/Button";
+import Image from "components/Image";
 
 const MetamaskButton: React.FC<ButtonProps> = ({ ...props }) => {
   const toast = useToast();

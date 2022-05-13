@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Container, Flex, Image, useMediaQuery } from "@chakra-ui/react";
+import { Box, Container, Flex, useMediaQuery } from "@chakra-ui/react";
 import footerBg from "assets/img/footer.svg";
 import { ReactComponent as LogoImg } from "assets/img/kitsuden_logo_1.svg";
 import { ReactComponent as LogoIcon } from "assets/img/logo_icon.svg";
@@ -9,6 +9,7 @@ import { ReactComponent as OpenseaIcon } from "assets/img/opensea.svg";
 import { ReactComponent as TwitterIcon } from "assets/img/twitter.svg";
 import { ReactComponent as EtherscanIcon } from "assets/img/etherscan.svg";
 import SocialLink from "components/SocialLink";
+import Image from "components/Image";
 
 interface FooterProps {
   scrollTo: (to: string) => void;

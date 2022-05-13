@@ -4,12 +4,12 @@ import {
   Container,
   Flex,
   Heading,
-  Image,
   Text,
   useMediaQuery,
 } from "@chakra-ui/react";
 import loreBg from "assets/img/bg_section_1.png";
 import loreBrushBg from "assets/img/lore_brush_bg.png";
+import Image from "components/Image";
 
 const Lore = () => {
   const [isMobile] = useMediaQuery("(max-width: 767.98px)");

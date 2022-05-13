@@ -5,7 +5,6 @@ import {
   Container,
   Flex,
   Heading,
-  Image,
   useMediaQuery,
   Text,
   Icon,
@@ -16,6 +15,7 @@ import treamAvatar2 from "assets/img/team_2.png";
 import treamAvatar3 from "assets/img/team_3.png";
 import treamAvatar4 from "assets/img/team_4.png";
 import { FaLinkedin, FaTwitter } from "react-icons/fa";
+import Image from "components/Image";
 
 const teams = [
   {

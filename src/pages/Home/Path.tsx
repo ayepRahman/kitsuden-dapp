@@ -4,7 +4,6 @@ import {
   Container,
   Flex,
   Heading,
-  Image,
   useMediaQuery,
   Text,
 } from "@chakra-ui/react";
@@ -16,6 +15,7 @@ import chapterIcon2 from "assets/img/chapter_2_icon.svg";
 import chapterIcon3 from "assets/img/chapter_3_icon.svg";
 import chapterIcon4 from "assets/img/chapter_4_icon.svg";
 import lockIcon from "assets/img/lock.svg";
+import Image from "components/Image";
 
 // https://www.w3schools.com/howto/howto_css_timeline.asp
 

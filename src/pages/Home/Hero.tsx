@@ -1,8 +1,9 @@
 import React from "react";
-import { Box, Image, useMediaQuery } from "@chakra-ui/react";
+import { Box, useMediaQuery } from "@chakra-ui/react";
 import heroBg from "assets/img/hero_bg.png";
 import kitsudenLog from "assets/img/kitsuden_logo_0.png";
 import Button from "components/Button";
+import Image from "components/Image";
 
 const Hero = () => {
   const [isMobile] = useMediaQuery("(max-width: 767.98px)");
