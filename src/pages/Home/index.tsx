@@ -5,15 +5,17 @@ import Hero from "./Hero";
 import Lore from "./Lore";
 import Path from "./Path";
 import Team from "./Team";
+import Footer from "./Footer";
 
 export const Home = () => {
   return (
-    <Box height="100vh" width="100%">
+    <Box position="relative">
       <Header />
       <Hero />
       <Lore />
       <Path />
       <Team />
+      <Footer />
     </Box>
   );
 };

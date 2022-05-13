@@ -5,19 +5,20 @@ import {
   Drawer,
   DrawerContent,
   Flex,
-  Image,
   useDisclosure,
   useMediaQuery,
 } from "@chakra-ui/react";
+import ScrollLink from "components/ScrollLink";
+import SocialLink from "components/SocialLink";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
-import logoImg from "assets/img/kitsuden_logo_1.png";
+import { ReactComponent as LogoImg } from "assets/img/kitsuden_logo_1.svg";
 import { ReactComponent as DiscordIcon } from "assets/img/discord.svg";
 import { ReactComponent as OpenseaIcon } from "assets/img/opensea.svg";
 import { ReactComponent as TwitterIcon } from "assets/img/twitter.svg";
 import { ReactComponent as EtherscanIcon } from "assets/img/etherscan.svg";
 import { ReactComponent as LogoIcon } from "assets/img/logo_icon.svg";
 import MetamaskButton from "containers/MetamaskButton";
-import { HeaderLink, HeadLinkIcon, HeaderClip } from "./styled";
+import { HeaderClip } from "./styled";
 
 const Header = () => {
   const [isMobile] = useMediaQuery("(max-width: 767.98px)");
@@ -51,7 +52,7 @@ const Header = () => {
             justifyContent="space-between"
           >
             <Box flex={1}>
-              <Image src={logoImg} width={174} />
+              <LogoImg width={174} fill="black" />
             </Box>
             <Flex
               gap="3rem"
@@ -59,18 +60,18 @@ const Header = () => {
               textAlign="center"
               justifyContent="center"
             >
-              <HeaderLink onClick={() => handleOnClick("home")}>
+              <ScrollLink onClick={() => handleOnClick("home")}>
                 HOME
-              </HeaderLink>
-              <HeaderLink onClick={() => handleOnClick("lore")}>
+              </ScrollLink>
+              <ScrollLink onClick={() => handleOnClick("lore")}>
                 THE LORE
-              </HeaderLink>
-              <HeaderLink onClick={() => handleOnClick("path")}>
+              </ScrollLink>
+              <ScrollLink onClick={() => handleOnClick("path")}>
                 THE PATH
-              </HeaderLink>
-              <HeaderLink onClick={() => handleOnClick("team")}>
+              </ScrollLink>
+              <ScrollLink onClick={() => handleOnClick("team")}>
                 THE TEAM
-              </HeaderLink>
+              </ScrollLink>
             </Flex>
             <Flex
               gap="1.5rem"
@@ -78,22 +79,22 @@ const Header = () => {
               justifyContent="flex-end"
               flex={1}
             >
-              <HeadLinkIcon>
+              <SocialLink>
                 <DiscordIcon />
-              </HeadLinkIcon>
-              <HeadLinkIcon
+              </SocialLink>
+              <SocialLink
                 onClick={() =>
                   handleOpenLink("https://twitter.com/kitsudennft")
                 }
               >
                 <TwitterIcon />
-              </HeadLinkIcon>
-              <HeadLinkIcon>
+              </SocialLink>
+              <SocialLink>
                 <OpenseaIcon />
-              </HeadLinkIcon>
-              <HeadLinkIcon>
+              </SocialLink>
+              <SocialLink>
                 <EtherscanIcon />
-              </HeadLinkIcon>
+              </SocialLink>
               <MetamaskButton width="6rem" />
             </Flex>
           </Flex>
@@ -110,7 +111,7 @@ const Header = () => {
           >
             <Box flex={1} />
             <Box flex={1} width="50%" textAlign="center" margin="0 auto">
-              <Image src={logoImg} width={174} />
+              <LogoImg width={174} fill="black" />
             </Box>
             <Box flex={1} textAlign="right">
               <HamburgerIcon onClick={() => onOpen()} fontSize={24} />
@@ -142,40 +143,40 @@ const Header = () => {
 
                   <LogoIcon />
 
-                  <HeaderLink
+                  <ScrollLink
                     mt="3rem"
                     mb="0.5rem"
                     onClick={() => handleOnClick("home")}
                   >
                     HOME
-                  </HeaderLink>
-                  <HeaderLink my="0.5rem" onClick={() => handleOnClick("lore")}>
+                  </ScrollLink>
+                  <ScrollLink my="0.5rem" onClick={() => handleOnClick("lore")}>
                     THE LORE
-                  </HeaderLink>
-                  <HeaderLink my="0.5rem" onClick={() => handleOnClick("path")}>
+                  </ScrollLink>
+                  <ScrollLink my="0.5rem" onClick={() => handleOnClick("path")}>
                     THE PATH
-                  </HeaderLink>
-                  <HeaderLink my="0.5rem" onClick={() => handleOnClick("team")}>
+                  </ScrollLink>
+                  <ScrollLink my="0.5rem" onClick={() => handleOnClick("team")}>
                     THE TEAM
-                  </HeaderLink>
+                  </ScrollLink>
 
                   <Flex mt="3rem" gap="2rem">
-                    <HeadLinkIcon>
+                    <SocialLink>
                       <DiscordIcon />
-                    </HeadLinkIcon>
-                    <HeadLinkIcon
+                    </SocialLink>
+                    <SocialLink
                       onClick={() =>
                         handleOpenLink("https://twitter.com/kitsudennft")
                       }
                     >
                       <TwitterIcon />
-                    </HeadLinkIcon>
-                    <HeadLinkIcon>
+                    </SocialLink>
+                    <SocialLink>
                       <OpenseaIcon />
-                    </HeadLinkIcon>
-                    <HeadLinkIcon>
+                    </SocialLink>
+                    <SocialLink>
                       <EtherscanIcon />
-                    </HeadLinkIcon>
+                    </SocialLink>
                   </Flex>
                 </Flex>
               </DrawerContent>

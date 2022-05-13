@@ -79,19 +79,15 @@ const Team = () => {
   return (
     <Box top="-12rem" width="full" position="relative">
       <Image
+        top={0}
         position="absolute"
         width="full"
-        height="160%"
+        height="150%"
         src={teamBg}
+        bgRepeat="repeat"
         objectFit={isMobile ? "cover" : "fill"}
       />
-      <Container
-        position="relative"
-        zIndex={1}
-        maxW="container.xl"
-        background="Background.100"
-        py={isMobile ? "10rem" : "8rem"}
-      >
+      <Container position="relative" zIndex={1} maxW="container.xl" py="6rem">
         <Heading
           fontWeight={400}
           fontSize={84}
