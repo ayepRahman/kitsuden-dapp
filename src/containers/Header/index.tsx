@@ -20,12 +20,17 @@ import { ReactComponent as LogoIcon } from "assets/img/logo_icon.svg";
 import MetamaskButton from "containers/MetamaskButton";
 import { HeaderClip } from "./styled";
 
-const Header = () => {
+interface HeaderProps {
+  scrollTo: (to: string) => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
   const [isMobile] = useMediaQuery("(max-width: 767.98px)");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const handleOnClick = (id: string) => {
+  const handleOnClick = (to: string) => {
     // scroll to somewhere later
+    scrollTo(to);
     onClose();
   };
 
@@ -60,7 +65,7 @@ const Header = () => {
               textAlign="center"
               justifyContent="center"
             >
-              <ScrollLink onClick={() => handleOnClick("home")}>
+              <ScrollLink onClick={() => handleOnClick("hero")}>
                 HOME
               </ScrollLink>
               <ScrollLink onClick={() => handleOnClick("lore")}>
