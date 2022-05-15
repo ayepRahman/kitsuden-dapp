@@ -14,7 +14,7 @@ error WrongEther();
 error InvalidMerkle();
 error WhitelistUsed();
 
-contract Kitsuden is ERC721A, ReentrancyGuard, Ownable {
+contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
     using Address for address;
     using Strings for uint256;
     using MerkleProof for bytes32[];
@@ -37,7 +37,7 @@ contract Kitsuden is ERC721A, ReentrancyGuard, Ownable {
     mapping(address => uint256) public whiteListUsedAddresses;
     mapping(address => uint256) public usedAddresses;
 
-    constructor() ERC721A("Kitsuden", "KSDN") {}
+    constructor() ERC721A("Kitsuden Foxfone", "KTSDNFF") {}
 
     function mint(uint256 quantity) external payable nonReentrant {
         if (!publicSale) revert PublicSaleNotLive();
@@ -122,7 +122,11 @@ contract Kitsuden is ERC721A, ReentrancyGuard, Ownable {
         return baseURI;
     }
 
-    function setBaseUri(string memory _newBaseURI) public onlyOwner {
+    function baseTokenURI() public view returns (string memory) {
+        return baseURI;
+    }
+
+    function setBaseURI(string memory _newBaseURI) public onlyOwner {
         baseURI = _newBaseURI;
     }
 

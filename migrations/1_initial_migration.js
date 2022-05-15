@@ -1,7 +1,7 @@
 const Migrations = artifacts.require("Migrations");
-const Kitsuden = artifacts.require("Kitsuden");
+const KitsudenFoxfone = artifacts.require("KitsudenFoxfone");
 
 module.exports = function (deployer) {
   deployer.deploy(Migrations);
-  deployer.deploy(Kitsuden);
+  deployer.deploy(KitsudenFoxfone);
 };

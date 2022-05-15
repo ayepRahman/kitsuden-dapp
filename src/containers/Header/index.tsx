@@ -8,6 +8,8 @@ import {
   useDisclosure,
   useMediaQuery,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+
 import ScrollLink from "components/ScrollLink";
 import SocialLink from "components/SocialLink";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
@@ -21,16 +23,20 @@ import MetamaskButton from "containers/MetamaskButton";
 import { HeaderClip } from "./styled";
 
 interface HeaderProps {
-  scrollTo: (to: string) => void;
+  scrollTo?: (to: string) => void;
 }
 
 const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
+  const navigate = useNavigate();
   const [isMobile] = useMediaQuery("(max-width: 767.98px)");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleOnClick = (to: string) => {
+    if (to === "hero") {
+      navigate("/");
+    }
     // scroll to somewhere later
-    scrollTo(to);
+    scrollTo && scrollTo(to);
     onClose();
   };
 

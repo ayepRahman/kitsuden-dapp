@@ -1,11 +1,11 @@
 import React from "react";
 import { Box } from "@chakra-ui/react";
 import Header from "containers/Header";
+import Footer from "components/Footer";
 import Hero from "./Hero";
 import Lore from "./Lore";
 import Path from "./Path";
 import Team from "./Team";
-import Footer from "./Footer";
 import useScrollTo from "hooks/useScrollTo";
 
 export const Home = () => {

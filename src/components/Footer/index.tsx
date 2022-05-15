@@ -12,7 +12,7 @@ import SocialLink from "components/SocialLink";
 import Image from "components/Image";
 
 interface FooterProps {
-  scrollTo: (to: string) => void;
+  scrollTo?: (to: string) => void;
 }
 
 const Footer: React.FC<FooterProps> = ({ scrollTo }) => {
@@ -20,7 +20,7 @@ const Footer: React.FC<FooterProps> = ({ scrollTo }) => {
 
   const handleOnClick = (to: string) => {
     // scroll to somewhere later
-    scrollTo(to);
+    scrollTo && scrollTo(to);
   };
 
   const handleOpenLink = (link: string) => {
