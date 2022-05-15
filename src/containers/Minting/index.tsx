@@ -31,7 +31,9 @@ const Minting = () => {
   const isWhiteList = false;
   const mintLimit = isWhiteList ? 2 : 5;
   const mintPrice = 0.05555;
-  const totalMintPrice = (selected && mintPrice * selected)?.toFixed(5);
+  // value to be used for setter contract
+  const totalMintPrice = selected && mintPrice * selected;
+  const totalMintPriceText = (selected && mintPrice * selected)?.toFixed(5);
 
   return (
     <Box color="white">
@@ -95,7 +97,7 @@ const Minting = () => {
           <Box>
             <Text>TOTAL</Text>
             <Text fontSize={32} fontWeight={700}>
-              {totalMintPrice ? `${totalMintPrice} ETH` : "0 ETH"}
+              {totalMintPriceText ? `${totalMintPriceText} ETH` : "0 ETH"}
             </Text>
           </Box>
         </Flex>
