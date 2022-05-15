@@ -69,4 +69,4 @@ generateMerkle(WHITE_LIST_ADDRESSES);
 //   isWhiteList("0xA756ADb1C3dbB4c0ac61cF01A2881E87F633DE81")
 // );
 
-export { generateMerkle as generateMerkleRoot, getMerkleProof as getProof };
+export { generateMerkle, getMerkleProof };

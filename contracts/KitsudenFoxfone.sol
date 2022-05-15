@@ -38,12 +38,14 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
     mapping(address => uint256) public whiteListUsedAddresses;
     mapping(address => uint256) public usedAddresses;
 
-    constructor() ERC721A("Kitsuden Foxfone", "KTSDNFF") {
-        console.log("Deploying a KitsudenFoxfone");
+    constructor() ERC721A("Kitsuden Foxfone", "KSDNFF") {
+        console.log("Deploying KitsudenFoxfone");
     }
 
     function mint(uint256 quantity) external payable nonReentrant {
         console.log("[mint]: quantity", quantity);
+        console.log("[mint]: msg.sender", msg.sender);
+        console.log("[mint]: msg.value", msg.value);
         console.log("[mint]: publicSale", publicSale);
         console.log("[mint]: _numberMinted", _numberMinted(msg.sender));
         console.log("[mint]: maxMints", maxMints);
@@ -61,6 +63,8 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
             revert NotEnoughTokensLeft();
         }
 
+        console.log("CHECK", mintRate * quantity);
+
         // check for the value user pass is equal to the quantity and the mintRate
         if (mintRate * quantity != msg.value) {
             revert WrongEther();
@@ -74,6 +78,18 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
         payable
         nonReentrant
     {
+        console.log("[whiteListMint]: quantity", quantity);
+        // console.log("[whiteListMint]: proof", proof);
+        console.log("[whiteListMint]: msg.sender", msg.sender);
+        console.log("[whiteListMint]: msg.value", msg.value);
+        console.log("[whiteListMint]: publicSale", publicSale);
+        console.log(
+            "[whiteListMint]: _numberMinted",
+            _numberMinted(msg.sender)
+        );
+        console.log("[whiteListMint]: maxMints", maxMints);
+        console.log("[whiteListMint]: maxSupply", maxSupply);
+        console.log("[whiteListMint]: mintRate", mintRate);
         if (quantity > whiteListMaxMints) revert ExceededLimit();
         if (whitelistMintRate * quantity != msg.value) {
             revert WrongEther();
