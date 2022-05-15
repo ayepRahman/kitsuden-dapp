@@ -4,10 +4,7 @@
 
 import { expect } from "chai";
 import { ethers, waffle } from "hardhat";
-import { getMerkleProof, generateMerkle } from "utils/merkleTree";
-
-const someRandomProof =
-  "0x702d0f86c1baf15ac2b8aae489113b59d27419b751fsbf7da0ef0bae4688abc7a";
+import { getMerkleProof, generateMerkle } from "../src/utils/merkle";
 
 describe("KitsudenFoxfone", () => {
   it("should deployed", async () => {
@@ -112,144 +109,194 @@ describe("KitsudenFoxfone", () => {
     expect(Number(contractBalanceInEth)).to.equal(totalEth);
   });
 
-  it.only("whiteListMint should fail when quantity is greater than 2 ", async () => {
+  it("whiteListMint should fail when quantity is greater than whiteListMaxMints", async () => {
     const [owner] = await ethers.getSigners();
-
-    console.log(owner);
-
     const factory = await ethers.getContractFactory("KitsudenFoxfone");
     const contract = await factory.deploy();
     await contract.deployed();
     const quantity = 10;
-    const mockProof = [someRandomProof];
+    const merkle = generateMerkle([owner.address]);
+    const hash = `0x${merkle?.merkleRootHash}`;
 
-    await expect(
-      contract.whiteListMint(quantity, mockProof)
-    ).to.be.revertedWith("WrongEther");
+    await contract.setMerkleRoot(hash);
+    const proof = getMerkleProof(owner.address);
+
+    await expect(contract.whiteListMint(quantity, proof)).to.be.revertedWith(
+      "ExceededLimit"
+    );
   });
 
-  // it.skip("whiteListMint should fail when quantity and msg value does not match ", async () => {
-  //   const quantity = 2;
-  //   const mockProof = [someRandomAddr];
-  //   const mockMinRate = 0.00999;
-  //   const wei = ethers.utils.parseEther(`${mockMinRate}`);
-  //   const msg = { value: wei };
+  it("whiteListMint should fail when quantity and msg value does not match ", async () => {
+    const [owner] = await ethers.getSigners();
+    const factory = await ethers.getContractFactory("KitsudenFoxfone");
+    const contract = await factory.deploy();
+    await contract.deployed();
+    const quantity = 2;
+    const merkle = generateMerkle([owner.address]);
+    const hash = `0x${merkle?.merkleRootHash}`;
+    const whitelistMintRate = await contract.whitelistMintRate();
+    const balanceInEth = ethers.utils.formatEther(whitelistMintRate);
+    const totalEth = Number(balanceInEth) * 3;
+    let wei = ethers.utils.parseEther(`${totalEth}`);
+    const msg = { value: wei };
 
-  //   await truffleAssert.reverts(
-  //     contract.whiteListMint(quantity, mockProof, msg)
-  //   );
-  // });
+    await contract.setMerkleRoot(hash);
+    const proof = getMerkleProof(owner.address);
 
-  // it.skip("whiteListMint should fail when quantity and msg value does not match ", async () => {
-  //   const quantity = 2;
-  //   const mockProof = [someRandomAddr];
-  //   const mockMinRate = 0.00999;
-  //   const wei = ethers.utils.parseEther(`${mockMinRate}`);
-  //   const msg = { value: wei };
+    await expect(contract.whiteListMint(quantity, proof)).to.be.revertedWith(
+      "WrongEther"
+    );
+  });
 
-  //   await truffleAssert.reverts(
-  //     contract.whiteListMint(quantity, mockProof, msg)
-  //   );
-  // });
+  it("whiteListMint should fail when whitelist is used", async () => {
+    const [owner] = await ethers.getSigners();
+    const factory = await ethers.getContractFactory("KitsudenFoxfone");
+    const contract = await factory.deploy();
+    await contract.deployed();
+    const quantity = 2;
+    const merkle = generateMerkle([owner.address]);
+    const hash = `0x${merkle?.merkleRootHash}`;
+    const whitelistMintRate = await contract.whitelistMintRate();
+    const balanceInEth = ethers.utils.formatEther(whitelistMintRate);
+    const totalEth = Number(balanceInEth) * quantity;
+    let wei = ethers.utils.parseEther(`${totalEth}`);
+    const msg = { value: wei };
 
-  // it.skip("whiteListMint should fail when is not whiteListSale ", async () => {
-  //   const quantity = 2;
-  //   const mockProof = [someRandomAddr];
-  //   const mockMinRate = 0.00999;
-  //   const wei = ethers.utils.parseEther(`${mockMinRate}`);
-  //   const msg = { value: wei };
+    await contract.setMerkleRoot(hash);
+    const proof = getMerkleProof(owner.address);
+    await contract.toggleWhitelistSale();
 
-  //   const whitelistSale = await contract.whitelistSale();
+    await contract.whiteListMint(quantity, proof, msg);
 
-  //   assert.equal(whitelistSale, false);
+    await expect(
+      contract.whiteListMint(quantity, proof, msg)
+    ).to.be.revertedWith("WhitelistUsed");
+  });
 
-  //   await truffleAssert.reverts(
-  //     contract.whiteListMint(quantity, mockProof, msg)
-  //   );
-  // });
+  it("whiteListMint should fail when whitelist is used", async () => {
+    const [owner] = await ethers.getSigners();
+    const factory = await ethers.getContractFactory("KitsudenFoxfone");
+    const contract = await factory.deploy();
+    await contract.deployed();
+    const quantity = 2;
+    const merkle = generateMerkle([owner.address]);
+    const hash = `0x${merkle?.merkleRootHash}`;
+    const whitelistMintRate = await contract.whitelistMintRate();
+    const balanceInEth = ethers.utils.formatEther(whitelistMintRate);
+    const totalEth = Number(balanceInEth) * quantity;
+    let wei = ethers.utils.parseEther(`${totalEth}`);
+    const msg = { value: wei };
 
-  // it.skip("whiteListMint should fail when is not maxSupply is MAX ", async () => {
-  //   const quantity = 2;
-  //   const mockProof = [someRandomAddr];
-  //   const mockMinRate = 0.00999;
-  //   const wei = ethers.utils.parseEther(`${mockMinRate}`);
-  //   const msg = { value: wei };
+    await contract.setMerkleRoot(hash);
+    const proof = getMerkleProof(owner.address);
 
-  //   await contract.toggleWhitelistSale();
-  //   let whitelistSale = await contract.whitelistSale();
-  //   assert.equal(whitelistSale, true);
+    await expect(
+      contract.whiteListMint(quantity, proof, msg)
+    ).to.be.revertedWith("WhitelistNotActive");
+  });
 
-  //   contract.setMaxSupply(0);
+  it("whiteListMint should fail when is not maxSupply is MAX ", async () => {
+    const [owner] = await ethers.getSigners();
+    const factory = await ethers.getContractFactory("KitsudenFoxfone");
+    const contract = await factory.deploy();
+    await contract.deployed();
+    const quantity = 2;
+    const merkle = generateMerkle([owner.address]);
+    const hash = `0x${merkle?.merkleRootHash}`;
+    const whitelistMintRate = await contract.whitelistMintRate();
+    const balanceInEth = ethers.utils.formatEther(whitelistMintRate);
+    const totalEth = Number(balanceInEth) * quantity;
+    let wei = ethers.utils.parseEther(`${totalEth}`);
+    const msg = { value: wei };
 
-  //   await truffleAssert.reverts(
-  //     contract.whiteListMint(quantity, mockProof, msg)
-  //   );
-  // });
+    await contract.setMerkleRoot(hash);
+    const proof = getMerkleProof(owner.address);
+    await contract.setMaxSupply(0);
+    await contract.toggleWhitelistSale();
 
-  // it.skip("whiteListMint should succeed ", async () => {
-  //   const quantity = 2;
-  //   const whiteListMintRate = await contract.whitelistMintRate();
-  //   const formattedWhiteListMintRate = ethers.utils.formatEther(
-  //     whiteListMintRate.toString()
-  //   );
+    await expect(
+      contract.whiteListMint(quantity, proof, msg)
+    ).to.be.revertedWith("NotEnoughTokensLeft");
+  });
 
-  //   console.log("whiteListMintRate!!!!!", formattedWhiteListMintRate);
+  it("whiteListMint should fail when invalida merkle proof ", async () => {
+    const [owner, owner2] = await ethers.getSigners();
+    const factory = await ethers.getContractFactory("KitsudenFoxfone");
+    const contract = await factory.deploy();
+    await contract.deployed();
+    const quantity = 2;
+    const merkle = generateMerkle([owner2.address]);
+    const hash = `0x${merkle?.merkleRootHash}`;
+    const whitelistMintRate = await contract.whitelistMintRate();
+    const balanceInEth = ethers.utils.formatEther(whitelistMintRate);
+    const totalEth = Number(balanceInEth) * quantity;
+    let wei = ethers.utils.parseEther(`${totalEth}`);
+    const msg = { value: wei };
 
-  //   const totalEthPrice = formattedWhiteListMintRate * quantity;
-  //   const wei = ethers.utils.parseEther(`${totalEthPrice}`);
-  //   const msg = { value: wei };
+    await contract.setMerkleRoot(hash);
+    const proof = getMerkleProof(owner2.address);
+    await contract.toggleWhitelistSale();
 
-  //   await contract.toggleWhitelistSale();
-  //   let whitelistSale = await contract.whitelistSale();
-  //   assert.equal(whitelistSale, true);
+    await expect(
+      contract.whiteListMint(quantity, proof, msg)
+    ).to.be.revertedWith("InvalidMerkle");
+  });
 
-  //   const { merkleRootHash } = generateMerkleRoot();
+  it("whiteListMint should succeed ", async () => {
+    const [owner] = await ethers.getSigners();
+    const factory = await ethers.getContractFactory("KitsudenFoxfone");
+    const contract = await factory.deploy();
+    await contract.deployed();
+    const quantity = 2;
+    const merkle = generateMerkle([owner.address]);
+    const hash = `0x${merkle?.merkleRootHash}`;
+    const whitelistMintRate = await contract.whitelistMintRate();
+    const balanceInEth = ethers.utils.formatEther(whitelistMintRate);
+    const totalEth = Number(balanceInEth) * quantity;
+    let wei = ethers.utils.parseEther(`${totalEth}`);
+    const msg = { value: wei };
 
-  //   await contract.setMerkleRoot(`0x${merkleRootHash}`);
+    await contract.setMerkleRoot(hash);
+    const proof = getMerkleProof(owner.address);
+    await contract.toggleWhitelistSale();
 
-  //   const proof = getMerkleProof(accounts[0]);
+    await contract.whiteListMint(quantity, proof, msg);
 
-  //   await contract.whiteListMint(quantity, proof, msg);
+    const totalSupply = await contract.totalSupply();
+    const count = await contract.usedAddresses(owner.address);
 
-  //   const totalSupply = await contract.totalSupply();
-  //   const count = await contract.usedAddresses(accounts[0]);
+    expect(totalSupply.toNumber()).to.equal(quantity);
+    expect(count).to.equal(quantity);
+  });
 
-  //   assert.equal(totalSupply.toNumber(), quantity);
-  //   assert.equal(count, quantity);
-  // });
+  it("should get hiddenTokenUri when is not revealed", async () => {
+    const [owner] = await ethers.getSigners();
+    const factory = await ethers.getContractFactory("KitsudenFoxfone");
+    const contract = await factory.deploy();
+    await contract.deployed();
+    const quantity = 2;
+    const merkle = generateMerkle([owner.address]);
+    const hash = `0x${merkle?.merkleRootHash}`;
+    const whitelistMintRate = await contract.whitelistMintRate();
+    const balanceInEth = ethers.utils.formatEther(whitelistMintRate);
+    const totalEth = Number(balanceInEth) * quantity;
+    let wei = ethers.utils.parseEther(`${totalEth}`);
+    const msg = { value: wei };
 
-  // it.skip("should get hiddenTokenUri when is not revealed", async () => {
-  //   const quantity = 2;
-  //   const whiteListMintRate = await contract.whitelistMintRate();
-  //   const formattedWhiteListMintRate = ethers.utils.formatEther(
-  //     whiteListMintRate.toString()
-  //   );
-  //   const totalEthPrice = formattedWhiteListMintRate * quantity;
-  //   const wei = ethers.utils.parseEther(`${totalEthPrice}`);
-  //   const msg = { value: wei };
+    await contract.setMerkleRoot(hash);
+    const proof = getMerkleProof(owner.address);
+    await contract.toggleWhitelistSale();
 
-  //   await contract.toggleWhitelistSale();
-  //   let whitelistSale = await contract.whitelistSale();
-  //   assert.equal(whitelistSale, true);
+    await contract.whiteListMint(quantity, proof, msg);
 
-  //   const { merkleRootHash } = generateMerkleRoot();
+    const totalSupply = await contract.totalSupply();
+    const count = await contract.usedAddresses(owner.address);
 
-  //   await contract.setMerkleRoot(`0x${merkleRootHash}`);
+    expect(totalSupply.toNumber()).to.equal(quantity);
+    expect(count).to.equal(quantity);
 
-  //   const proof = getMerkleProof(accounts[0]);
+    const tokenUri = await contract.tokenURI(1);
 
-  //   await contract.whiteListMint(quantity, proof, msg);
-
-  //   const totalSupply = await contract.totalSupply();
-  //   const count = await contract.usedAddresses(accounts[0]);
-  //   const revealed = await contract.revealed();
-
-  //   assert.equal(totalSupply.toNumber(), quantity);
-  //   assert.equal(count, quantity);
-  //   assert.equal(revealed, false);
-
-  //   const tokenUri = await contract.tokenURI(1);
-
-  //   assert.equal(tokenUri, "ipfs://<ID>/hidden.json");
-  // });
+    expect(tokenUri).to.equal("ipfs://<ID>/hidden.json");
+  });
 });

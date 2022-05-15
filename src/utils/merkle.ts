@@ -30,8 +30,8 @@ const generateMerkle = (addresses: string[]) => {
   const merkleRootHash = merkleTree.getRoot().toString("hex");
   const merkleTreeString = merkleTree.toString();
 
-  console.log("Whitelist Merkle Tree\n", merkleTree.toString());
-  console.log("Root Hash: ", merkleRootHash);
+  // console.log("Whitelist Merkle Tree\n", merkleTree.toString());
+  // console.log("Root Hash: ", merkleRootHash);
 
   return {
     merkleRootHash,
