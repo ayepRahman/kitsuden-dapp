@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
+import "hardhat/console.sol";
 import "erc721a/contracts/ERC721A.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -37,9 +38,18 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
     mapping(address => uint256) public whiteListUsedAddresses;
     mapping(address => uint256) public usedAddresses;
 
-    constructor() ERC721A("Kitsuden Foxfone", "KTSDNFF") {}
+    constructor() ERC721A("Kitsuden Foxfone", "KTSDNFF") {
+        console.log("Deploying a KitsudenFoxfone");
+    }
 
     function mint(uint256 quantity) external payable nonReentrant {
+        console.log("[mint]: quantity", quantity);
+        console.log("[mint]: publicSale", publicSale);
+        console.log("[mint]: _numberMinted", _numberMinted(msg.sender));
+        console.log("[mint]: maxMints", maxMints);
+        console.log("[mint]: maxSupply", maxSupply);
+        console.log("[mint]: mintRate", mintRate);
+
         if (!publicSale) revert PublicSaleNotLive();
 
         // check for user mint limit
@@ -64,12 +74,12 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
         payable
         nonReentrant
     {
-        if (quantity > 2) revert ExceededLimit();
+        if (quantity > whiteListMaxMints) revert ExceededLimit();
         if (whitelistMintRate * quantity != msg.value) {
             revert WrongEther();
         }
 
-        if (usedAddresses[msg.sender] + quantity > 2) {
+        if (usedAddresses[msg.sender] + quantity > whiteListMaxMints) {
             revert WhitelistUsed();
         }
         if (!whitelistSale) revert WhitelistNotActive();
@@ -124,6 +134,19 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
 
     function baseTokenURI() public view returns (string memory) {
         return baseURI;
+    }
+
+    // Check the number of mint available
+    function mintAvailable() public view returns (uint256) {
+        if (whitelistSale) {
+            return whiteListMaxMints - usedAddresses[msg.sender];
+        }
+
+        if (publicSale) {
+            return maxMints - _numberMinted(msg.sender);
+        }
+
+        return 0;
     }
 
     function setBaseURI(string memory _newBaseURI) public onlyOwner {

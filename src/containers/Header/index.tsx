@@ -157,7 +157,7 @@ const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
                   <ScrollLink
                     mt="3rem"
                     mb="0.5rem"
-                    onClick={() => handleOnClick("home")}
+                    onClick={() => handleOnClick("hero")}
                   >
                     HOME
                   </ScrollLink>
