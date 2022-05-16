@@ -106,7 +106,7 @@ const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
               <SocialLink>
                 <EtherscanIcon />
               </SocialLink>
-              <MetamaskButton width="6rem" />
+              <MetamaskButton width="fit-content" />
             </Flex>
           </Flex>
         )}

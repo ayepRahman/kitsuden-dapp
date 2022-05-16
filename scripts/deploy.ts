@@ -6,6 +6,8 @@
 import { ethers } from "hardhat";
 
 async function main() {
+  console.log("KitsudenFoxfone deploying...");
+
   // Hardhat always runs the compile task when running scripts with its command
   // line interface.
   //
@@ -14,12 +16,12 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const Greeter = await ethers.getContractFactory("Greeter");
-  const greeter = await Greeter.deploy("Hello, Hardhat!");
+  const KitsudenFoxfone = await ethers.getContractFactory("KitsudenFoxfone");
+  const kitsudenFoxfone = await KitsudenFoxfone.deploy();
 
-  await greeter.deployed();
+  await kitsudenFoxfone.deployed();
 
-  console.log("Greeter deployed to:", greeter.address);
+  console.log("KitsudenFoxfone deployed to:", kitsudenFoxfone.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

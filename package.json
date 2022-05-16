@@ -70,10 +70,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "eject": "react-scripts eject",
+    "deploy:test": "npx hardhat run scripts/deploy.ts --network rinkedby",
+    "verify:test": "npx hardhat verify --network rinkedby <DEPLOYED CONTRACT ADDR>"
   },
   "browserslist": {
     "production": [

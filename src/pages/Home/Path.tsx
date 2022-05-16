@@ -76,7 +76,7 @@ const Path = () => {
                   lineHeight="160%"
                   mb="1rem"
                 >
-                  5,5555 FOXFONE NFTs will be available to mint. There will be 3
+                  5,555 FOXFONE NFTs will be available to mint. There will be 3
                   tiers of rarity (Common, Uncommon and Rare) that can be
                   randomly minted.
                 </Text>

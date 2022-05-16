@@ -299,4 +299,71 @@ describe("KitsudenFoxfone", () => {
 
     expect(tokenUri).to.equal("ipfs://<ID>/hidden.json");
   });
+
+  it("withdraw should fail if not owner ", async () => {
+    const [owner, account2] = await ethers.getSigners();
+    const factory = await ethers.getContractFactory("KitsudenFoxfone");
+    const contract = await factory.deploy();
+
+    const quantity = 2;
+    const merkle = generateMerkle([owner.address]);
+    const hash = `0x${merkle?.merkleRootHash}`;
+    const whitelistMintRate = await contract.whitelistMintRate();
+    const balanceInEth = ethers.utils.formatEther(whitelistMintRate);
+    const totalEth = Number(balanceInEth) * quantity;
+    let wei = ethers.utils.parseEther(`${totalEth}`);
+    const msg = { value: wei };
+
+    await contract.setMerkleRoot(hash);
+    const proof = getMerkleProof(owner.address);
+    await contract.toggleWhitelistSale();
+
+    await contract.whiteListMint(quantity, proof, msg);
+
+    const totalSupply = await contract.totalSupply();
+    const count = await contract.usedAddresses(owner.address);
+
+    expect(totalSupply.toNumber()).to.equal(quantity);
+    expect(count).to.equal(quantity);
+
+    await expect(contract.connect(account2).withdraw()).to.revertedWith(
+      "Ownable: caller is not the owner"
+    );
+  });
+
+  it("withdraw should succeed if owner ", async () => {
+    const [owner] = await ethers.getSigners();
+    const factory = await ethers.getContractFactory("KitsudenFoxfone");
+    const contract = await factory.deploy();
+
+    const quantity = 2;
+    const merkle = generateMerkle([owner.address]);
+    const hash = `0x${merkle?.merkleRootHash}`;
+    const whitelistMintRate = await contract.whitelistMintRate();
+    const balanceInEth = ethers.utils.formatEther(whitelistMintRate);
+    const totalEth = Number(balanceInEth) * quantity;
+    let wei = ethers.utils.parseEther(`${totalEth}`);
+    const msg = { value: wei };
+
+    await contract.setMerkleRoot(hash);
+    const proof = getMerkleProof(owner.address);
+    await contract.toggleWhitelistSale();
+
+    await contract.whiteListMint(quantity, proof, msg);
+
+    const totalSupply = await contract.totalSupply();
+    const count = await contract.usedAddresses(owner.address);
+
+    expect(totalSupply.toNumber()).to.equal(quantity);
+    expect(count).to.equal(quantity);
+
+    const previousOwnerBalance = await owner.getBalance();
+
+    console.log(previousOwnerBalance);
+    await contract.withdraw();
+
+    const currentOwnerBalance = await owner.getBalance();
+
+    expect(currentOwnerBalance).to.gt(previousOwnerBalance);
+  });
 });
