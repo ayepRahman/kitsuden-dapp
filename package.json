@@ -71,8 +71,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy:test": "npx hardhat run scripts/deploy.ts --network rinkedby",
-    "verify:test": "npx hardhat verify --network rinkedby <DEPLOYED CONTRACT ADDR>"
+    "deploy:test": "npx hardhat run scripts/deploy.ts --network rinkeby",
+    "verify:test": "npx hardhat verify --network rinkeby <DEPLOYED CONTRACT ADDR>"
   },
   "browserslist": {
     "production": [

@@ -22,7 +22,7 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
 
-const RINKEDBY_URL = process.env.RINKEDBY_URL || "";
+const RINKEBY_URL = process.env.RINKEBY_URL || "";
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
 const REPORT_GAS = process.env.REPORT_GAS;
@@ -30,8 +30,8 @@ const REPORT_GAS = process.env.REPORT_GAS;
 const config: HardhatUserConfig = {
   solidity: "0.8.4",
   networks: {
-    rinkedby: {
-      url: RINKEDBY_URL,
+    rinkeby: {
+      url: RINKEBY_URL,
       accounts: PRIVATE_KEY !== undefined ? [PRIVATE_KEY] : [],
     },
   },
