@@ -34,6 +34,7 @@ const config: HardhatUserConfig = {
       url: RINKEBY_URL,
       accounts: PRIVATE_KEY !== undefined ? [PRIVATE_KEY] : [],
     },
+    mainnet: {},
   },
   gasReporter: {
     enabled: REPORT_GAS !== undefined,

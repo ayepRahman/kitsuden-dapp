@@ -28,7 +28,7 @@ const Minting = () => {
   // these value should be getting from the contract
   const count = 0;
   const total = 5555;
-  const isWhiteList = false;
+  const isWhiteList = true;
   const mintLimit = isWhiteList ? 2 : 5;
   const mintPrice = 0.05555;
   // value to be used for setter contract
