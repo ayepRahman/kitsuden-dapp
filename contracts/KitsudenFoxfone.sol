@@ -100,7 +100,7 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
         override
         returns (string memory)
     {
-        require(_exists(tokenId), "tokenURI query for nonexistent token");
+        require(_exists(tokenId), "nonexistent token");
 
         if (!revealed) {
             string memory currentHiddenBaseURI = _baseHiddenURI();
@@ -130,8 +130,8 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
                 : "";
     }
 
-    function _baseHiddenURI() internal view override returns (string memory) {
-        return baseURI;
+    function _baseHiddenURI() internal view returns (string memory) {
+        return baseHiddenUri;
     }
 
     function _baseURI() internal view override returns (string memory) {
@@ -153,10 +153,6 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
         }
 
         return 0;
-    }
-
-    function setBaseURI(string memory _newBaseURI) public onlyOwner {
-        baseURI = _newBaseURI;
     }
 
     function leaf(address _account) internal pure returns (bytes32) {
@@ -187,8 +183,12 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
         whitelistSale = !whitelistSale;
     }
 
-    function setHiddenUri(string memory _hiddenUri) public onlyOwner {
-        hiddenUri = _hiddenUri;
+    function setBaseURI(string memory _newBaseURI) public onlyOwner {
+        baseURI = _newBaseURI;
+    }
+
+    function setBaseHiddenUri(string memory _baseHiddenUri) public onlyOwner {
+        baseHiddenUri = _baseHiddenUri;
     }
 
     function setMintRate(uint256 _mintRate) public onlyOwner {
@@ -205,6 +205,13 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
 
     function setMaxMints(uint256 _newMaxMints) public onlyOwner {
         maxMints = _newMaxMints;
+    }
+
+    function setWhiteListMaxMints(uint256 _newWhiteListMaxMints)
+        public
+        onlyOwner
+    {
+        whiteListMaxMints = _newWhiteListMaxMints;
     }
 
     function withdraw() external payable onlyOwner {
