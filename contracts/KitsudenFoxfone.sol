@@ -25,12 +25,12 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
     bytes32 public merkleRoot;
     uint256 public maxMints = 5;
     uint256 public whiteListMaxMints = 2;
-    uint256 public maxSupply = 5555;
+    uint256 public maxSupply = 6666;
     uint256 public mintRate = 0.07777 ether;
     uint256 public whitelistMintRate = 0.05555 ether;
-    string public hiddenUri = "ipfs://<ID>/hidden.json";
     string public baseExtension = ".json";
-    string public baseURI = ""; // ipfs://<ID>/
+    string public baseURI = ""; // ipfs://<LIVE_ID>/0.json
+    string public baseHiddenUri = ""; // ipfs://<HIDDEN_ID>/0.json"
     bool public revealed = false;
     bool public publicSale = false;
     bool public whitelistSale = false;
@@ -44,7 +44,10 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
         if (!publicSale) revert PublicSaleNotLive();
 
         // check for user mint limit
-        if (quantity + _numberMinted(msg.sender) > maxMints) {
+        if (
+            quantity + _numberMinted(msg.sender) - usedAddresses[msg.sender] >
+            maxMints
+        ) {
             revert ExceededLimit();
         }
 
@@ -97,13 +100,21 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
         override
         returns (string memory)
     {
-        require(
-            _exists(tokenId),
-            "ERC721Metadata: URI query for nonexistent token"
-        );
+        require(_exists(tokenId), "tokenURI query for nonexistent token");
 
         if (!revealed) {
-            return hiddenUri;
+            string memory currentHiddenBaseURI = _baseHiddenURI();
+
+            return
+                bytes(currentHiddenBaseURI).length > 0
+                    ? string(
+                        abi.encodePacked(
+                            currentHiddenBaseURI,
+                            tokenId.toString(),
+                            baseExtension
+                        )
+                    )
+                    : "";
         }
 
         string memory currentBaseURI = _baseURI();
@@ -117,6 +128,10 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
                     )
                 )
                 : "";
+    }
+
+    function _baseHiddenURI() internal view override returns (string memory) {
+        return baseURI;
     }
 
     function _baseURI() internal view override returns (string memory) {
