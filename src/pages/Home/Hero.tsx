@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, useMediaQuery } from "@chakra-ui/react";
-import heroBg from "assets/img/hero_bg.png";
+import heroBg from "assets/img/kitsuden-lore-banner.jpg";
 import kitsudenLog from "assets/img/kitsuden_logo_0.png";
 import Button from "components/Button";
 import Image from "components/Image";
@@ -16,7 +16,7 @@ const Hero = () => {
         src={heroBg}
         width="full"
         height="100%"
-        objectFit={isMobile ? "cover" : "fill"}
+        objectFit={isMobile ? "cover" : "cover"}
       />
       <Box
         position="absolute"
