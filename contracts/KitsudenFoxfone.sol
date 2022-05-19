@@ -29,8 +29,8 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
     uint256 public mintRate = 0.07777 ether;
     uint256 public whitelistMintRate = 0.05555 ether;
     string public baseExtension = ".json";
-    string public baseURI = ""; // ipfs://<LIVE_ID>/0.json
-    string public baseHiddenUri = ""; // ipfs://<HIDDEN_ID>/0.json"
+    string public baseURI = ""; // ipfs://<LIVE_ID>/
+    string public baseHiddenUri = ""; // ipfs://<HIDDEN_ID>/
     bool public revealed = false;
     bool public publicSale = false;
     bool public whitelistSale = false;

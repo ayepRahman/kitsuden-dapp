@@ -1,0 +1,5 @@
+- deploy & verify smart contract on etherscan
+- create a official opensea store
+- setMerkle root for whitelist addresses
+- add unreveal json uri
+-

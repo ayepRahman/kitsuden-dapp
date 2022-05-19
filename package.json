@@ -25,7 +25,7 @@
     "react-icons": "^4.3.1",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
-    "typescript": "^4.3.5",
+    "typescript": "^4.6.4",
     "wagmi": "^0.3.3",
     "web-vitals": "^0.2.2"
   },
@@ -63,16 +63,15 @@
     "solidity-coverage": "^0.7.21",
     "truffle-plugin-verify": "^0.5.25",
     "ts-node": "^10.7.0",
-    "typechain": "^5.2.0",
-    "typescript": "^4.6.4"
+    "typechain": "^5.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy:test": "npx hardhat run scripts/deploy.ts --network rinkeby",
-    "verify:test": "npx hardhat verify --network rinkeby <DEPLOYED CONTRACT ADDR>"
+    "deploy-test": "npx hardhat run scripts/deploy.ts --network rinkeby",
+    "verify-test": "npx hardhat verify --network rinkeby <DEPLOYED CONTRACT ADDR>"
   },
   "browserslist": {
     "production": [

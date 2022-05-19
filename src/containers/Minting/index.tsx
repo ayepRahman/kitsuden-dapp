@@ -1,9 +1,24 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { useAccount, useConnect } from "wagmi";
-import { Box, Button as CKButton, Flex, Heading, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button as CKButton,
+  Flex,
+  Heading,
+  Text,
+  toast,
+  useToast,
+} from "@chakra-ui/react";
 import MetamaskButton from "containers/MetamaskButton";
 import Button from "components/Button";
+import useFoxfoneContract from "hooks/useFoxfoneContract";
+import useGetPublicSale from "hooks/useGetPublicSale";
+import useGetWhitelistSale from "hooks/useGetWhitelistSale";
+import useGetMintAvailable from "hooks/useGetMintAvailable";
+import useGetMaxSupply from "hooks/useGetMaxSupply";
+import useGetTotalSupply from "hooks/useGetTotalSupply";
+import useGetMintRate from "hooks/useGetMintRate";
 
 const ButtonCount = styled(CKButton)<{ active?: boolean }>`
   height: 70px;
@@ -21,32 +36,61 @@ const ButtonCount = styled(CKButton)<{ active?: boolean }>`
 `;
 
 const Minting = () => {
-  const [selected, setSelected] = React.useState<number | null>(null);
   const { isConnected } = useConnect();
   const { data } = useAccount();
+  const toast = useToast();
+  const { maxSupply } = useGetMaxSupply();
+  const { totalSupply } = useGetTotalSupply();
+  const { data: isPublicSale } = useGetPublicSale();
+  const { data: isWhitelistSale } = useGetWhitelistSale();
+  const { mintLimit } = useGetMintAvailable();
+  const {} = useGetMintRate();
+  const [selected, setSelected] = React.useState<number | null>(null);
+  const isLive = isPublicSale || isWhitelistSale;
+  console.log({
+    isPublicSale,
+    isWhitelistSale,
+    isLive,
+    mintLimit,
+    maxSupply,
+    totalSupply,
+  });
 
   // these value should be getting from the contract
-  const count = 0;
-  const total = 5555;
-  const isWhiteList = true;
-  const mintLimit = isWhiteList ? 2 : 5;
   const mintPrice = 0.05555;
   // value to be used for setter contract
   const totalMintPrice = selected && mintPrice * selected;
   const totalMintPriceText = (selected && mintPrice * selected)?.toFixed(5);
 
+  const handleMint = () => {
+    if (!isLive) {
+      toast({
+        status: "error",
+        description: "Minting is not live!",
+      });
+    }
+  };
+
   return (
     <Box color="white">
       <Flex fontSize="22px" fontWeight={600}>
-        <Text color="brand.200">{count}</Text>&nbsp;/&nbsp;
-        <Text>{total} FOXFONEX REMAINING</Text>
+        <Text color="brand.200">{totalSupply}</Text>&nbsp;/&nbsp;
+        <Text>{maxSupply} FOXFONEX REMAINING</Text>
       </Flex>
-      <Heading fontSize={84} lineHeight="84px">
-        HOW MANY FOXFONES
-      </Heading>
-      <Heading fontSize={84} lineHeight="84px" textAlign="right">
-        ARE YOU TAKING?
-      </Heading>
+      {isLive ? (
+        <>
+          <Heading fontSize={84} lineHeight="84px">
+            HOW MANY FOXFONES
+          </Heading>
+          <Heading fontSize={84} lineHeight="84px" textAlign="right">
+            ARE YOU TAKING?
+          </Heading>
+        </>
+      ) : (
+        <Heading fontSize={84} lineHeight="84px">
+          MINTING NOT LIVE
+        </Heading>
+      )}
       <Flex
         mt="3rem"
         alignItems="center"
@@ -111,10 +155,23 @@ const Minting = () => {
               <Text>{data?.address}</Text>
             </Box>
 
-            <Button disabled={!selected} isFullWidth py="1rem">
+            <Button
+              disabled={!selected || !isLive}
+              onClick={() => handleMint()}
+              isFullWidth
+              py="1rem"
+            >
               <Box>
-                <Text>CONTINUE</Text>
-                <Text fontSize={12}>(MINT)</Text>
+                {!isLive ? (
+                  <Text>MINTING NOT LIVE</Text>
+                ) : !selected && isLive ? (
+                  <Text>PLEASE SELECT MIN 1</Text>
+                ) : (
+                  <>
+                    <Text>CONTINUE</Text>
+                    <Text fontSize={12}>(MINT)</Text>
+                  </>
+                )}
               </Box>
             </Button>
           </Flex>

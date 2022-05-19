@@ -15,21 +15,26 @@ export const mockJson = {
     "https://gateway.pinata.cloud/ipfs/QmRLAckg7Pxfj2CBMFiodGtoKwU2NZxnsjBG4o242kSzAz",
 };
 
-export const hiddenJson = {
-  name: "Kitsuden Foxfone #17", // name need to be dynamic
-  image:
-    "https://gateway.pinata.cloud/ipfs/QmRLAckg7Pxfj2CBMFiodGtoKwU2NZxnsjBG4o242kSzAz", // placeholder image
-  animation_url:
-    "https://gateway.pinata.cloud/ipfs/QmRLAckg7Pxfj2CBMFiodGtoKwU2NZxnsjBG4o242kSzAz", // glb
-  external_url: "https://kitsuden.com",
-  attributes: [
-    {
-      trait_type: "Status",
-      value: "Unrevealed",
-    },
-  ],
+const generateHiddenJson = () => {
+  Array.from({ length: 100 }, (_, i) => {
+    fs.writeFileSync(
+      `${__dirname}/../resources/hidden/${i}.json`,
+      JSON.stringify({
+        name: `Kitsuden Foxfone #${i}`, // name need to be dynamic
+        image:
+          "https://gateway.pinata.cloud/ipfs/QmRLAckg7Pxfj2CBMFiodGtoKwU2NZxnsjBG4o242kSzAz", // placeholder image
+        animation_url:
+          "https://media.giphy.com/media/5th8zFFsvNOuM6nGsq/giphy.gif", // glb
+        external_url: "https://kitsuden.com",
+        attributes: [
+          {
+            trait_type: "Status",
+            value: "Unrevealed",
+          },
+        ],
+      })
+    );
+  });
 };
 
-const generateHiddenJson = () => {};
-
-fs.writeFileSync("hidden.json", JSON.stringify(hiddenJson));
+generateHiddenJson();

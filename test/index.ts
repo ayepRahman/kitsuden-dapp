@@ -6,6 +6,8 @@ import { expect } from "chai";
 import { ethers, waffle } from "hardhat";
 import { getMerkleProof, generateMerkle } from "../src/utils/merkle";
 
+const contractMaxSupply = 6666;
+
 describe("KitsudenFoxfone", () => {
   it("should deployed", async () => {
     const factory = await ethers.getContractFactory("KitsudenFoxfone");
@@ -55,7 +57,7 @@ describe("KitsudenFoxfone", () => {
     expect(publicSale).to.equal(true);
 
     maxSupply = await contract.maxSupply();
-    expect(maxSupply).to.equal(5555);
+    expect(maxSupply).to.equal(contractMaxSupply);
     await contract.setMaxSupply(1);
     maxSupply = await contract.maxSupply();
     expect(maxSupply).to.equal(1);
@@ -269,7 +271,7 @@ describe("KitsudenFoxfone", () => {
     expect(count).to.equal(quantity);
   });
 
-  it("should get hiddenTokenUri when is not revealed", async () => {
+  it("should get default hiddenTokenUri when is not revealed", async () => {
     const [owner] = await ethers.getSigners();
     const factory = await ethers.getContractFactory("KitsudenFoxfone");
     const contract = await factory.deploy();
@@ -297,7 +299,79 @@ describe("KitsudenFoxfone", () => {
 
     const tokenUri = await contract.tokenURI(1);
 
-    expect(tokenUri).to.equal("ipfs://<ID>/hidden.json");
+    expect(tokenUri).to.equal("");
+  });
+
+  it("should get updated hiddenTokenUri when is not revealed", async () => {
+    const mockHiddenUri = "ipfs://mockhiddenuri/";
+    const mockTokenId = 0;
+    const [owner] = await ethers.getSigners();
+    const factory = await ethers.getContractFactory("KitsudenFoxfone");
+    const contract = await factory.deploy();
+    await contract.deployed();
+    const quantity = 2;
+    const merkle = generateMerkle([owner.address]);
+    const hash = `0x${merkle?.merkleRootHash}`;
+    const whitelistMintRate = await contract.whitelistMintRate();
+    const balanceInEth = ethers.utils.formatEther(whitelistMintRate);
+    const totalEth = Number(balanceInEth) * quantity;
+    let wei = ethers.utils.parseEther(`${totalEth}`);
+    const msg = { value: wei };
+
+    await contract.setMerkleRoot(hash);
+    const proof = getMerkleProof(owner.address);
+    await contract.toggleWhitelistSale();
+
+    await contract.whiteListMint(quantity, proof, msg);
+
+    const totalSupply = await contract.totalSupply();
+    const count = await contract.usedAddresses(owner.address);
+
+    expect(totalSupply.toNumber()).to.equal(quantity);
+    expect(count).to.equal(quantity);
+
+    await contract.setBaseHiddenUri(mockHiddenUri);
+    const baseExt = await contract.baseExtension();
+
+    const tokenUri = await contract.tokenURI(mockTokenId);
+
+    expect(tokenUri).to.equal(`${mockHiddenUri}${mockTokenId}${baseExt}`);
+  });
+
+  it("should get default revealed token uri", async () => {
+    const mockHiddenUri = "ipfs://revealed/";
+    const mockTokenId = 0;
+    const [owner] = await ethers.getSigners();
+    const factory = await ethers.getContractFactory("KitsudenFoxfone");
+    const contract = await factory.deploy();
+    await contract.deployed();
+    const quantity = 2;
+    const merkle = generateMerkle([owner.address]);
+    const hash = `0x${merkle?.merkleRootHash}`;
+    const whitelistMintRate = await contract.whitelistMintRate();
+    const balanceInEth = ethers.utils.formatEther(whitelistMintRate);
+    const totalEth = Number(balanceInEth) * quantity;
+    let wei = ethers.utils.parseEther(`${totalEth}`);
+    const msg = { value: wei };
+
+    await contract.setMerkleRoot(hash);
+    const proof = getMerkleProof(owner.address);
+    await contract.toggleWhitelistSale();
+
+    await contract.whiteListMint(quantity, proof, msg);
+
+    const totalSupply = await contract.totalSupply();
+    const count = await contract.usedAddresses(owner.address);
+
+    expect(totalSupply.toNumber()).to.equal(quantity);
+    expect(count).to.equal(quantity);
+
+    await contract.setBaseURI(mockHiddenUri);
+    await contract.toggleReveal();
+    const baseExt = await contract.baseExtension();
+    const tokenUri = await contract.tokenURI(mockTokenId);
+
+    expect(tokenUri).to.equal(`${mockHiddenUri}${mockTokenId}${baseExt}`);
   });
 
   it("withdraw should fail if not owner ", async () => {
@@ -359,11 +433,100 @@ describe("KitsudenFoxfone", () => {
 
     const previousOwnerBalance = await owner.getBalance();
 
-    console.log(previousOwnerBalance);
     await contract.withdraw();
 
     const currentOwnerBalance = await owner.getBalance();
 
     expect(currentOwnerBalance).to.gt(previousOwnerBalance);
+  });
+
+  it("should be able to setMintRate", async () => {
+    const mockMintRate = "999.99";
+    const mockMintRateInWei = ethers.utils.parseEther(mockMintRate);
+
+    const [owner] = await ethers.getSigners();
+    const factory = await ethers.getContractFactory("KitsudenFoxfone");
+    const contract = await factory.deploy();
+
+    let minRate = await contract.mintRate();
+    let balanceInEth = ethers.utils.formatEther(minRate);
+
+    expect(balanceInEth).to.equal("0.07777");
+
+    await contract.setMintRate(mockMintRateInWei);
+
+    minRate = await contract.mintRate();
+    balanceInEth = ethers.utils.formatEther(minRate);
+
+    expect(balanceInEth).to.equal(mockMintRate);
+  });
+
+  it("should be able to setWhitelistMintRate", async () => {
+    const mockMintRate = "999.99";
+    const mockMintRateInWei = ethers.utils.parseEther(mockMintRate);
+    const factory = await ethers.getContractFactory("KitsudenFoxfone");
+    const contract = await factory.deploy();
+
+    let minRate = await contract.whitelistMintRate();
+    let balanceInEth = ethers.utils.formatEther(minRate);
+
+    expect(balanceInEth).to.equal("0.05555");
+
+    await contract.setWhitelistMintRate(mockMintRateInWei);
+
+    minRate = await contract.whitelistMintRate();
+    balanceInEth = ethers.utils.formatEther(minRate);
+
+    expect(balanceInEth).to.equal(mockMintRate);
+  });
+
+  it("should be able to setMaxSupply", async () => {
+    const mockMaxSupply = "123123";
+    const factory = await ethers.getContractFactory("KitsudenFoxfone");
+    const contract = await factory.deploy();
+
+    let maxSupply = await contract.maxSupply();
+
+    expect(maxSupply).to.equal("6666");
+
+    await contract.setMaxSupply(mockMaxSupply);
+
+    maxSupply = await contract.maxSupply();
+
+    expect(maxSupply).to.equal(mockMaxSupply);
+  });
+
+  it("should be able to setMaxMints", async () => {
+    const mockMaxMints = 123123;
+    const [owner] = await ethers.getSigners();
+    const factory = await ethers.getContractFactory("KitsudenFoxfone");
+    const contract = await factory.deploy();
+
+    let maxMints = await contract.maxMints();
+
+    expect(maxMints).to.equal(5);
+
+    await contract.setMaxMints(mockMaxMints);
+
+    maxMints = await contract.maxMints();
+
+    expect(maxMints).to.equal(mockMaxMints);
+  });
+
+  it("should be able to setWhiteListMaxMints", async () => {
+    const mockMaxMints = 123123;
+    const [owner] = await ethers.getSigners();
+    const factory = await ethers.getContractFactory("KitsudenFoxfone");
+    const contract = await factory.deploy();
+
+    let maxMints = await contract.maxMints();
+
+    expect(maxMints).to.equal(5);
+
+    await contract.setMaxMints(mockMaxMints);
+
+    maxMints = await contract.maxMints();
+
+    expect(maxMints).to.equal(mockMaxMints);
   });
 });

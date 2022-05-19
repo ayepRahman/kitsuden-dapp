@@ -10,7 +10,7 @@ const Mint = () => {
       <Header />
       <Box bgColor="gray" height="100vh">
         <Container maxW={1600} pt="10rem">
-          <Flex gap="10rem">
+          <Flex gap="5rem">
             <Box flexBasis="50%">
               <Minting />
             </Box>
