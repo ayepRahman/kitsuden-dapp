@@ -21,6 +21,7 @@ import { ReactComponent as EtherscanIcon } from "assets/img/etherscan.svg";
 import { ReactComponent as LogoIcon } from "assets/img/logo_icon.svg";
 import MetamaskButton from "containers/MetamaskButton";
 import { HeaderClip } from "./styled";
+import { SOCIAL_LINKS } from "constants/constants";
 
 interface HeaderProps {
   scrollTo?: (to: string) => void;
@@ -172,13 +173,13 @@ const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
                   </ScrollLink>
 
                   <Flex mt="3rem" gap="2rem">
-                    <SocialLink>
+                    <SocialLink
+                      onClick={() => handleOpenLink(SOCIAL_LINKS.discord)}
+                    >
                       <DiscordIcon />
                     </SocialLink>
                     <SocialLink
-                      onClick={() =>
-                        handleOpenLink("https://twitter.com/kitsudennft")
-                      }
+                      onClick={() => handleOpenLink(SOCIAL_LINKS.twitter)}
                     >
                       <TwitterIcon />
                     </SocialLink>
