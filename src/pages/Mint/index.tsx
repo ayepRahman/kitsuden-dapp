@@ -9,8 +9,8 @@ const Mint = () => {
     <Box>
       <Header />
       <Box bgColor="gray" height="100vh">
-        <Container maxW={1600} pt="10rem">
-          <Flex gap="5rem">
+        <Container maxW={1600} py="5rem">
+          <Flex gap="5rem" alignItems="center">
             <Box flexBasis="50%">
               <Minting />
             </Box>

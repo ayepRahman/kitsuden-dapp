@@ -15,6 +15,7 @@ const MetamaskButton: React.FC<ButtonProps> = ({ ...props }) => {
         title: `error ${error.message}`,
         status: "error",
         isClosable: true,
+        position: "top-right",
       });
     },
   });

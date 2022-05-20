@@ -1,17 +1,15 @@
-import {
-  useContract,
-  useConnect,
-  useProvider,
-  useNetwork,
-  useContractRead,
-} from "wagmi";
 import * as ethers from "ethers";
+import { useNetwork, useContractRead } from "wagmi";
 import { CONTRACT_ADDRESS } from "constants/constants";
 import foxfoneContract from "artifacts/contracts/KitsudenFoxfone.sol/KitsudenFoxfone.json";
+import useGetPublicSale from "./useGetPublicSale";
+import useGetWhitelistSale from "./useGetWhitelistSale";
 
 const useGetMintRate = () => {
   const { activeChain } = useNetwork();
   const currentChainId = activeChain?.id || 1;
+  const { data: isPublicSale } = useGetPublicSale();
+  const { data: isWhitelistSale } = useGetWhitelistSale();
 
   const mintRateRes = useContractRead(
     {
@@ -40,17 +38,19 @@ const useGetMintRate = () => {
   );
 
   const mintRateWei = mintRateRes?.data ?? 0;
-  const mintRateEth = mintRateRes?.data
-    ? ethers.utils.formatEther(mintRateRes.data)
+  const mintRateEth: number = mintRateRes?.data
+    ? Number(ethers.utils.formatEther(mintRateRes.data))
     : 0;
   const whitelistMintRateWei = whitelistMintRateRes?.data ?? 0;
-  const whitelistMintRateEth = whitelistMintRateRes?.data
+  const whitelistMintRateEth: number = whitelistMintRateRes?.data
     ? Number(ethers.utils.formatEther(whitelistMintRateRes.data))
     : 0;
 
   return {
     isLoading: mintRateRes.isLoading || whitelistMintRateRes.isLoading,
-    currentMintRate: mintRateWei,
+    currentMintRateEth: isWhitelistSale ? whitelistMintRateEth : mintRateEth,
+    currentMintRateWei: isWhitelistSale ? whitelistMintRateWei : mintRateWei,
+    mintRateWei,
     mintRateEth,
     whitelistMintRateWei,
     whitelistMintRateEth,

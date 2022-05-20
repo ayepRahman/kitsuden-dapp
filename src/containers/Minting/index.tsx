@@ -1,72 +1,97 @@
 import React from "react";
-import styled from "@emotion/styled";
-import { useAccount, useConnect } from "wagmi";
-import {
-  Box,
-  Button as CKButton,
-  Flex,
-  Heading,
-  Text,
-  toast,
-  useToast,
-} from "@chakra-ui/react";
+import { useAccount, useConnect, useNetwork, useProvider } from "wagmi";
+import { Box, Flex, Heading, Link, Text, useToast } from "@chakra-ui/react";
 import MetamaskButton from "containers/MetamaskButton";
 import Button from "components/Button";
-import useFoxfoneContract from "hooks/useFoxfoneContract";
 import useGetPublicSale from "hooks/useGetPublicSale";
 import useGetWhitelistSale from "hooks/useGetWhitelistSale";
 import useGetMintAvailable from "hooks/useGetMintAvailable";
 import useGetMaxSupply from "hooks/useGetMaxSupply";
 import useGetTotalSupply from "hooks/useGetTotalSupply";
 import useGetMintRate from "hooks/useGetMintRate";
-
-const ButtonCount = styled(CKButton)<{ active?: boolean }>`
-  height: 70px;
-  width: 70px;
-  background-color: ${(p) =>
-    p.active ? p.theme.colors.brand[200] : "rgba(0, 0, 0, 0.7)"};
-  font-size: 40px;
-  font-weight: 700;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 4px;
-  cursor: pointer;
-`;
+import ButtonCount from "components/ButtonCount";
+import * as ethers from "ethers";
+import useMint from "hooks/useMint";
 
 const Minting = () => {
+  const toast = useToast();
+  const provider = useProvider();
+  const { activeChain, switchNetwork } = useNetwork();
   const { isConnected } = useConnect();
   const { data } = useAccount();
-  const toast = useToast();
   const { maxSupply } = useGetMaxSupply();
   const { totalSupply } = useGetTotalSupply();
   const { data: isPublicSale } = useGetPublicSale();
   const { data: isWhitelistSale } = useGetWhitelistSale();
   const { mintLimit } = useGetMintAvailable();
-  const {} = useGetMintRate();
+  const { currentMintRateEth, currentMintRateWei } = useGetMintRate();
+  const { write, isLoading: isMinting } = useMint();
   const [selected, setSelected] = React.useState<number | null>(null);
-  const isLive = isPublicSale || isWhitelistSale;
-  console.log({
-    isPublicSale,
-    isWhitelistSale,
-    isLive,
-    mintLimit,
-    maxSupply,
-    totalSupply,
-  });
 
-  // these value should be getting from the contract
-  const mintPrice = 0.05555;
-  // value to be used for setter contract
-  const totalMintPrice = selected && mintPrice * selected;
-  const totalMintPriceText = (selected && mintPrice * selected)?.toFixed(5);
+  const isLive = !!isPublicSale || !!isWhitelistSale;
+  // @desc - value to be pass when mint
+  const totalMintPriceInWei =
+    (selected &&
+      currentMintRateWei &&
+      ethers.BigNumber.from(currentMintRateWei).mul(selected)) ||
+    ethers.BigNumber.from(0);
+  const totalMintPriceText = ethers.utils.formatEther(totalMintPriceInWei);
 
-  const handleMint = () => {
+  React.useEffect(() => {
+    if (activeChain?.id !== 1) {
+      toast({
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        render: (props) => {
+          console.log("toast props", props);
+
+          return (
+            <Box
+              color="white"
+              p={3}
+              bg="brand.200"
+              border="1px solid"
+              borderColor="brand.200"
+              borderRadius="4px"
+            >
+              Please switch to{" "}
+              <Link textDecor="underline" onClick={() => switchNetwork?.(1)}>
+                mainnet
+              </Link>{" "}
+              , currently connected to {activeChain?.name}
+            </Box>
+          );
+        },
+      });
+    }
+  }, [activeChain]);
+
+  const handleMint = async () => {
     if (!isLive) {
       toast({
         status: "error",
         description: "Minting is not live!",
+        position: "top-right",
+      });
+    }
+
+    if (isWhitelistSale) {
+      // call white list mint
+    }
+
+    if (isPublicSale && selected && totalMintPriceInWei) {
+      console.log("calling public mint");
+      const gasPrice = await provider.getGasPrice();
+
+      console.log("gasPrice", ethers.utils.formatEther(gasPrice));
+      console.log("totalMintPriceInWei", totalMintPriceInWei);
+      console.log("totalMintPriceText", totalMintPriceText);
+
+      // call public mint
+      write({
+        args: [selected, { value: totalMintPriceInWei }],
       });
     }
   };
@@ -99,7 +124,6 @@ const Minting = () => {
       >
         {Array.from({ length: 5 }, (_, i) => {
           const counter = i + 1;
-
           return (
             <ButtonCount
               active={selected === counter}
@@ -129,7 +153,7 @@ const Minting = () => {
           <Box>
             <Text>PRICE</Text>
             <Text fontSize={32} fontWeight={700}>
-              {mintPrice} ETH
+              {currentMintRateEth} ETH
             </Text>
           </Box>
           <Box>
@@ -157,6 +181,7 @@ const Minting = () => {
 
             <Button
               disabled={!selected || !isLive}
+              isLoading={isMinting}
               onClick={() => handleMint()}
               isFullWidth
               py="1rem"

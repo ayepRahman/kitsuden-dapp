@@ -1,23 +1,23 @@
-import { useNetwork, useContractRead } from "wagmi";
+import { useNetwork, useContractWrite } from "wagmi";
 import { CONTRACT_ADDRESS } from "constants/constants";
 import foxfoneContract from "artifacts/contracts/KitsudenFoxfone.sol/KitsudenFoxfone.json";
 
-const useGetPublicSale = () => {
+const useMint = () => {
   const { activeChain } = useNetwork();
   const currentChainId = activeChain?.id || 1;
 
-  return useContractRead(
+  const contractWrite = useContractWrite(
     {
       addressOrName: CONTRACT_ADDRESS[currentChainId],
       contractInterface: foxfoneContract.abi,
     },
-    "publicSale",
-    {
-      onError: (error) => {
-        console.log("error", error.message);
-      },
-    }
+    "mint"
   );
+
+  /**
+   * need to getProof for merkleProof
+   */
+  const whiteListMint = () => {};
 };
 
-export default useGetPublicSale;
+export default useMint;
