@@ -25,7 +25,12 @@ const Minting = () => {
   const { data: isWhitelistSale } = useGetWhitelistSale();
   const { mintLimit } = useGetMintAvailable();
   const { currentMintRateEth, currentMintRateWei } = useGetMintRate();
-  const { write, isLoading: isMinting } = useMint();
+  const {
+    write,
+    isLoading: isMinting,
+    error: mintError,
+    data: mintData,
+  } = useMint();
   const [selected, setSelected] = React.useState<number | null>(null);
 
   const isLive = !!isPublicSale || !!isWhitelistSale;
@@ -37,6 +42,8 @@ const Minting = () => {
     ethers.BigNumber.from(0);
   const totalMintPriceText = ethers.utils.formatEther(totalMintPriceInWei);
 
+  console.log("mintLimit", mintLimit);
+
   React.useEffect(() => {
     if (activeChain?.id !== 1) {
       toast({
@@ -45,8 +52,6 @@ const Minting = () => {
         isClosable: true,
         position: "top-right",
         render: (props) => {
-          console.log("toast props", props);
-
           return (
             <Box
               color="white"
@@ -82,14 +87,6 @@ const Minting = () => {
     }
 
     if (isPublicSale && selected && totalMintPriceInWei) {
-      console.log("calling public mint");
-      const gasPrice = await provider.getGasPrice();
-
-      console.log("gasPrice", ethers.utils.formatEther(gasPrice));
-      console.log("totalMintPriceInWei", totalMintPriceInWei);
-      console.log("totalMintPriceText", totalMintPriceText);
-
-      // call public mint
       write({
         args: [selected, { value: totalMintPriceInWei }],
       });
@@ -98,43 +95,56 @@ const Minting = () => {
 
   return (
     <Box color="white">
-      <Flex fontSize="22px" fontWeight={600}>
+      <Flex fontSize="22px" fontWeight={600} mb="1rem">
         <Text color="brand.200">{totalSupply}</Text>&nbsp;/&nbsp;
         <Text>{maxSupply} FOXFONEX REMAINING</Text>
       </Flex>
-      {isLive ? (
+      {isLive && !mintLimit ? (
         <>
           <Heading fontSize={84} lineHeight="84px">
-            HOW MANY FOXFONES
+            CONGRATZ YOU'VE
           </Heading>
           <Heading fontSize={84} lineHeight="84px" textAlign="right">
-            ARE YOU TAKING?
+            FULLY MINTED
           </Heading>
         </>
       ) : (
-        <Heading fontSize={84} lineHeight="84px">
-          MINTING NOT LIVE
-        </Heading>
+        <>
+          {isLive ? (
+            <>
+              <Heading fontSize={84} lineHeight="84px">
+                HOW MANY FOXFONES
+              </Heading>
+              <Heading fontSize={84} lineHeight="84px" textAlign="right">
+                ARE YOU TAKING?
+              </Heading>
+            </>
+          ) : (
+            <Heading fontSize={84} lineHeight="84px">
+              MINTING NOT LIVE
+            </Heading>
+          )}
+          <Flex
+            mt="3rem"
+            alignItems="center"
+            width="100%"
+            justifyContent="space-between"
+          >
+            {Array.from({ length: 5 }, (_, i) => {
+              const counter = i + 1;
+              return (
+                <ButtonCount
+                  active={selected === counter}
+                  onClick={() => setSelected(counter)}
+                  disabled={counter > mintLimit}
+                >
+                  {counter}
+                </ButtonCount>
+              );
+            })}
+          </Flex>
+        </>
       )}
-      <Flex
-        mt="3rem"
-        alignItems="center"
-        width="100%"
-        justifyContent="space-between"
-      >
-        {Array.from({ length: 5 }, (_, i) => {
-          const counter = i + 1;
-          return (
-            <ButtonCount
-              active={selected === counter}
-              onClick={() => setSelected(counter)}
-              disabled={counter > mintLimit}
-            >
-              {counter}
-            </ButtonCount>
-          );
-        })}
-      </Flex>
 
       <Flex mt="1rem">
         <Text fontWeight={600}>NOTE:</Text>
@@ -189,7 +199,7 @@ const Minting = () => {
               <Box>
                 {!isLive ? (
                   <Text>MINTING NOT LIVE</Text>
-                ) : !selected && isLive ? (
+                ) : !selected && isLive && !!mintLimit ? (
                   <Text>PLEASE SELECT MIN 1</Text>
                 ) : (
                   <>

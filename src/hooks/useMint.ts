@@ -16,9 +16,12 @@ const useMint = () => {
     "mint",
     {
       onError: (error) => {
+        const convertedError = error as unknown as any;
+        console.log(JSON.stringify(convertedError, null, 2));
+
         toast({
           status: "error",
-          description: error?.message,
+          description: convertedError?.reason,
           position: "top-right",
         });
       },

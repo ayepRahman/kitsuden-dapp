@@ -83,7 +83,7 @@ describe("KitsudenFoxfone", () => {
     await expect(contract.mint(quantity)).to.be.revertedWith("WrongEther");
   });
 
-  it("publicMint should be call successfull ", async () => {
+  it("publicMint should be call successfull", async () => {
     const factory = await ethers.getContractFactory("KitsudenFoxfone");
     const contract = await factory.deploy();
     await contract.deployed();
@@ -443,8 +443,6 @@ describe("KitsudenFoxfone", () => {
   it("should be able to setMintRate", async () => {
     const mockMintRate = "999.99";
     const mockMintRateInWei = ethers.utils.parseEther(mockMintRate);
-
-    const [owner] = await ethers.getSigners();
     const factory = await ethers.getContractFactory("KitsudenFoxfone");
     const contract = await factory.deploy();
 
@@ -528,5 +526,47 @@ describe("KitsudenFoxfone", () => {
     maxMints = await contract.maxMints();
 
     expect(maxMints).to.equal(mockMaxMints);
+  });
+
+  it("mintAvailable should return correct value when is not live", async () => {
+    const factory = await ethers.getContractFactory("KitsudenFoxfone");
+    const contract = await factory.deploy();
+    await contract.deployed();
+
+    const count = await contract.mintAvailable();
+
+    expect(count).to.equal(0);
+  });
+
+  it("mintAvailable should return correct value for publicSale", async () => {
+    const factory = await ethers.getContractFactory("KitsudenFoxfone");
+    const contract = await factory.deploy();
+    await contract.deployed();
+    const quantity = ethers.BigNumber.from(2);
+    const minRate = await contract.mintRate();
+    const balanceInEth = ethers.utils.formatEther(minRate);
+    const totalEth = Number(balanceInEth) * 2;
+    let wei = ethers.utils.parseEther(`${totalEth}`);
+
+    const msg = { value: wei };
+
+    await contract.togglePublicSale();
+    const publicSale = await contract.publicSale();
+    expect(publicSale).to.equal(true);
+
+    await contract.mint(quantity, msg);
+
+    const totalSupply = await contract.totalSupply();
+    expect(totalSupply.toNumber()).to.equal(quantity);
+
+    const provider = waffle.provider;
+    const balanceInWei = await provider.getBalance(contract.address);
+    const contractBalanceInEth = ethers.utils.formatEther(balanceInWei);
+
+    expect(Number(contractBalanceInEth)).to.equal(totalEth);
+
+    const count = await contract.mintAvailable();
+
+    expect(count).to.equal(3);
   });
 });
