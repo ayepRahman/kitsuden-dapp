@@ -18,6 +18,6 @@
     "jsx": "react-jsx",
     "baseUrl": "src"
   },
-  "include": ["./test", "./src", "./scripts"],
+  "include": ["test", "src", "scripts"],
   "files": ["./hardhat.config.ts"]
 }
