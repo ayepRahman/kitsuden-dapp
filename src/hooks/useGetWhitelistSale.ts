@@ -6,7 +6,7 @@ import {
   useContractRead,
 } from "wagmi";
 import { CONTRACT_ADDRESS } from "constants/constants";
-import foxfoneContract from "../artifacts/contracts/KitsudenFoxfone/KitsudenFoxfone.json";
+import FoxfoneContract from "../artifacts/contracts/KitsudenFoxfone.sol/KitsudenFoxfone.json";
 
 const useGetWhitelistSale = () => {
   const { activeChain } = useNetwork();
@@ -15,7 +15,7 @@ const useGetWhitelistSale = () => {
   return useContractRead(
     {
       addressOrName: CONTRACT_ADDRESS[currentChainId],
-      contractInterface: foxfoneContract.abi,
+      contractInterface: FoxfoneContract.abi,
     },
     "whitelistSale",
     {

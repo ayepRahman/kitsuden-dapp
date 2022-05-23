@@ -1,6 +1,6 @@
 import { useNetwork, useContractRead } from "wagmi";
 import { CONTRACT_ADDRESS } from "constants/constants";
-import foxfoneContract from "../artifacts/contracts/KitsudenFoxfone/KitsudenFoxfone.json";
+import FoxfoneContract from "../artifacts/contracts/KitsudenFoxfone.sol/KitsudenFoxfone.json";
 
 const useGetPublicSale = () => {
   const { activeChain } = useNetwork();
@@ -9,7 +9,7 @@ const useGetPublicSale = () => {
   return useContractRead(
     {
       addressOrName: CONTRACT_ADDRESS[currentChainId],
-      contractInterface: foxfoneContract.abi,
+      contractInterface: FoxfoneContract.abi,
     },
     "publicSale",
     {
