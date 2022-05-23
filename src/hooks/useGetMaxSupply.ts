@@ -6,7 +6,7 @@ import {
   useContractRead,
 } from "wagmi";
 import { CONTRACT_ADDRESS } from "constants/constants";
-import FoxfoneContract from "../artifacts/contracts/KitsudenFoxfone.sol/KitsudenFoxfone.json";
+import FoxfoneContract from "artifacts/contracts/KitsudenFoxfone.sol/KitsudenFoxfone.json";
 
 const useGetMaxSupply = () => {
   const { activeChain } = useNetwork();

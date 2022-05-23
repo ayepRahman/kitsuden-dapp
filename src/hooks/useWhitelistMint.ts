@@ -1,7 +1,7 @@
 import { useToast } from "@chakra-ui/react";
 import { useNetwork, useContractWrite } from "wagmi";
 import { CONTRACT_ADDRESS } from "constants/constants";
-import FoxfoneContract from "../artifacts/contracts/KitsudenFoxfone.sol/KitsudenFoxfone.json";
+import FoxfoneContract from "artifacts/contracts/KitsudenFoxfone.sol/KitsudenFoxfone.json";
 import useCheckIsAddressWhiteListed from "./useCheckIsAddressWhiteListed";
 import { BigNumber } from "ethers";
 
