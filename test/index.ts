@@ -3,6 +3,7 @@
  */
 
 import { expect } from "chai";
+import { WHITE_LIST_ADDRESSES } from "constants/constants";
 import { ethers, waffle } from "hardhat";
 import { getMerkleProof, generateMerkle } from "../src/utils/merkle";
 
@@ -121,7 +122,7 @@ describe("KitsudenFoxfone", () => {
     const hash = `0x${merkle?.merkleRootHash}`;
 
     await contract.setMerkleRoot(hash);
-    const proof = getMerkleProof(owner.address);
+    const proof = getMerkleProof(WHITE_LIST_ADDRESSES, owner.address);
 
     await expect(contract.whiteListMint(quantity, proof)).to.be.revertedWith(
       "ExceededLimit"
@@ -143,7 +144,7 @@ describe("KitsudenFoxfone", () => {
     const msg = { value: wei };
 
     await contract.setMerkleRoot(hash);
-    const proof = getMerkleProof(owner.address);
+    const proof = getMerkleProof(WHITE_LIST_ADDRESSES, owner.address);
 
     await expect(contract.whiteListMint(quantity, proof)).to.be.revertedWith(
       "WrongEther"
@@ -165,7 +166,7 @@ describe("KitsudenFoxfone", () => {
     const msg = { value: wei };
 
     await contract.setMerkleRoot(hash);
-    const proof = getMerkleProof(owner.address);
+    const proof = getMerkleProof(WHITE_LIST_ADDRESSES, owner.address);
     await contract.toggleWhitelistSale();
 
     await contract.whiteListMint(quantity, proof, msg);
@@ -190,7 +191,7 @@ describe("KitsudenFoxfone", () => {
     const msg = { value: wei };
 
     await contract.setMerkleRoot(hash);
-    const proof = getMerkleProof(owner.address);
+    const proof = getMerkleProof(WHITE_LIST_ADDRESSES, owner.address);
 
     await expect(
       contract.whiteListMint(quantity, proof, msg)
@@ -212,7 +213,7 @@ describe("KitsudenFoxfone", () => {
     const msg = { value: wei };
 
     await contract.setMerkleRoot(hash);
-    const proof = getMerkleProof(owner.address);
+    const proof = getMerkleProof(WHITE_LIST_ADDRESSES, owner.address);
     await contract.setMaxSupply(0);
     await contract.toggleWhitelistSale();
 
@@ -236,7 +237,7 @@ describe("KitsudenFoxfone", () => {
     const msg = { value: wei };
 
     await contract.setMerkleRoot(hash);
-    const proof = getMerkleProof(owner2.address);
+    const proof = getMerkleProof(WHITE_LIST_ADDRESSES, owner2.address);
     await contract.toggleWhitelistSale();
 
     await expect(
@@ -259,7 +260,7 @@ describe("KitsudenFoxfone", () => {
     const msg = { value: wei };
 
     await contract.setMerkleRoot(hash);
-    const proof = getMerkleProof(owner.address);
+    const proof = getMerkleProof(WHITE_LIST_ADDRESSES, owner.address);
     await contract.toggleWhitelistSale();
 
     await contract.whiteListMint(quantity, proof, msg);
@@ -286,7 +287,7 @@ describe("KitsudenFoxfone", () => {
     const msg = { value: wei };
 
     await contract.setMerkleRoot(hash);
-    const proof = getMerkleProof(owner.address);
+    const proof = getMerkleProof(WHITE_LIST_ADDRESSES, owner.address);
     await contract.toggleWhitelistSale();
 
     await contract.whiteListMint(quantity, proof, msg);
@@ -319,7 +320,7 @@ describe("KitsudenFoxfone", () => {
     const msg = { value: wei };
 
     await contract.setMerkleRoot(hash);
-    const proof = getMerkleProof(owner.address);
+    const proof = getMerkleProof(WHITE_LIST_ADDRESSES, owner.address);
     await contract.toggleWhitelistSale();
 
     await contract.whiteListMint(quantity, proof, msg);
@@ -355,7 +356,7 @@ describe("KitsudenFoxfone", () => {
     const msg = { value: wei };
 
     await contract.setMerkleRoot(hash);
-    const proof = getMerkleProof(owner.address);
+    const proof = getMerkleProof(WHITE_LIST_ADDRESSES, owner.address);
     await contract.toggleWhitelistSale();
 
     await contract.whiteListMint(quantity, proof, msg);
@@ -389,7 +390,7 @@ describe("KitsudenFoxfone", () => {
     const msg = { value: wei };
 
     await contract.setMerkleRoot(hash);
-    const proof = getMerkleProof(owner.address);
+    const proof = getMerkleProof(WHITE_LIST_ADDRESSES, owner.address);
     await contract.toggleWhitelistSale();
 
     await contract.whiteListMint(quantity, proof, msg);
@@ -420,7 +421,7 @@ describe("KitsudenFoxfone", () => {
     const msg = { value: wei };
 
     await contract.setMerkleRoot(hash);
-    const proof = getMerkleProof(owner.address);
+    const proof = getMerkleProof(WHITE_LIST_ADDRESSES, owner.address);
     await contract.toggleWhitelistSale();
 
     await contract.whiteListMint(quantity, proof, msg);

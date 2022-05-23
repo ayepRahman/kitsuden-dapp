@@ -8,7 +8,7 @@ const Mint = () => {
   return (
     <Box>
       <Header />
-      <Box bgColor="gray" height="100vh">
+      <Box bgColor="gray" height="100%">
         <Container maxW={1600} py="5rem">
           <Flex gap="5rem" alignItems="center">
             <Box flexBasis="50%">

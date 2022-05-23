@@ -1,4 +1,5 @@
 import React from "react";
+import * as ethers from "ethers";
 import { useAccount, useConnect, useNetwork, useProvider } from "wagmi";
 import { Box, Flex, Heading, Link, Text, useToast } from "@chakra-ui/react";
 import MetamaskButton from "containers/MetamaskButton";
@@ -10,8 +11,9 @@ import useGetMaxSupply from "hooks/useGetMaxSupply";
 import useGetTotalSupply from "hooks/useGetTotalSupply";
 import useGetMintRate from "hooks/useGetMintRate";
 import ButtonCount from "components/ButtonCount";
-import * as ethers from "ethers";
 import useMint from "hooks/useMint";
+import useCheckIsAddressWhiteListed from "hooks/useCheckIsAddressWhiteListed";
+import useWhitelistMint from "hooks/useWhitelistMint";
 
 const Minting = () => {
   const toast = useToast();
@@ -25,15 +27,21 @@ const Minting = () => {
   const { data: isWhitelistSale } = useGetWhitelistSale();
   const { mintLimit } = useGetMintAvailable();
   const { currentMintRateEth, currentMintRateWei } = useGetMintRate();
+  const { isWhiteListed } = useCheckIsAddressWhiteListed();
   const {
-    write,
+    write: mint,
     isLoading: isMinting,
-    error: mintError,
-    data: mintData,
+    // error: mintError,
+    // data: mintData,
   } = useMint();
+  const {
+    whiteListMint,
+    isLoading: isWhiteListMinting,
+    // error: whiteListMintError,
+    // data: whiteListMintData,
+  } = useWhitelistMint();
   const [selected, setSelected] = React.useState<number | null>(null);
 
-  const isLive = !!isPublicSale || !!isWhitelistSale;
   // @desc - value to be pass when mint
   const totalMintPriceInWei =
     (selected &&
@@ -41,9 +49,11 @@ const Minting = () => {
       ethers.BigNumber.from(currentMintRateWei).mul(selected)) ||
     ethers.BigNumber.from(0);
   const totalMintPriceText = ethers.utils.formatEther(totalMintPriceInWei);
+  const isLive = !!isPublicSale || !!isWhitelistSale;
 
-  console.log("mintLimit", mintLimit);
+  console.log({ mintLimit, isPublicSale, isWhitelistSale, isWhiteListed });
 
+  // @desc - check the current connected network is mainnet, if not invoke toast.
   React.useEffect(() => {
     if (activeChain?.id !== 1) {
       toast({
@@ -80,16 +90,19 @@ const Minting = () => {
         description: "Minting is not live!",
         position: "top-right",
       });
+      return;
     }
 
-    if (isWhitelistSale) {
-      // call white list mint
+    if (isWhitelistSale && isWhiteListed && selected && totalMintPriceInWei) {
+      whiteListMint(selected, totalMintPriceInWei);
+      return;
     }
 
     if (isPublicSale && selected && totalMintPriceInWei) {
-      write({
+      mint({
         args: [selected, { value: totalMintPriceInWei }],
       });
+      return;
     }
   };
 
@@ -132,11 +145,13 @@ const Minting = () => {
           >
             {Array.from({ length: 5 }, (_, i) => {
               const counter = i + 1;
+              const disabled = !isWhiteListed || counter > mintLimit;
+
               return (
                 <ButtonCount
-                  active={selected === counter}
+                  active={selected ? selected === counter : false}
                   onClick={() => setSelected(counter)}
-                  disabled={counter > mintLimit}
+                  disabled={disabled}
                 >
                   {counter}
                 </ButtonCount>
@@ -191,7 +206,7 @@ const Minting = () => {
 
             <Button
               disabled={!selected || !isLive}
-              isLoading={isMinting}
+              isLoading={isMinting || isWhiteListMinting}
               onClick={() => handleMint()}
               isFullWidth
               py="1rem"
