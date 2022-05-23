@@ -1,7 +1,7 @@
 import * as ethers from "ethers";
 import { useNetwork, useContractRead } from "wagmi";
 import { CONTRACT_ADDRESS } from "constants/constants";
-import foxfoneContract from "artifacts/contracts/KitsudenFoxfone.sol/KitsudenFoxfone.json";
+import foxfoneContract from "../artifacts/contracts/KitsudenFoxfone.sol/KitsudenFoxfone.json";
 import useGetPublicSale from "./useGetPublicSale";
 import useGetWhitelistSale from "./useGetWhitelistSale";
 
