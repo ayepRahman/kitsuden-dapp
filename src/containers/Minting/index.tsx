@@ -1,7 +1,15 @@
 import React from "react";
 import * as ethers from "ethers";
 import { useAccount, useConnect, useNetwork, useProvider } from "wagmi";
-import { Box, Flex, Heading, Link, Text, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Heading,
+  Link,
+  Text,
+  useDisclosure,
+  useToast,
+} from "@chakra-ui/react";
 import MetamaskButton from "containers/MetamaskButton";
 import Button from "components/Button";
 import useGetPublicSale from "hooks/useGetPublicSale";
@@ -14,8 +22,10 @@ import ButtonCount from "components/ButtonCount";
 import useMint from "hooks/useMint";
 import useCheckIsAddressWhiteListed from "hooks/useCheckIsAddressWhiteListed";
 import useWhitelistMint from "hooks/useWhitelistMint";
+import MintSuccessModal from "containers/MintSuccessModal";
 
 const Minting = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
   const provider = useProvider();
   const { activeChain, switchNetwork } = useNetwork();
@@ -108,6 +118,8 @@ const Minting = () => {
 
   return (
     <Box color="white">
+      <MintSuccessModal isOpen={isOpen} onClose={onClose} />
+
       <Flex fontSize="22px" fontWeight={600} mb="1rem">
         <Text color="brand.200">{totalSupply}</Text>&nbsp;/&nbsp;
         <Text>{maxSupply} FOXFONEX REMAINING</Text>
