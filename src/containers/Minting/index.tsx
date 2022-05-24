@@ -54,16 +54,23 @@ const Minting = () => {
       });
       onOpen();
       setSelected(null);
+      console.log(JSON.stringify(data, null, 2));
+    },
+  });
+  const { whiteListMint, isLoading: isWhiteListMinting } = useWhitelistMint({
+    onSuccess: (data) => {
+      setMintSuccessProps({
+        contractAddress: CONTRACT_ADDRESS[currentChainId],
+        tokenId: 0,
+        quantity: selected || 0,
+        txHash: data?.hash,
+      });
+      onOpen();
+      setSelected(null);
 
       console.log(JSON.stringify(data, null, 2));
     },
   });
-  const {
-    whiteListMint,
-    isLoading: isWhiteListMinting,
-    // error: whiteListMintError,
-    // data: whiteListMintData,
-  } = useWhitelistMint();
   const [selected, setSelected] = React.useState<number | null>(null);
 
   // @desc - value to be pass when mint
