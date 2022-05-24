@@ -1,56 +1,69 @@
 import React from "react";
-import styled from "@emotion/styled";
 import {
   Modal,
   ModalBody,
-  ModalContent,
   ModalOverlay,
   Heading,
   Text,
   Box,
   Flex,
 } from "@chakra-ui/react";
+import { TwitterShareButton } from "react-share";
 import { CloseIcon } from "@chakra-ui/icons";
-import modalBg from "assets/img/modal_bg.svg";
 import { ReactComponent as FoxfoneLogo } from "assets/img/foxfone_logo.svg";
 import { ReactComponent as OpenseaIcon } from "assets/img/opensea.svg";
 import { ReactComponent as EtherscanIcon } from "assets/img/etherscan.svg";
 import { ReactComponent as TwitterIcon } from "assets/img/twitter.svg";
 import SocialLink from "components/SocialLink";
 import Button from "components/Button";
-
-const CustomModalContent = styled(ModalContent)`
-  position: relative;
-  height: 600px;
-  width: 600px;
-  max-width: 600px;
-  padding: 3rem 4rem 4rem;
-  background-color: transparent;
-  background-image: url(${modalBg});
-  background-size: 100% 100%;
-  -o-background-size: 100% 100%;
-  -webkit-background-size: 100% 100%;
-  background-size: cover;
-  box-shadow: none;
-  text-align: center;
-  color: #200000;
-`;
-
-interface MintSuccessModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
+import { useNetwork } from "wagmi";
+import { KitsudenModalContent } from "./styled";
+import { MintSuccessModalProps } from "./interfaces";
 
 const MintSuccessModal: React.FC<MintSuccessModalProps> = ({
   isOpen,
   onClose,
+  contractAddress,
+  tokenId,
+  quantity = 0,
+  txHash,
 }) => {
-  const quantity = 1;
+  const { activeChain } = useNetwork();
+
+  console.log({
+    contractAddress,
+    tokenId,
+    quantity,
+    txHash,
+  });
+
+  const osLink = React.useMemo(() => {
+    if (activeChain?.id === 1) {
+      return `https://opensea.io/assets/ethereum/${contractAddress}/${tokenId}`;
+    }
+
+    return `https://testnets.opensea.io/assets/rinkeby/${contractAddress}/${tokenId}`;
+  }, [activeChain, activeChain?.id, contractAddress, tokenId]);
+
+  const esLink = React.useMemo(() => {
+    if (activeChain?.id === 1) {
+      return `https://etherscan.io/tx/${txHash}`;
+    }
+
+    return `https://rinkeby.etherscan.io/tx/${txHash}`;
+  }, [activeChain, activeChain?.id, txHash]);
+
+  const generateTwitterLink = () => {
+    const text =
+      "Minted my Foxfone via @KitsudenNFT #Kitsuden #NFT https://www.kitsuden.com/";
+
+    return `https://twitter.com/intent/tweet?text=${text}`;
+  };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal trapFocus={false} isCentered isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <CustomModalContent>
+      <KitsudenModalContent>
         <ModalBody
           display="flex"
           flexDirection="column"
@@ -82,24 +95,29 @@ const MintSuccessModal: React.FC<MintSuccessModalProps> = ({
           <Text>VIEW YOUR TRANSACTION ON</Text>
 
           <Flex justifyContent="center" gap="1rem">
-            <SocialLink>
+            <SocialLink onClick={() => window.open(osLink)}>
               <OpenseaIcon />
             </SocialLink>
-            <SocialLink>
+            <SocialLink onClick={() => window.open(esLink)}>
               <EtherscanIcon />
             </SocialLink>
           </Flex>
 
           <Text mt="1rem">LEAVE A PARTING NOTE TO YOUR FRIENDS...</Text>
 
-          <Button mt="1rem" width="fit-content" mx="auto">
+          <Button
+            mt="1rem"
+            width="fit-content"
+            mx="auto"
+            onClick={() => window.open(generateTwitterLink())}
+          >
             <SocialLink mr="0.5rem">
               <TwitterIcon />
             </SocialLink>
             SHARE ON TWITTER
           </Button>
         </ModalBody>
-      </CustomModalContent>
+      </KitsudenModalContent>
     </Modal>
   );
 };

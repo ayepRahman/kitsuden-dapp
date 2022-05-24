@@ -129,14 +129,7 @@ const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
               <HamburgerIcon onClick={() => onOpen()} fontSize={24} />
             </Box>
 
-            <Drawer
-              variant="alwaysOpen"
-              onClose={() => onClose()}
-              isOpen={isOpen}
-              size="full"
-              trapFocus={false}
-              blockScrollOnMount={false}
-            >
+            <Drawer onClose={() => onClose()} isOpen={isOpen} size="full">
               <DrawerContent bgColor="brand.100">
                 <Flex
                   direction="column"

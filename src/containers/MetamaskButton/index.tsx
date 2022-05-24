@@ -38,7 +38,7 @@ const MetamaskButton: React.FC<ButtonProps> = ({ ...props }) => {
         }
         connect(metamaskConnector);
       }}
-      isFullWidth
+      w="100%"
       colorScheme="orange"
       display="flex"
       alignItems="center"

@@ -7,6 +7,20 @@ module.exports = function override(config, env) {
     stream: require.resolve("stream-browserify"),
     buffer: require.resolve("buffer"),
   };
+
+  // https://github.com/mysticatea/event-target-shim/issues/37#issuecomment-1135392074
+  config.module.rules = [
+    ...config.module.rules,
+    {
+      test: /\.(js|mjs|jsx)$/,
+      enforce: "pre",
+      loader: require.resolve("source-map-loader"),
+      resolve: {
+        fullySpecified: false,
+      },
+    },
+  ];
+
   config.resolve.extensions = [...config.resolve.extensions, ".ts", ".js"];
   config.plugins = [
     ...config.plugins,

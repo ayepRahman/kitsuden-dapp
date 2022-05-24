@@ -2,8 +2,12 @@ import { useNetwork, useContractWrite } from "wagmi";
 import { CONTRACT_ADDRESS } from "constants/constants";
 import FoxfoneContract from "artifacts/contracts/KitsudenFoxfone.sol/KitsudenFoxfone.json";
 import { useToast } from "@chakra-ui/react";
+import {
+  UseContractWriteArgs,
+  UseContractWriteConfig,
+} from "wagmi/dist/declarations/src/hooks/contracts/useContractWrite";
 
-const useMint = () => {
+const useMint = (options?: UseContractWriteArgs & UseContractWriteConfig) => {
   const toast = useToast();
   const { activeChain } = useNetwork();
   const currentChainId = activeChain?.id || 1;
@@ -17,24 +21,13 @@ const useMint = () => {
     {
       onError: (error) => {
         const convertedError = error as unknown as any;
-        console.log(JSON.stringify(convertedError, null, 2));
-
         toast({
           status: "error",
           description: convertedError?.reason,
           position: "top-right",
         });
       },
-      onSuccess: (data) => {
-        console.log(data);
-        // TODO: pop modal when succes
-
-        toast({
-          status: "success",
-          description: "Success",
-          position: "top-right",
-        });
-      },
+      ...options,
     }
   );
 };

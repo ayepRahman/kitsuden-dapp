@@ -14,19 +14,31 @@ const theme = extendTheme({
   },
   components: {
     // @link - fixing issue with overlay in modal/drawer/portal https://github.com/chakra-ui/chakra-ui/issues/2893
-    Drawer: {
-      variants: {
-        alwaysOpen: {
-          parts: ["dialog, dialogContainer"],
-          dialog: {
-            pointerEvents: "auto",
-          },
-          dialogContainer: {
-            pointerEvents: "none",
-          },
-        },
-      },
-    },
+    // Drawer: {
+    //   variants: {
+    //     alwaysOpen: {
+    //       parts: ["dialog, dialogContainer"],
+    //       dialog: {
+    //         pointerEvents: "auto",
+    //       },
+    //       dialogContainer: {
+    //         pointerEvents: "none",
+    //       },
+    //     },
+    //   },
+    // },
+    // Modal: {
+    //   variants: {
+    //     clickThrough: {
+    //       dialogContainer: {
+    //         pointerEvents: "none",
+    //       },
+    //       dialog: {
+    //         pointerEvents: "auto",
+    //       },
+    //     },
+    //   },
+    // },
   },
 });
 

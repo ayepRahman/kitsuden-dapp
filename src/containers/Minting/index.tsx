@@ -1,11 +1,10 @@
 import React from "react";
 import * as ethers from "ethers";
-import { useAccount, useConnect, useNetwork, useProvider } from "wagmi";
+import { useAccount, useConnect, useNetwork } from "wagmi";
 import {
   Box,
   Flex,
   Heading,
-  Link,
   Text,
   useDisclosure,
   useToast,
@@ -23,14 +22,21 @@ import useMint from "hooks/useMint";
 import useCheckIsAddressWhiteListed from "hooks/useCheckIsAddressWhiteListed";
 import useWhitelistMint from "hooks/useWhitelistMint";
 import MintSuccessModal from "containers/MintSuccessModal";
+import { CONTRACT_ADDRESS } from "constants/constants";
 
 const Minting = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { activeChain } = useNetwork();
+  const currentChainId = activeChain?.id || 1;
+  const [mintSuccessProps, setMintSuccessProps] = React.useState<{
+    contractAddress?: string;
+    tokenId?: number;
+    quantity?: number;
+    txHash?: string;
+  }>({});
   const toast = useToast();
-  const provider = useProvider();
-  const { activeChain, switchNetwork } = useNetwork();
   const { isConnected } = useConnect();
-  const { data } = useAccount();
+  const { data: account } = useAccount();
   const { maxSupply } = useGetMaxSupply();
   const { totalSupply } = useGetTotalSupply();
   const { data: isPublicSale } = useGetPublicSale();
@@ -38,12 +44,20 @@ const Minting = () => {
   const { mintLimit } = useGetMintAvailable();
   const { currentMintRateEth, currentMintRateWei } = useGetMintRate();
   const { isWhiteListed } = useCheckIsAddressWhiteListed();
-  const {
-    write: mint,
-    isLoading: isMinting,
-    // error: mintError,
-    // data: mintData,
-  } = useMint();
+  const { write: mint, isLoading: isMinting } = useMint({
+    onSuccess: (data) => {
+      setMintSuccessProps({
+        contractAddress: CONTRACT_ADDRESS[currentChainId],
+        tokenId: 0,
+        quantity: selected || 0,
+        txHash: data?.hash,
+      });
+      onOpen();
+      setSelected(null);
+
+      console.log(JSON.stringify(data, null, 2));
+    },
+  });
   const {
     whiteListMint,
     isLoading: isWhiteListMinting,
@@ -63,35 +77,11 @@ const Minting = () => {
 
   console.log({ mintLimit, isPublicSale, isWhitelistSale, isWhiteListed });
 
-  // @desc - check the current connected network is mainnet, if not invoke toast.
   React.useEffect(() => {
-    if (activeChain?.id !== 1) {
-      toast({
-        status: "warning",
-        duration: 5000,
-        isClosable: true,
-        position: "top-right",
-        render: (props) => {
-          return (
-            <Box
-              color="white"
-              p={3}
-              bg="brand.200"
-              border="1px solid"
-              borderColor="brand.200"
-              borderRadius="4px"
-            >
-              Please switch to{" "}
-              <Link textDecor="underline" onClick={() => switchNetwork?.(1)}>
-                mainnet
-              </Link>{" "}
-              , currently connected to {activeChain?.name}
-            </Box>
-          );
-        },
-      });
+    if (!isOpen) {
+      setMintSuccessProps({});
     }
-  }, [activeChain]);
+  }, [isOpen]);
 
   const handleMint = async () => {
     if (!isLive) {
@@ -118,7 +108,14 @@ const Minting = () => {
 
   return (
     <Box color="white">
-      <MintSuccessModal isOpen={isOpen} onClose={onClose} />
+      <MintSuccessModal
+        isOpen={isOpen}
+        onClose={onClose}
+        contractAddress={mintSuccessProps?.contractAddress}
+        tokenId={mintSuccessProps?.tokenId}
+        quantity={selected || 0}
+        txHash={mintSuccessProps?.txHash}
+      />
 
       <Flex fontSize="22px" fontWeight={600} mb="1rem">
         <Text color="brand.200">{totalSupply}</Text>&nbsp;/&nbsp;
@@ -157,7 +154,7 @@ const Minting = () => {
           >
             {Array.from({ length: 5 }, (_, i) => {
               const counter = i + 1;
-              const disabled = !isWhiteListed || counter > mintLimit;
+              const disabled = counter > mintLimit;
 
               return (
                 <ButtonCount
@@ -213,14 +210,14 @@ const Minting = () => {
           <Flex mt="2rem" gap="2rem">
             <Box>
               <Text fontWeight={700}>CONNECTED TO</Text>
-              <Text>{data?.address}</Text>
+              <Text>{account?.address}</Text>
             </Box>
 
             <Button
               disabled={!selected || !isLive}
               isLoading={isMinting || isWhiteListMinting}
               onClick={() => handleMint()}
-              isFullWidth
+              w="100%"
               py="1rem"
             >
               <Box>
