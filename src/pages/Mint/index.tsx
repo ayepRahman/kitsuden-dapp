@@ -28,7 +28,7 @@ const Mint = () => {
   }, [activeChain]);
 
   return (
-    <Box>
+    <Box h="100%">
       {isShowWarning && (
         <Box
           position="relative"
@@ -57,7 +57,7 @@ const Mint = () => {
         <Image
           position="absolute"
           src={loreBanneMist}
-          height="100%"
+          height="100vh"
           width="100%"
           objectFit="cover"
           bgPos="top"
