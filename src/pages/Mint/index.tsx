@@ -57,9 +57,9 @@ const Mint = () => {
         <Image
           position="absolute"
           src={loreBanneMist}
-          height="100vh"
+          height={isMobile ? "100%" : "100vh"}
           width="100%"
-          objectFit="cover"
+          objectFit={"cover"}
           bgPos="top"
           zIndex="-1"
         />
