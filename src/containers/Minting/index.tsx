@@ -244,7 +244,7 @@ const Minting = () => {
           <MetamaskButton size="lg" mt="2rem" />
         ) : (
           <Flex mt="2rem" gap="2rem" flexWrap={isMobile ? "wrap" : "nowrap"}>
-            <Box>
+            <Box w="100%">
               <Text fontWeight={700}>CONNECTED TO</Text>
               <Text
                 width="full"
@@ -252,7 +252,9 @@ const Minting = () => {
                 overflow="hidden"
                 textOverflow="ellipsis"
               >
-                {truncateAddress(account?.address || "")}
+                {isMobile
+                  ? truncateAddress(account?.address || "")
+                  : account?.address}
               </Text>
             </Box>
 
