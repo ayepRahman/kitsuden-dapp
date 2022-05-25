@@ -1,14 +1,23 @@
 import React from "react";
-import { Box, Container, Flex, Image, Link } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  Flex,
+  Image,
+  Link,
+  useMediaQuery,
+} from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
 import Header from "containers/Header";
 import Minting from "containers/Minting";
 import mintBrushImg from "assets/img/mint_brush_bg.png";
+import loreBanneMist from "assets/img/lore_banner_mist.jpg";
 import { useNetwork } from "wagmi";
 
 const Mint = () => {
   const [isShowWarning, setIsShowWarning] = React.useState<boolean>(false);
   const { activeChain, switchNetwork } = useNetwork();
+  const [isMobile] = useMediaQuery("(max-width: 767.98px)");
 
   React.useEffect(() => {
     if (activeChain?.id !== 1) {
@@ -44,13 +53,27 @@ const Mint = () => {
         </Box>
       )}
       <Header />
-      <Box bgColor="gray" height="100%">
+      <Box position="relative" height="100%">
+        <Image
+          position="absolute"
+          src={loreBanneMist}
+          height="100%"
+          width="100%"
+          objectFit="cover"
+          bgPos="top"
+          zIndex="-1"
+        />
         <Container maxW={1600} py="5rem">
-          <Flex gap="5rem" alignItems="center">
-            <Box flexBasis="50%">
+          <Flex
+            flexWrap={isMobile ? "wrap-reverse" : "nowrap"}
+            gap="5rem"
+            alignItems="center"
+            w="100%"
+          >
+            <Box flexBasis={isMobile ? "100%" : "50%"} w="100%">
               <Minting />
             </Box>
-            <Box flexBasis="50%">
+            <Box flexBasis={isMobile ? "100%" : "50%"} w="100%">
               <Image src={mintBrushImg} width="100%" height="100%" />
             </Box>
           </Flex>

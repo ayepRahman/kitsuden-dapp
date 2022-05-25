@@ -14,6 +14,13 @@ const ButtonCount = styled(Button)<{ active?: boolean }>`
   align-items: center;
   border-radius: 4px;
   cursor: pointer;
+
+  /* Small devices (landscape phones, less than 768px) */
+  @media (max-width: 767.98px) {
+    font-size: 24px;
+    height: 60px;
+    width: 60px;
+  }
 `;
 
 export default ButtonCount;

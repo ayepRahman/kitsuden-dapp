@@ -7,6 +7,7 @@ import {
   Heading,
   Text,
   useDisclosure,
+  useMediaQuery,
   useToast,
 } from "@chakra-ui/react";
 import MetamaskButton from "containers/MetamaskButton";
@@ -23,8 +24,10 @@ import useCheckIsAddressWhiteListed from "hooks/useCheckIsAddressWhiteListed";
 import useWhitelistMint from "hooks/useWhitelistMint";
 import MintSuccessModal from "containers/MintSuccessModal";
 import { CONTRACT_ADDRESS } from "constants/constants";
+import { truncateAddress } from "utils/address";
 
 const Minting = () => {
+  const [isMobile] = useMediaQuery("(max-width: 767.98px)");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { activeChain } = useNetwork();
   const [selected, setSelected] = React.useState<number | null>(null);
@@ -119,7 +122,7 @@ const Minting = () => {
   };
 
   return (
-    <Box color="white">
+    <Box color="white" width="100%">
       <MintSuccessModal
         isOpen={isOpen}
         onClose={onClose}
@@ -129,16 +132,23 @@ const Minting = () => {
         txHash={mintSuccessProps?.txHash}
       />
 
-      <Flex fontSize="22px" fontWeight={600} mb="1rem">
+      <Flex fontSize={isMobile ? "1rem" : "22px"} fontWeight={600} mb="1rem">
         <Text color="brand.200">{totalSupply}</Text>&nbsp;/&nbsp;
         <Text>{maxSupply} FOXFONEX REMAINING</Text>
       </Flex>
       {isLive && !mintLimit ? (
         <>
-          <Heading fontSize={84} lineHeight="84px">
+          <Heading
+            fontSize={isMobile ? 42 : 84}
+            lineHeight={isMobile ? "42px" : "84px"}
+          >
             CONGRATZ YOU'VE
           </Heading>
-          <Heading fontSize={84} lineHeight="84px" textAlign="right">
+          <Heading
+            fontSize={isMobile ? 42 : 84}
+            lineHeight={isMobile ? "42px" : "84px"}
+            textAlign="right"
+          >
             FULLY MINTED
           </Heading>
         </>
@@ -146,15 +156,25 @@ const Minting = () => {
         <>
           {isLive ? (
             <>
-              <Heading fontSize={84} lineHeight="84px">
+              <Heading
+                fontSize={isMobile ? 42 : 84}
+                lineHeight={isMobile ? "42px" : "84px"}
+              >
                 HOW MANY FOXFONES
               </Heading>
-              <Heading fontSize={84} lineHeight="84px" textAlign="right">
+              <Heading
+                fontSize={isMobile ? 42 : 84}
+                lineHeight={isMobile ? "42px" : "84px"}
+                textAlign="right"
+              >
                 ARE YOU TAKING?
               </Heading>
             </>
           ) : (
-            <Heading fontSize={84} lineHeight="84px">
+            <Heading
+              fontSize={isMobile ? 42 : 84}
+              lineHeight={isMobile ? "42px" : "84px"}
+            >
               MINTING NOT LIVE
             </Heading>
           )}
@@ -163,6 +183,7 @@ const Minting = () => {
             alignItems="center"
             width="100%"
             justifyContent="space-between"
+            flexWrap={isMobile ? "wrap" : "nowrap"}
           >
             {Array.from({ length: 5 }, (_, i) => {
               const counter = i + 1;
@@ -192,10 +213,13 @@ const Minting = () => {
         mt="2rem"
         borderRadius="4px"
         bgColor="rgba(0,0,0,0.7)"
-        width="100%"
+        // width="100%"
         p="2rem"
       >
-        <Flex justifyContent="space-between">
+        <Flex
+          justifyContent="space-between"
+          flexWrap={isMobile ? "wrap" : "nowrap"}
+        >
           <Box>
             <Text>PRICE</Text>
             <Text fontSize={32} fontWeight={700}>
@@ -219,10 +243,17 @@ const Minting = () => {
         {!isConnected ? (
           <MetamaskButton size="lg" mt="2rem" />
         ) : (
-          <Flex mt="2rem" gap="2rem">
+          <Flex mt="2rem" gap="2rem" flexWrap={isMobile ? "wrap" : "nowrap"}>
             <Box>
               <Text fontWeight={700}>CONNECTED TO</Text>
-              <Text>{account?.address}</Text>
+              <Text
+                width="full"
+                whiteSpace="nowrap"
+                overflow="hidden"
+                textOverflow="ellipsis"
+              >
+                {truncateAddress(account?.address || "")}
+              </Text>
             </Box>
 
             <Button
