@@ -27,6 +27,7 @@ import { CONTRACT_ADDRESS } from "constants/constants";
 const Minting = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { activeChain } = useNetwork();
+  const [selected, setSelected] = React.useState<number | null>(null);
   const currentChainId = activeChain?.id || 1;
   const [mintSuccessProps, setMintSuccessProps] = React.useState<{
     contractAddress?: string;
@@ -44,6 +45,16 @@ const Minting = () => {
   const { mintLimit } = useGetMintAvailable();
   const { currentMintRateEth, currentMintRateWei } = useGetMintRate();
   const { isWhiteListed } = useCheckIsAddressWhiteListed();
+
+  console.log({
+    mintLimit,
+    isPublicSale,
+    isWhitelistSale,
+    isWhiteListed,
+    selected,
+    mintSuccessProps,
+  });
+
   const { write: mint, isLoading: isMinting } = useMint({
     onSuccess: (data) => {
       setMintSuccessProps({
@@ -54,7 +65,6 @@ const Minting = () => {
       });
       onOpen();
       setSelected(null);
-      console.log(JSON.stringify(data, null, 2));
     },
   });
   const { whiteListMint, isLoading: isWhiteListMinting } = useWhitelistMint({
@@ -67,11 +77,8 @@ const Minting = () => {
       });
       onOpen();
       setSelected(null);
-
-      console.log(JSON.stringify(data, null, 2));
     },
   });
-  const [selected, setSelected] = React.useState<number | null>(null);
 
   // @desc - value to be pass when mint
   const totalMintPriceInWei =
@@ -81,8 +88,6 @@ const Minting = () => {
     ethers.BigNumber.from(0);
   const totalMintPriceText = ethers.utils.formatEther(totalMintPriceInWei);
   const isLive = !!isPublicSale || !!isWhitelistSale;
-
-  console.log({ mintLimit, isPublicSale, isWhitelistSale, isWhiteListed });
 
   React.useEffect(() => {
     if (!isOpen) {
@@ -120,7 +125,7 @@ const Minting = () => {
         onClose={onClose}
         contractAddress={mintSuccessProps?.contractAddress}
         tokenId={mintSuccessProps?.tokenId}
-        quantity={selected || 0}
+        quantity={mintSuccessProps?.quantity}
         txHash={mintSuccessProps?.txHash}
       />
 

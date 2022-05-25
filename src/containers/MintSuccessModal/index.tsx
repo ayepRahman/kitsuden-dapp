@@ -8,7 +8,6 @@ import {
   Box,
   Flex,
 } from "@chakra-ui/react";
-import { TwitterShareButton } from "react-share";
 import { CloseIcon } from "@chakra-ui/icons";
 import { ReactComponent as FoxfoneLogo } from "assets/img/foxfone_logo.svg";
 import { ReactComponent as OpenseaIcon } from "assets/img/opensea.svg";
