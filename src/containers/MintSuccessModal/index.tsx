@@ -7,6 +7,7 @@ import {
   Text,
   Box,
   Flex,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
 import { ReactComponent as FoxfoneLogo } from "assets/img/foxfone_logo.svg";
@@ -24,10 +25,11 @@ const MintSuccessModal: React.FC<MintSuccessModalProps> = ({
   onClose,
   contractAddress,
   tokenId,
-  quantity = 0,
+  quantity = 5,
   txHash,
 }) => {
   const { activeChain } = useNetwork();
+  const [isMobile] = useMediaQuery("(max-width: 767.98px)");
 
   console.log({
     contractAddress,
@@ -83,8 +85,17 @@ const MintSuccessModal: React.FC<MintSuccessModalProps> = ({
             YOU SUCCESSFULLY HAVE MINTED
           </Text>
 
-          <Box mt="2rem" display="flex" width="100%" justifyContent="center">
-            <FoxfoneLogo />
+          <Box
+            mt="2rem"
+            display="flex"
+            width="100%"
+            gap="1rem"
+            justifyContent="center"
+            alignItems="center"
+          >
+            {Array.from({ length: quantity }, (_, i) => {
+              return <FoxfoneLogo key={i} />;
+            })}
           </Box>
 
           <Text fontWeight={500} fontSize="1rem">

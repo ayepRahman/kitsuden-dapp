@@ -124,7 +124,7 @@ const Minting = () => {
   return (
     <Box color="white" width="100%">
       <MintSuccessModal
-        isOpen={isOpen}
+        isOpen={true}
         onClose={onClose}
         contractAddress={mintSuccessProps?.contractAddress}
         tokenId={mintSuccessProps?.tokenId}
