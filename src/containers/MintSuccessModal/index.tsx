@@ -39,10 +39,10 @@ const MintSuccessModal: React.FC<MintSuccessModalProps> = ({
 
   const osLink = React.useMemo(() => {
     if (activeChain?.id === 1) {
-      return `https://opensea.io/assets/ethereum/${contractAddress}/${tokenId}`;
+      return `https://opensea.io/opensea/need-to-update`;
     }
 
-    return `https://testnets.opensea.io/assets/rinkeby/${contractAddress}/${tokenId}`;
+    return `https://testnets.opensea.io/collection/kitsuden-foxfone-v2`;
   }, [activeChain, activeChain?.id, contractAddress, tokenId]);
 
   const esLink = React.useMemo(() => {
