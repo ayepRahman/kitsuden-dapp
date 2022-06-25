@@ -6,8 +6,8 @@
     "@chakra-ui/icons": "^1.1.7",
     "@chakra-ui/react": "2.0.0",
     "@emotion/css": "^11.9.0",
-    "@emotion/react": "^11.0.0",
-    "@emotion/styled": "^11.0.0",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
     "@google/model-viewer": "^1.11.1",
     "@metamask/detect-provider": "^1.2.0",
     "@openzeppelin/contracts": "^4.6.0",
@@ -20,9 +20,10 @@
     "framer-motion": "^6.3.3",
     "keccak256": "^1.0.6",
     "merkletreejs": "^0.2.31",
+    "next": "latest",
     "process": "^0.11.10",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0",
+    "react": "latest",
+    "react-dom": "latest",
     "react-hook-form": "^7.30.0",
     "react-icons": "^4.3.1",
     "react-router-dom": "^6.3.0",
@@ -30,7 +31,7 @@
     "react-share": "^4.4.0",
     "stream-browserify": "^3.0.0",
     "typescript": "^4.6.4",
-    "wagmi": "^0.3.3",
+    "wagmi": "^0.4.12",
     "web-vitals": "^0.2.2"
   },
   "devDependencies": {
@@ -71,10 +72,9 @@
     "typechain": "^5.2.0"
   },
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
-    "test": "react-app-rewired test",
-    "eject": "react-app-rewired eject",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
     "deploy-test": "npx hardhat run scripts/deploy.ts --network rinkeby",
     "verify-test": "npx hardhat verify --network rinkeby <DEPLOYED CONTRACT ADDR>"
   },

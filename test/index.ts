@@ -5,7 +5,7 @@
 import { expect } from "chai";
 import { WHITE_LIST_ADDRESSES } from "constants/constants";
 import { ethers, waffle } from "hardhat";
-import { getMerkleProof, generateMerkle } from "../src/utils/merkle";
+import { getMerkleProof, generateMerkle } from "../utils/merkle";
 
 const contractMaxSupply = 6666;
 

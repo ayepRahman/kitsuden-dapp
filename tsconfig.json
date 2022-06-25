@@ -4,20 +4,18 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
+    "noEmit": true,
+    "esModuleInterop": true,
     "module": "esnext",
-    // "module": "CommonJS",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "baseUrl": "src"
+    "jsx": "preserve",
+    "incremental": true,
+    "baseUrl": "."
   },
-  "include": ["test", "src", "scripts"],
-  "files": ["./hardhat.config.ts"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/api/graphql.ts"],
+  "exclude": ["node_modules"]
 }
