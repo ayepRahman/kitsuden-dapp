@@ -32,7 +32,7 @@ export const Home = () => {
   return (
     <Box position="relative">
       <Header scrollTo={handleScrollTo} />
-      <div ref={heroRef}>
+      {/* <div ref={heroRef}>
         <Hero />
       </div>
       <div ref={loreRef}>
@@ -44,7 +44,7 @@ export const Home = () => {
       <div ref={teamRef}>
         <Team />
       </div>
-      <Footer scrollTo={handleScrollTo} />
+      <Footer scrollTo={handleScrollTo} /> */}
     </Box>
   );
 };

@@ -6,7 +6,6 @@ import {
   DrawerContent,
   Flex,
   useDisclosure,
-  useMediaQuery,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
@@ -23,6 +22,7 @@ import MetamaskButton from "containers/MetamaskButton";
 import { HeaderClip } from "./styled";
 import { SOCIAL_LINKS } from "constants/constants";
 import { useRouter } from "next/router";
+import { Mobile, Desktop } from "components/MediaQuery";
 
 interface HeaderProps {
   scrollTo?: (to: string) => void;
@@ -30,7 +30,6 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
   const router = useRouter();
-  const [isMobile] = useMediaQuery("(max-width: 767.98px)");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleOnClick = (to: string) => {
@@ -43,7 +42,7 @@ const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
   };
 
   const handleOpenLink = (link: string) => {
-    window.open(link);
+    window && window.open(link);
     onClose();
   };
 
@@ -56,7 +55,7 @@ const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
         background="Background.100"
       >
         {/* large */}
-        {!isMobile && (
+        <Desktop>
           <Flex
             position="relative"
             zIndex="2"
@@ -111,10 +110,10 @@ const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
               <MetamaskButton width="fit-content" />
             </Flex>
           </Flex>
-        )}
+        </Desktop>
 
         {/* mobile */}
-        {isMobile && (
+        <Mobile>
           <Flex
             position="relative"
             zIndex="2"
@@ -188,7 +187,7 @@ const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
               </DrawerContent>
             </Drawer>
           </Flex>
-        )}
+        </Mobile>
       </Container>
 
       <HeaderClip />
