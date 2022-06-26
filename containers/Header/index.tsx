@@ -7,22 +7,44 @@ import {
   Flex,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
-
 import ScrollLink from "components/ScrollLink";
 import SocialLink from "components/SocialLink";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
-import { ReactComponent as LogoImg } from "public/img/kitsuden_logo_1.svg";
-import { ReactComponent as DiscordIcon } from "public/img/discord.svg";
-import { ReactComponent as OpenseaIcon } from "public/img/opensea.svg";
-import { ReactComponent as TwitterIcon } from "public/img/twitter.svg";
-import { ReactComponent as EtherscanIcon } from "public/img/etherscan.svg";
-import { ReactComponent as LogoIcon } from "public/img/logo_icon.svg";
 import MetamaskButton from "containers/MetamaskButton";
 import { HeaderClip } from "./styled";
 import { SOCIAL_LINKS } from "constants/constants";
 import { useRouter } from "next/router";
 import { Mobile, Desktop } from "components/MediaQuery";
+import {
+  DiscordIcon,
+  EtherscanIcon,
+  LogoNameIcon,
+  OpenseaIcon,
+  TwitterIcon,
+} from "components/Icon";
+
+const navLinks = [
+  {
+    title: "HOME",
+    link: "hero",
+  },
+  {
+    title: "THE LORE",
+    link: "lore",
+  },
+  {
+    title: "THE PATH",
+    link: "path",
+  },
+  {
+    title: "THE TEAM",
+    link: "team",
+  },
+];
+
+const socialLinks = [
+  // ele
+];
 
 interface HeaderProps {
   scrollTo?: (to: string) => void;
@@ -64,7 +86,7 @@ const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
             justifyContent="space-between"
           >
             <Box flex={1}>
-              <LogoImg width={174} fill="black" />
+              <LogoNameIcon width="111px" height="33px" />
             </Box>
             <Flex
               gap="3rem"
@@ -72,18 +94,17 @@ const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
               textAlign="center"
               justifyContent="center"
             >
-              <ScrollLink onClick={() => handleOnClick("hero")}>
-                HOME
-              </ScrollLink>
-              <ScrollLink onClick={() => handleOnClick("lore")}>
-                THE LORE
-              </ScrollLink>
-              <ScrollLink onClick={() => handleOnClick("path")}>
-                THE PATH
-              </ScrollLink>
-              <ScrollLink onClick={() => handleOnClick("team")}>
-                THE TEAM
-              </ScrollLink>
+              {navLinks.map((l) => {
+                return (
+                  <ScrollLink
+                    key={l.title}
+                    color="black"
+                    onClick={() => handleOnClick(`${l.link}`)}
+                  >
+                    {l.title}
+                  </ScrollLink>
+                );
+              })}
             </Flex>
             <Flex
               gap="1.5rem"
@@ -91,29 +112,49 @@ const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
               justifyContent="flex-end"
               flex={1}
             >
-              <SocialLink>
-                <DiscordIcon />
-              </SocialLink>
-              <SocialLink
+              <DiscordIcon
+                cursor="pointer"
+                height="1.25rem"
+                width="1.25rem"
+                _hover={{ fill: "brand.200" }}
                 onClick={() =>
                   handleOpenLink("https://twitter.com/kitsudennft")
                 }
-              >
-                <TwitterIcon />
-              </SocialLink>
-              <SocialLink>
-                <OpenseaIcon />
-              </SocialLink>
-              <SocialLink>
-                <EtherscanIcon />
-              </SocialLink>
+              />
+              <TwitterIcon
+                cursor="pointer"
+                height="1.25rem"
+                width="1.25rem"
+                _hover={{ fill: "brand.200" }}
+                onClick={() =>
+                  handleOpenLink("https://twitter.com/kitsudennft")
+                }
+              />
+              <OpenseaIcon
+                cursor="pointer"
+                height="1.25rem"
+                width="1.25rem"
+                _hover={{ fill: "brand.200" }}
+                onClick={() =>
+                  handleOpenLink("https://twitter.com/kitsudennft")
+                }
+              />
+              <EtherscanIcon
+                cursor="pointer"
+                height="1.25rem"
+                width="1.25rem"
+                _hover={{ fill: "brand.200" }}
+                onClick={() =>
+                  handleOpenLink("https://twitter.com/kitsudennft")
+                }
+              />
               <MetamaskButton width="fit-content" />
             </Flex>
           </Flex>
         </Desktop>
 
         {/* mobile */}
-        <Mobile>
+        {/* <Mobile>
           <Flex
             position="relative"
             zIndex="2"
@@ -187,7 +228,7 @@ const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
               </DrawerContent>
             </Drawer>
           </Flex>
-        </Mobile>
+        </Mobile> */}
       </Container>
 
       <HeaderClip />

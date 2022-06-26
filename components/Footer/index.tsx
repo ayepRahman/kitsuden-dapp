@@ -1,13 +1,13 @@
 import React from "react";
 import { Box, Container, Flex, useMediaQuery } from "@chakra-ui/react";
-import footerBg from "public/img/footer.svg";
-import { ReactComponent as LogoImg } from "public/img/kitsuden_logo_1.svg";
-import { ReactComponent as LogoIcon } from "public/img/logo_icon.svg";
+import footerBg from "public/svg/footer.svg";
+import LogoImg from "public/svg/kitsuden_logo_1.svg";
+import LogoIcon from "public/svg/logo_icon.svg";
 import ScrollLink from "components/ScrollLink";
-import { ReactComponent as DiscordIcon } from "public/img/discord.svg";
-import { ReactComponent as OpenseaIcon } from "public/img/opensea.svg";
-import { ReactComponent as TwitterIcon } from "public/img/twitter.svg";
-import { ReactComponent as EtherscanIcon } from "public/img/etherscan.svg";
+import DiscordIcon from "public/svg/discord.svg";
+import OpenseaIcon from "public/svg/opensea.svg";
+import TwitterIcon from "public/svg/twitter.svg";
+import EtherscanIcon from "public/svg/etherscan.svg";
 import SocialLink from "components/SocialLink";
 import Image from "components/Image";
 

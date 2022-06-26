@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Link, Box } from "@chakra-ui/react";
-import clip from "public/img/headerClip.svg";
+import Clip from "public/svg/header_clip.svg";
 
 export const HeaderLink = styled(Box)`
   font-size: 1.25rem;
@@ -15,7 +15,7 @@ export const HeaderLink = styled(Box)`
   }
 `;
 
-export const HeaderClip = styled(clip)`
+export const HeaderClip = styled(Clip)`
   position: absolute;
   bottom: -4rem;
   left: 0;
