@@ -1,0 +1,15 @@
+export { default as KitsudenLogoSvg } from "./logo_icon.svg";
+export { default as KitsudenLogoNameSvg } from "./logo_name.svg";
+export { default as FoxFoneLogoSvg } from "./foxfone_logo.svg";
+export { default as DiscordSvg } from "./discord.svg";
+export { default as TwitterSvg } from "./twitter.svg";
+export { default as OpenSeaSvg } from "./opensea.svg";
+export { default as EtherscanSvg } from "./etherscan.svg";
+export { default as Fire1Svg } from "./fire_1.svg";
+export { default as Fire2Svg } from "./fire_2.svg";
+export { default as Fire3Svg } from "./fire_3.svg";
+export { default as Fire4Svg } from "./fire_4.svg";
+export { default as HeaderClipSvg } from "./header_clip.svg";
+export { default as LockSvg } from "./lock.svg";
+export { default as ModalMobileSvg } from "./mobile_modal_bg.svg";
+export { default as ModalBgSvg } from "./modal_bg.svg";

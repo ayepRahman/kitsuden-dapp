@@ -1,20 +1,87 @@
+// https://github.com/chakra-ui/chakra-ui/discussions/2475#discussioncomment-1186993
+
+import { Box, BoxProps, chakra, Skeleton } from "@chakra-ui/react";
+import NextImage, { ImageProps, ImageLoaderProps } from "next/image";
+import brokenImg from "public/img/broken_img.png";
 import React from "react";
-import styled from "@emotion/styled";
-import { Image as CKImage, ImageProps } from "@chakra-ui/react";
 
-const CustomImage = styled(CKImage)<{ isLoaded?: boolean }>`
-  opacity: ${(p) => (p.isLoaded ? "1" : "0")};
-  transition: all 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67);
-`;
+const ChakraNextUnwrappedImage = chakra(NextImage, {
+  shouldForwardProp: (prop) =>
+    [
+      "width",
+      "height",
+      "src",
+      "alt",
+      "quality",
+      "placeholder",
+      "blurDataURL",
+      "loader ",
+      "layout",
+      "onLoad",
+      "onError",
+      "objectFit",
+      "objectPosition",
+    ].includes(prop),
+});
 
-const Iamge: React.FC<ImageProps> = (props) => {
-  const [isLoaded, setIsLoaded] = React.useState<boolean>(false);
-
-  const handleOnLoad = () => {
-    setIsLoaded(true);
-  };
-
-  return <CustomImage {...props} isLoaded={isLoaded} onLoad={handleOnLoad} />;
+const myLoader = (resolverProps: ImageLoaderProps): string => {
+  return `${resolverProps.src}?w=${resolverProps.width}&q=${resolverProps.quality}`;
 };
 
-export default Iamge;
+const shimmer = (w: number, h: number) => `
+<svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <linearGradient id="g">
+      <stop stop-color="#4A5568" offset="20%" />
+      <stop stop-color="#3f495a" offset="50%" />
+      <stop stop-color="#4A5568" offset="70%" />
+    </linearGradient>
+  </defs>
+  <rect width="${w}" height="${h}" fill="#4A5568" />
+  <rect id="r" width="${w}" height="${h}" fill="url(#g)" />
+  <animate xlink:href="#r" attributeName="x" from="-${w}" to="${w}" dur="1s" repeatCount="indefinite"  />
+</svg>`;
+
+const toBase64 = (str: string) =>
+  typeof window === "undefined"
+    ? Buffer.from(str).toString("base64")
+    : window.btoa(str);
+
+type ChakraNextImageProps = ImageProps & BoxProps;
+
+const ChakraNextImage: React.FC<ChakraNextImageProps> = ({
+  src,
+
+  ...props
+}) => {
+  const [imageLoading, setImageLoading] = React.useState(true);
+  const [onError, setOnError] = React.useState<boolean>(false);
+
+  const handleOnLoad = () => {
+    setImageLoading(false);
+  };
+
+  const handleOnError = () => {
+    setImageLoading(false);
+    setOnError(true);
+  };
+
+  const imgSrc = onError ? brokenImg : src || brokenImg;
+
+  return (
+    <ChakraNextUnwrappedImage
+      w="auto"
+      h="auto"
+      loader={myLoader}
+      placeholder="blur"
+      blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
+      src={imgSrc}
+      transition="all 0.2s"
+      onLoad={handleOnLoad}
+      onError={handleOnError}
+      {...props}
+    />
+  );
+};
+
+export default ChakraNextImage;

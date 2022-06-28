@@ -17,54 +17,32 @@ export const HeaderLink = styled(Box)`
 
 export const HeaderClip = styled(Clip)`
   position: absolute;
-  bottom: -4rem;
-  left: 0;
   width: 100%;
-  z-index: 1;
-
-  /* X-Large devices (large desktops, less than 1400px) */
-  @media (max-width: 1399.98px) {
-    bottom: -2rem;
-  }
-
-  /* Large devices (desktops, less than 1200px) */
-  @media (max-width: 1199.98px) {
-    bottom: -2rem;
-  }
-
-  /* Medium devices (tablets, less than 992px) */
-  @media (max-width: 991.98px) {
-    bottom: -2rem;
-  }
-
-  /* Small devices (landscape phones, less than 768px) */
-  @media (max-width: 767.98px) {
-    bottom: -1rem;
-  }
-
-  /* X-Small devices (portrait phones, less than 576px) */
-  @media (max-width: 575.98px) {
-    bottom: -1rem;
-  }
+  z-index: 3;
 
   /* Small devices (landscape phones, 576px and up) */
   @media (min-width: 576px) {
+    bottom: -1rem;
   }
 
   /* Medium devices (tablets, 768px and up) */
   @media (min-width: 768px) {
+    bottom: -2rem;
   }
 
   /* Large devices (desktops, 992px and up) */
   @media (min-width: 992px) {
+    bottom: -3rem;
   }
 
   /* X-Large devices (large desktops, 1200px and up) */
   @media (min-width: 1200px) {
+    bottom: -3.5rem;
   }
 
   /* XX-Large devices (larger desktops, 1400px and up) */
   @media (min-width: 1400px) {
+    bottom: -4rem;
   }
 `;
 

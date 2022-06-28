@@ -32,10 +32,10 @@ export const Home = () => {
   return (
     <Box position="relative">
       <Header scrollTo={handleScrollTo} />
-      {/* <div ref={heroRef}>
+      <div ref={heroRef}>
         <Hero />
       </div>
-      <div ref={loreRef}>
+      {/* <div ref={loreRef}>
         <Lore />
       </div>
       <div ref={pathRef}>

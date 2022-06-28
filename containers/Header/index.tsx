@@ -1,4 +1,5 @@
 import React from "react";
+import dynamic from "next/dynamic";
 import {
   Box,
   Container,
@@ -7,21 +8,16 @@ import {
   Flex,
   useDisclosure,
 } from "@chakra-ui/react";
+
 import ScrollLink from "components/ScrollLink";
-import SocialLink from "components/SocialLink";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
-import MetamaskButton from "containers/MetamaskButton";
 import { HeaderClip } from "./styled";
 import { SOCIAL_LINKS } from "constants/constants";
 import { useRouter } from "next/router";
 import { Mobile, Desktop } from "components/MediaQuery";
-import {
-  DiscordIcon,
-  EtherscanIcon,
-  LogoNameIcon,
-  OpenseaIcon,
-  TwitterIcon,
-} from "components/Icon";
+import Icon, { IconNamesType } from "components/Icon";
+
+const MetamaskButton = dynamic(() => import("containers/MetamaskButton"));
 
 const navLinks = [
   {
@@ -42,8 +38,26 @@ const navLinks = [
   },
 ];
 
-const socialLinks = [
-  // ele
+const socialLinks: {
+  name: IconNamesType;
+  link: string;
+}[] = [
+  {
+    name: "discord",
+    link: SOCIAL_LINKS.discord,
+  },
+  {
+    name: "twitter",
+    link: SOCIAL_LINKS.twitter,
+  },
+  {
+    name: "opensea",
+    link: SOCIAL_LINKS.discord,
+  },
+  {
+    name: "etherscan",
+    link: SOCIAL_LINKS.discord,
+  },
 ];
 
 interface HeaderProps {
@@ -69,12 +83,18 @@ const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
   };
 
   return (
-    <Box bg="brand.100" height="max-content" position="relative">
+    <Box
+      bg="brand.100"
+      height="max-content"
+      position="relative"
+      // overflowX="hidden"
+    >
       <Container
         position="relative"
-        padding=" 1rem"
+        padding={{ base: "0.5rem 1rem", lg: "1rem" }}
         maxW={1920}
         background="Background.100"
+        zIndex={4}
       >
         {/* large */}
         <Desktop>
@@ -86,10 +106,10 @@ const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
             justifyContent="space-between"
           >
             <Box flex={1}>
-              <LogoNameIcon width="111px" height="33px" />
+              <Icon name="kitsudenName" width="111px" height="33px" />
             </Box>
             <Flex
-              gap="3rem"
+              gap="2rem"
               flex={1}
               textAlign="center"
               justifyContent="center"
@@ -112,49 +132,27 @@ const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
               justifyContent="flex-end"
               flex={1}
             >
-              <DiscordIcon
-                cursor="pointer"
-                height="1.25rem"
-                width="1.25rem"
-                _hover={{ fill: "brand.200" }}
-                onClick={() =>
-                  handleOpenLink("https://twitter.com/kitsudennft")
-                }
-              />
-              <TwitterIcon
-                cursor="pointer"
-                height="1.25rem"
-                width="1.25rem"
-                _hover={{ fill: "brand.200" }}
-                onClick={() =>
-                  handleOpenLink("https://twitter.com/kitsudennft")
-                }
-              />
-              <OpenseaIcon
-                cursor="pointer"
-                height="1.25rem"
-                width="1.25rem"
-                _hover={{ fill: "brand.200" }}
-                onClick={() =>
-                  handleOpenLink("https://twitter.com/kitsudennft")
-                }
-              />
-              <EtherscanIcon
-                cursor="pointer"
-                height="1.25rem"
-                width="1.25rem"
-                _hover={{ fill: "brand.200" }}
-                onClick={() =>
-                  handleOpenLink("https://twitter.com/kitsudennft")
-                }
-              />
+              {socialLinks.map((s) => {
+                return (
+                  <Icon
+                    key={s.name}
+                    name={s.name}
+                    cursor="pointer"
+                    height="1.25rem"
+                    width="1.25rem"
+                    _hover={{ fill: "brand.200" }}
+                    onClick={() => handleOpenLink(s.link)}
+                  />
+                );
+              })}
+
               <MetamaskButton width="fit-content" />
             </Flex>
           </Flex>
         </Desktop>
 
         {/* mobile */}
-        {/* <Mobile>
+        <Mobile>
           <Flex
             position="relative"
             zIndex="2"
@@ -163,13 +161,18 @@ const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
             justifyContent="space-between"
           >
             <Box flex={1} />
-            <Box flex={1} width="50%" textAlign="center" margin="0 auto">
-              <LogoImg width={174} fill="black" />
+            <Box flex={1} textAlign="center">
+              <Icon name="kitsudenName" w="133px" h="40px" />
             </Box>
             <Box flex={1} textAlign="right">
-              <HamburgerIcon onClick={() => onOpen()} fontSize={24} />
+              <HamburgerIcon
+                color="black"
+                onClick={() => onOpen()}
+                fontSize={24}
+              />
             </Box>
 
+            {/* menu */}
             <Drawer onClose={() => onClose()} isOpen={isOpen} size="full">
               <DrawerContent bgColor="brand.100">
                 <Flex
@@ -180,6 +183,7 @@ const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
                   position="relative"
                 >
                   <CloseIcon
+                    color="black"
                     fontSize={24}
                     position="absolute"
                     top="1.5rem"
@@ -187,48 +191,46 @@ const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
                     onClick={onClose}
                   />
 
-                  <LogoIcon width={94} height={94} />
+                  <Icon
+                    name="kitsudenLogo"
+                    width="94px"
+                    height="94px"
+                    mb="3rem"
+                  />
 
-                  <ScrollLink
-                    mt="3rem"
-                    mb="0.5rem"
-                    onClick={() => handleOnClick("hero")}
-                  >
-                    HOME
-                  </ScrollLink>
-                  <ScrollLink my="0.5rem" onClick={() => handleOnClick("lore")}>
-                    THE LORE
-                  </ScrollLink>
-                  <ScrollLink my="0.5rem" onClick={() => handleOnClick("path")}>
-                    THE PATH
-                  </ScrollLink>
-                  <ScrollLink my="0.5rem" onClick={() => handleOnClick("team")}>
-                    THE TEAM
-                  </ScrollLink>
+                  {navLinks.map((l) => {
+                    return (
+                      <ScrollLink
+                        key={l.title}
+                        color="black"
+                        my="0.5rem"
+                        onClick={() => handleOnClick(`${l.link}`)}
+                      >
+                        {l.title}
+                      </ScrollLink>
+                    );
+                  })}
 
                   <Flex mt="3rem" gap="2rem">
-                    <SocialLink
-                      onClick={() => handleOpenLink(SOCIAL_LINKS.discord)}
-                    >
-                      <DiscordIcon />
-                    </SocialLink>
-                    <SocialLink
-                      onClick={() => handleOpenLink(SOCIAL_LINKS.twitter)}
-                    >
-                      <TwitterIcon />
-                    </SocialLink>
-                    <SocialLink>
-                      <OpenseaIcon />
-                    </SocialLink>
-                    <SocialLink>
-                      <EtherscanIcon />
-                    </SocialLink>
+                    {socialLinks.map((s) => {
+                      return (
+                        <Icon
+                          key={s.name}
+                          name={s.name}
+                          cursor="pointer"
+                          height="1.25rem"
+                          width="1.25rem"
+                          _hover={{ fill: "brand.200" }}
+                          onClick={() => handleOpenLink(s.link)}
+                        />
+                      );
+                    })}
                   </Flex>
                 </Flex>
               </DrawerContent>
             </Drawer>
           </Flex>
-        </Mobile> */}
+        </Mobile>
       </Container>
 
       <HeaderClip />

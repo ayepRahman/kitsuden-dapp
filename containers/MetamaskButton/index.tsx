@@ -1,11 +1,13 @@
 import React from "react";
 import { ButtonProps, useToast } from "@chakra-ui/react";
-import { useConnect, useDisconnect } from "wagmi";
+import { useConnect, useDisconnect, useProvider } from "wagmi";
 import metamaskImg from "public/img/metamask.png";
 import Button from "components/Button";
 import Image from "components/Image";
+import useIsMounted from "hooks/useIsMounted";
 
 const MetamaskButton: React.FC<ButtonProps> = ({ ...props }) => {
+  const isMounted = useIsMounted();
   const toast = useToast();
   const { disconnect } = useDisconnect();
   const { connect, isConnected, connectors, isConnecting } = useConnect({
@@ -25,7 +27,7 @@ const MetamaskButton: React.FC<ButtonProps> = ({ ...props }) => {
   return (
     <Button
       size="sm"
-      isLoading={isConnecting}
+      isLoading={isMounted && isConnecting}
       onClick={() => {
         if (isConnected) {
           disconnect();
@@ -42,17 +44,26 @@ const MetamaskButton: React.FC<ButtonProps> = ({ ...props }) => {
       colorScheme="orange"
       display="flex"
       alignItems="center"
+      gap="0.5rem"
       {...props}
     >
-      {isConnected ? (
-        "Connected"
-      ) : (
+      {isMounted ? (
         <>
-          <Image src={metamaskImg} height={3} width={3} mr={2} />
-          <span>
-            {!metamaskConnector.ready ? "Install Metamask" : "Connect"}
-          </span>
+          {isConnected ? (
+            <span>Connected</span>
+          ) : (
+            <>
+              <Image src={metamaskImg.src} height="16px" width="16px" />
+              <span>
+                {!isConnected && !metamaskConnector?.ready
+                  ? "Install Metamask"
+                  : "Connect"}
+              </span>
+            </>
+          )}
         </>
+      ) : (
+        <span>Connect</span>
       )}
     </Button>
   );

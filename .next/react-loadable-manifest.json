@@ -1,4 +1,10 @@
 {
+  "../containers/Header/index.tsx -> containers/MetamaskButton": {
+    "id": "../containers/Header/index.tsx -> containers/MetamaskButton",
+    "files": [
+      "static/chunks/containers_MetamaskButton_index_tsx.js"
+    ]
+  },
   "../node_modules/@wagmi/core/connectors/coinbaseWallet/dist/wagmi-core-connectors-coinbaseWallet.esm.js -> @coinbase/wallet-sdk": {
     "id": "../node_modules/@wagmi/core/connectors/coinbaseWallet/dist/wagmi-core-connectors-coinbaseWallet.esm.js -> @coinbase/wallet-sdk",
     "files": [
