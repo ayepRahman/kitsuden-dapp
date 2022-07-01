@@ -1,5 +1,5 @@
 import { extendTheme } from "@chakra-ui/react";
-export { Global } from "./Global";
+export { Fonts as Global } from "./Global";
 
 const theme = extendTheme({
   fonts: {

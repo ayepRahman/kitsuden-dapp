@@ -6,29 +6,31 @@ import {
   Heading,
   useMediaQuery,
   Text,
+  useMergeRefs,
 } from "@chakra-ui/react";
 import { TimeLine, TimeLineItem } from "./path.styled";
-import pathBg from "public/img/bg_section_2.png";
+import pathBg from "public/img/path_bg.png";
 import pathBrushBg from "public/img/path_bg.png";
-import chapterIcon1 from "public/img/chapter_1_icon.svg";
-import chapterIcon2 from "public/img/chapter_2_icon.svg";
-import chapterIcon3 from "public/img/chapter_3_icon.svg";
-import chapterIcon4 from "public/img/chapter_4_icon.svg";
-import lockIcon from "public/img/lock.svg";
+import chapterIcon1 from "public/svg/fire_1.svg";
+import chapterIcon2 from "public/svg/fire_2.svg";
+import chapterIcon3 from "public/svg/fire_3.svg";
+import chapterIcon4 from "public/svg/fire_4.svg";
+import lockIcon from "public/svg/lock.svg";
 import Image from "components/Image";
+import Icon from "components/Icon";
 
 // https://www.w3schools.com/howto/howto_css_timeline.asp
 
-const Path = () => {
+const Path = React.forwardRef((_, ref) => {
   const [isMobile] = useMediaQuery("(max-width: 767.98px)");
+  const refs = useMergeRefs(ref);
 
   return (
-    <Box top="-8rem" width="full" position="relative">
+    <Box ref={refs} top="-8rem" width="full" position="relative" zIndex={4}>
       <Image
         position="absolute"
-        width="full"
-        height="100%"
-        src={pathBg}
+        layout="fill"
+        src={pathBg.src}
         objectFit={isMobile ? "cover" : "fill"}
       />
       <Container
@@ -54,7 +56,7 @@ const Path = () => {
               The Path
             </Heading>
             <TimeLine>
-              <TimeLineItem size={44} url={chapterIcon1}>
+              <TimeLineItem size={44} url="/svg/fire_1.svg">
                 <Heading
                   mb="1rem"
                   fontWeight={400}
@@ -81,7 +83,7 @@ const Path = () => {
                   randomly minted.
                 </Text>
               </TimeLineItem>
-              <TimeLineItem size={44} url={chapterIcon2}>
+              <TimeLineItem size={44} url="/svg/fire_2.svg">
                 <Heading
                   mb="3rem"
                   fontWeight={400}
@@ -91,10 +93,10 @@ const Path = () => {
                   alignItems="center"
                 >
                   Chapter 2
-                  <Image ml="1rem" src={lockIcon} />
+                  <Icon name="lock" ml="1rem" />
                 </Heading>
               </TimeLineItem>
-              <TimeLineItem size={46} url={chapterIcon3}>
+              <TimeLineItem size={46} url="/svg/fire_3.svg">
                 <Heading
                   mb="3rem"
                   fontWeight={400}
@@ -104,10 +106,10 @@ const Path = () => {
                   alignItems="center"
                 >
                   Chapter 3
-                  <Image ml="1rem" src={lockIcon} />
+                  <Icon name="lock" ml="1rem" />
                 </Heading>
               </TimeLineItem>
-              <TimeLineItem size={48} url={chapterIcon4}>
+              <TimeLineItem size={48} url="/svg/fire_4.svg">
                 <Heading
                   fontWeight={400}
                   fontSize="54px"
@@ -116,7 +118,7 @@ const Path = () => {
                   alignItems="center"
                 >
                   Chapter 4
-                  <Image ml="1rem" src={lockIcon} />
+                  <Icon name="lock" ml="1rem" />
                 </Heading>
               </TimeLineItem>
             </TimeLine>
@@ -126,14 +128,15 @@ const Path = () => {
             height={isMobile ? "400px" : "700px"}
             position="relative"
           >
-            <Image
-              src={pathBrushBg}
+            {/* <Image
+              src={pathBrushBg.src}
               position="absolute"
-              height={isMobile ? "400px" : "700px"}
-              w="full"
-            />
+              layout="responsive"
+              // height={isMobile ? "400px" : "700px"}
+              // width="100%"
+            /> */}
 
-            <model-viewer
+            {/* <model-viewer
               style={{
                 width: "100%",
                 height: "100%",
@@ -147,12 +150,12 @@ const Path = () => {
               camera-controls
               auto-rotate
               ar
-            ></model-viewer>
+            ></model-viewer> */}
           </Box>
         </Flex>
       </Container>
     </Box>
   );
-};
+});
 
 export default Path;

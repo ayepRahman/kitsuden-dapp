@@ -4,21 +4,29 @@ import heroBg from "public/img/hero_bg.png";
 import kitsudenLog from "public/img/kitsuden_logo_0.png";
 import Button from "components/Button";
 import Image from "components/Image";
-import { motion } from "framer-motion";
-import useIsMounted from "hooks/useIsMounted";
+import ChakraBox from "components/ChakraBox";
 
-const Hero = () => {
-  const isMounted = useIsMounted();
+const Hero = React.forwardRef<any>((_, ref) => {
   const [isMobile] = useMediaQuery("(max-width: 767.98px)");
 
   return (
     <Box
+      ref={ref}
       position="relative"
       h={isMobile ? "800px" : "1000px"}
       w="100%"
       overflow="hidden"
     >
-      <Box top="0" position="absolute" h="100%" w="100%">
+      <ChakraBox
+        initial={{ opacity: 0.1, scale: 1.3 }}
+        animate={{ opacity: 1, scale: 1 }}
+        // @ts-ignore no problem in operation, although type error appears.
+        transition={{ duration: 2 }}
+        top="0"
+        position="absolute"
+        h="100%"
+        w="100%"
+      >
         <Image src={heroBg.src} layout="fill" objectFit="cover" zIndex={0} />
         <Box
           position="relative"
@@ -28,11 +36,12 @@ const Hero = () => {
           zIndex={1}
           background="black"
         />
-      </Box>
-      <Box
-        as={motion.div}
-        initial={{ top: "65%", opacity: 0 }}
-        animate={{ top: "50%", opacity: 1 }}
+      </ChakraBox>
+      <ChakraBox
+        initial={{ opacity: 0, top: "65%" }}
+        animate={{ opacity: 1, top: "50%" }}
+        // @ts-ignore no problem in operation, although type error appears.
+        transition={{ duration: 1.5 }}
         display="flex"
         flexDir="column"
         gap="2rem"
@@ -55,9 +64,9 @@ const Hero = () => {
         <Button size="lg" m="0 auto">
           COMING SOON
         </Button>
-      </Box>
+      </ChakraBox>
     </Box>
   );
-};
+});
 
 export default Hero;
