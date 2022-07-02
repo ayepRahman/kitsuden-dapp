@@ -38,7 +38,7 @@ const getMerkleProof = (
   const merkle = generateMerkle(whitelistAddresses);
   const hashAddress = keccak256(convertedAddresses[0]);
   const proof = merkle?.merkleTree.getHexProof(hashAddress);
-  return proof;
+  return proof || [];
 };
 
 const isWhiteList = (

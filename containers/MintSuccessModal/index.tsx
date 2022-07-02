@@ -10,10 +10,10 @@ import {
   useMediaQuery,
 } from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
-import { ReactComponent as FoxfoneLogo } from "public/img/foxfone_logo.svg";
-import { ReactComponent as OpenseaIcon } from "public/img/opensea.svg";
-import { ReactComponent as EtherscanIcon } from "public/img/etherscan.svg";
-import { ReactComponent as TwitterIcon } from "public/img/twitter.svg";
+import FoxfoneLogo from "public/img/foxfone_logo.svg";
+import OpenseaIcon from "public/img/opensea.svg";
+import EtherscanIcon from "public/img/etherscan.svg";
+import TwitterIcon from "public/img/twitter.svg";
 import SocialLink from "components/SocialLink";
 import Button from "components/Button";
 import { useNetwork } from "wagmi";
