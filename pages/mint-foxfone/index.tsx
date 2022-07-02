@@ -27,60 +27,62 @@ const Mint = () => {
     }
   }, [activeChain]);
 
-  return (
-    <Box h="100%">
-      {isShowWarning && (
-        <Box
-          position="relative"
-          textAlign="center"
-          color="white"
-          p={3}
-          bg="brand.200"
-        >
-          Please switch to{" "}
-          <Link textDecor="underline" onClick={() => switchNetwork?.(1)}>
-            mainnet
-          </Link>{" "}
-          , currently connected to {activeChain?.name}
-          <CloseIcon
-            cursor="pointer"
-            fontSize={16}
-            position="absolute"
-            top="1rem"
-            right="1rem"
-            onClick={() => setIsShowWarning(false)}
-          />
-        </Box>
-      )}
-      <Header />
-      <Box position="relative" height="100%">
-        <Image
-          position="absolute"
-          src={loreBanneMist}
-          height={isMobile ? "100%" : "100vh"}
-          width="100%"
-          objectFit={"cover"}
-          bgPos="top"
-          zIndex="-1"
-        />
-        <Container maxW={1600} py="5rem">
-          <Flex
-            flexWrap={isMobile ? "wrap-reverse" : "nowrap"}
-            gap="5rem"
-            alignItems="center"
-            w="100%"
-          >
-            <Box flexBasis={isMobile ? "100%" : "50%"} w="100%">
-              <Minting />
-            </Box>
-            <Box flexBasis={isMobile ? "100%" : "50%"} w="100%">
-              <Image src={mintBrushImg} width="100%" height="100%" />
-            </Box>
-          </Flex>
-        </Container>
-      </Box>
-    </Box>
-  );
+  return null;
+
+  // return (
+  //   <Box h="100%">
+  //     {isShowWarning && (
+  //       <Box
+  //         position="relative"
+  //         textAlign="center"
+  //         color="white"
+  //         p={3}
+  //         bg="brand.200"
+  //       >
+  //         Please switch to{" "}
+  //         <Link textDecor="underline" onClick={() => switchNetwork?.(1)}>
+  //           mainnet
+  //         </Link>{" "}
+  //         , currently connected to {activeChain?.name}
+  //         <CloseIcon
+  //           cursor="pointer"
+  //           fontSize={16}
+  //           position="absolute"
+  //           top="1rem"
+  //           right="1rem"
+  //           onClick={() => setIsShowWarning(false)}
+  //         />
+  //       </Box>
+  //     )}
+  //     <Header />
+  //     <Box position="relative" height="100%">
+  //       <Image
+  //         position="absolute"
+  //         src={loreBanneMist}
+  //         height={isMobile ? "100%" : "100vh"}
+  //         width="100%"
+  //         objectFit={"cover"}
+  //         bgPos="top"
+  //         zIndex="-1"
+  //       />
+  //       <Container maxW={1600} py="5rem">
+  //         <Flex
+  //           flexWrap={isMobile ? "wrap-reverse" : "nowrap"}
+  //           gap="5rem"
+  //           alignItems="center"
+  //           w="100%"
+  //         >
+  //           <Box flexBasis={isMobile ? "100%" : "50%"} w="100%">
+  //             <Minting />
+  //           </Box>
+  //           <Box flexBasis={isMobile ? "100%" : "50%"} w="100%">
+  //             <Image src={mintBrushImg} width="100%" height="100%" />
+  //           </Box>
+  //         </Flex>
+  //       </Container>
+  //     </Box>
+  //   </Box>
+  // );
 };
 
 export default Mint;
