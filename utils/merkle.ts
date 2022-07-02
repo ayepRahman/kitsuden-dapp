@@ -9,7 +9,7 @@ import { getAndConvertAddresses } from "./ethers";
 const generateMerkle = (addresses: string[]) => {
   if (!addresses?.length) return null;
 
-  //  This is to ensure the addresses is valid and injects the checksum
+  // This is to ensure the addresses is valid and injects the checksum
   const convertedAddresses = getAndConvertAddresses(addresses);
 
   /**
