@@ -1,4 +1,10 @@
 {
+  "../components/Home/index.tsx -> ./Path": {
+    "id": "../components/Home/index.tsx -> ./Path",
+    "files": [
+      "static/chunks/components_Home_Path_tsx.js"
+    ]
+  },
   "../containers/Header/index.tsx -> containers/MetamaskButton": {
     "id": "../containers/Header/index.tsx -> containers/MetamaskButton",
     "files": [

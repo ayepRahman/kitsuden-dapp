@@ -19,6 +19,7 @@ export const HeaderClip = styled(Clip)`
   position: absolute;
   width: 100%;
   z-index: 3;
+  bottom: -1rem;
 
   /* Small devices (landscape phones, 576px and up) */
   @media (min-width: 576px) {

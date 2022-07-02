@@ -13,7 +13,7 @@ const Hero = React.forwardRef<any>((_, ref) => {
     <Box
       ref={ref}
       position="relative"
-      h={isMobile ? "800px" : "1000px"}
+      h={isMobile ? "calc(100vh - 60px)" : "1000px"}
       w="100%"
       overflow="hidden"
     >

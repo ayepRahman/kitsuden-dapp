@@ -1,7 +1,8 @@
 import { Box } from "@chakra-ui/react";
 import styled from "@emotion/styled";
+import ChakraBox from "components/ChakraBox";
 
-export const TimeLine = styled(Box)`
+export const TimeLine = styled(ChakraBox)`
   position: relative;
   margin: 1rem;
   color: white;
@@ -17,7 +18,7 @@ export const TimeLine = styled(Box)`
   }
 `;
 
-export const TimeLineItem = styled(Box)<{ url: string; size: number }>`
+export const TimeLineItem = styled(ChakraBox)<{ url: string; size: number }>`
   padding: 0 0 1rem 2rem;
   position: relative;
 

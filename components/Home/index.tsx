@@ -1,12 +1,15 @@
 import React from "react";
+import dynamic from "next/dynamic";
 import { Box, Heading } from "@chakra-ui/react";
 import Header from "containers/Header";
 import Footer from "components/Footer";
 import Hero from "./Hero";
 import Lore from "./Lore";
-import Path from "./Path";
+// import Path from "./Path";
 import Team from "./Team";
 import useScrollTo from "hooks/useScrollTo";
+
+const Path = dynamic(() => import("./Path"), { ssr: false });
 
 export const Home = () => {
   const [isLoading, setIsLoading] = React.useState<boolean>(true);

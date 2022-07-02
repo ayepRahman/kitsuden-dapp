@@ -14,6 +14,7 @@ import ChakraText from "components/ChakraText";
 import ChakraBox from "components/ChakraBox";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import useIsMounted from "hooks/useIsMounted";
 
 const lines = {
   one: "It is said there lies a hidden village located at the eastern par of the world. Deep within the forest of spirits where no man dares to enter. Elusive beings are seen to inhabit the mysterious village. Living their daily lives unbeknownst to the world.",
@@ -53,6 +54,7 @@ const letterVariants = {
 };
 
 const Lore = React.forwardRef((_, ref) => {
+  const isMounted = useIsMounted();
   const [isMobile] = useMediaQuery("(max-width: 767.98px)");
   const [boxRef, inView] = useInView();
   const refs = useMergeRefs(ref, boxRef);
@@ -71,15 +73,16 @@ const Lore = React.forwardRef((_, ref) => {
     }
   }, [inView]);
 
+  if (!isMounted) return null;
+
   return (
     <Box
       top="-4rem"
-      bottom="-4rem"
       h="calc(100% + 4rem)"
       width="full"
       position="relative"
       zIndex={3}
-      p={isMobile ? "8rem 0" : "8rem 0 5rem"}
+      p={isMobile ? "8rem 0" : "8rem 0"}
     >
       <Image
         position="absolute"
@@ -101,8 +104,8 @@ const Lore = React.forwardRef((_, ref) => {
           flexWrap={isMobile ? "wrap" : "nowrap"}
         >
           <ChakraBox
-            flex="0 0 780px"
-            width={isMobile ? "100%" : ""}
+            flex={`0 0 ${isMobile ? "100%" : "780px"} `}
+            width={isMobile ? "100%" : "748px"}
             height={isMobile ? "400px" : "748px"}
             position="relative"
             initial="hidden"
