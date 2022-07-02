@@ -7,7 +7,11 @@ export default class Document extends NextDocument {
     return (
       <Html lang="en">
         <Head />
-        <body>
+        <body
+          style={{
+            backgroundColor: "black",
+          }}
+        >
           {/* 👇 Here's the script */}
           <ColorModeScript />
           <Fonts />

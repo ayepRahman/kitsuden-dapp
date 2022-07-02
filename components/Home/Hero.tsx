@@ -27,7 +27,13 @@ const Hero = React.forwardRef<any>((_, ref) => {
         h="100%"
         w="100%"
       >
-        <Image src={heroBg.src} layout="fill" objectFit="cover" zIndex={0} />
+        <Image
+          src={heroBg.src}
+          layout="fill"
+          objectFit="cover"
+          placeholder="empty"
+          zIndex={0}
+        />
         <Box
           position="relative"
           h="100%"

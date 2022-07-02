@@ -12,6 +12,7 @@ import {
 import teamBg from "public/img/team_bg.png";
 import { FaLinkedin, FaTwitter } from "react-icons/fa";
 import Image from "components/Image";
+import useIsMounted from "hooks/useIsMounted";
 
 const teams = [
   {
@@ -68,10 +69,13 @@ const TeamImage = styled(Box)<{ show: boolean }>`
 `;
 
 const Team = React.forwardRef((_, ref) => {
+  const isMounted = useIsMounted();
   const [isMobile] = useMediaQuery("(max-width: 767.98px)");
   const [show, setShow] = React.useState<number | null>(null);
 
   const handlOnHover = (value: number | null) => setShow(value);
+
+  if (!isMounted) return null;
 
   return (
     <Box top="-12rem" width="full" position="relative" zIndex={5}>

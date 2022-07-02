@@ -5,12 +5,14 @@ import LogoIcon from "public/svg/logo_icon.svg";
 import ScrollLink from "components/ScrollLink";
 import Icon from "components/Icon";
 import { navLinks, socialLinks } from "constants/links";
+import useIsMounted from "hooks/useIsMounted";
 
 interface FooterProps {
   scrollTo?: (to: string) => void;
 }
 
 const Footer: React.FC<FooterProps> = ({ scrollTo }) => {
+  const isMounted = useIsMounted();
   const [isMobile] = useMediaQuery("(max-width: 767.98px)");
 
   const handleOnClick = (to: string) => {
@@ -21,6 +23,8 @@ const Footer: React.FC<FooterProps> = ({ scrollTo }) => {
   const handleOpenLink = (link: string) => {
     window.open(link);
   };
+
+  if (!isMounted) return null;
 
   return (
     <Box

@@ -17,6 +17,7 @@ import { useRouter } from "next/router";
 import { Mobile, Desktop } from "components/MediaQuery";
 import Icon, { IconNamesType } from "components/Icon";
 import { navLinks, socialLinks } from "constants/links";
+import useIsMounted from "hooks/useIsMounted";
 
 const MetamaskButton = dynamic(() => import("containers/MetamaskButton"));
 
@@ -25,6 +26,7 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
+  const isMounted = useIsMounted();
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -41,6 +43,8 @@ const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
     window && window.open(link);
     onClose();
   };
+
+  if (!isMounted) return null;
 
   return (
     <Box
