@@ -9,11 +9,7 @@ import {
   Text,
   Icon,
 } from "@chakra-ui/react";
-import teamBg from "public/img/bg_section_3.png";
-import treamAvatar1 from "public/img/team_1.png";
-import treamAvatar2 from "public/img/team_2.png";
-import treamAvatar3 from "public/img/team_3.png";
-import treamAvatar4 from "public/img/team_4.png";
+import teamBg from "public/img/team_bg.png";
 import { FaLinkedin, FaTwitter } from "react-icons/fa";
 import Image from "components/Image";
 
@@ -21,16 +17,17 @@ const teams = [
   {
     name: "ADRI",
     title: "FOUNDER",
-    img: treamAvatar1,
+    img: "/img/team_1.png",
     links: {
       twitter: "https://twitter.com/adridwitomo",
       linkedin: "https://www.linkedin.com/in/adridwitomo/",
     },
   },
   {
-    name: "AYEP",
+    name: "ONLYAYEP",
     title: "FOUNDER",
-    img: treamAvatar2,
+    img: "/img/team_2.png",
+
     links: {
       twitter: "https://twitter.com/onlyayep",
       linkedin: "https://www.linkedin.com/in/ayeprahman/",
@@ -39,7 +36,7 @@ const teams = [
   {
     name: "DISZ",
     title: "FOUNDER",
-    img: treamAvatar3,
+    img: "/img/team_3.png",
     links: {
       twitter: "https://twitter.com/Diszazter8",
       linkedin: "",
@@ -48,7 +45,7 @@ const teams = [
   {
     name: "GEFI",
     title: "FOUNDER",
-    img: treamAvatar4,
+    img: "/img/team_4.png",
     links: {
       twitter: "https://twitter.com/gefiction",
       linkedin: "",
@@ -70,24 +67,27 @@ const TeamImage = styled(Box)<{ show: boolean }>`
   }
 `;
 
-const Team = () => {
+const Team = React.forwardRef((_, ref) => {
   const [isMobile] = useMediaQuery("(max-width: 767.98px)");
   const [show, setShow] = React.useState<number | null>(null);
 
   const handlOnHover = (value: number | null) => setShow(value);
 
   return (
-    <Box top="-12rem" width="full" position="relative">
+    <Box top="-12rem" width="full" position="relative" zIndex={5}>
       <Image
-        top={0}
-        position="absolute"
-        width="full"
-        height="150%"
+        layout="fill"
+        width="100%"
         src={teamBg}
         bgRepeat="repeat"
         objectFit={isMobile ? "cover" : "fill"}
       />
-      <Container position="relative" zIndex={1} maxW="container.xl" py="6rem">
+      <Container
+        position="relative"
+        zIndex={1}
+        maxW="container.xl"
+        p="6rem 0 12rem"
+      >
         <Heading
           fontWeight={400}
           fontSize={84}
@@ -178,6 +178,6 @@ const Team = () => {
       </Container>
     </Box>
   );
-};
+});
 
 export default Team;

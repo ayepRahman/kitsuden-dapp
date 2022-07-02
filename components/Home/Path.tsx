@@ -17,8 +17,6 @@ import useIsMounted from "hooks/useIsMounted";
 import { useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
-// https://www.w3schools.com/howto/howto_css_timeline.asp
-
 const timelinesVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -99,16 +97,16 @@ const Path = React.forwardRef((_, ref) => {
   if (!isMounted) return null;
 
   return (
-    <Box top="-8rem" width="full" position="relative" zIndex={4}>
+    <Box ref={refs} top="-8rem" width="full" position="relative" zIndex={4}>
       {/* bg img */}
       <Image
         position="absolute"
         layout="fill"
         src={pathBg.src}
         objectFit={isMobile ? "cover" : "fill"}
+        objectPosition={isMobile ? "35% 50%" : "center"}
       />
       <Container
-        // ref={refs}
         position="relative"
         zIndex={1}
         maxW="container.xl"
@@ -132,7 +130,6 @@ const Path = React.forwardRef((_, ref) => {
               The Path
             </Heading>
             <TimeLine
-              ref={refs}
               initial="hidden"
               animate={controlsTimelines}
               variants={timelinesVariants}
@@ -195,7 +192,6 @@ const Path = React.forwardRef((_, ref) => {
               right="0"
               bottom="0"
               left="0"
-              // layout="fill"
               height="700px"
               width="700px"
             />

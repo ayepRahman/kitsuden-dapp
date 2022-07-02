@@ -1,15 +1,10 @@
 import React from "react";
 import { Box, Container, Flex, useMediaQuery } from "@chakra-ui/react";
-import footerBg from "public/svg/footer.svg";
 import LogoImg from "public/svg/kitsuden_logo_1.svg";
 import LogoIcon from "public/svg/logo_icon.svg";
 import ScrollLink from "components/ScrollLink";
-import DiscordIcon from "public/svg/discord.svg";
-import OpenseaIcon from "public/svg/opensea.svg";
-import TwitterIcon from "public/svg/twitter.svg";
-import EtherscanIcon from "public/svg/etherscan.svg";
-import SocialLink from "components/SocialLink";
-import Image from "components/Image";
+import Icon from "components/Icon";
+import { navLinks, socialLinks } from "constants/links";
 
 interface FooterProps {
   scrollTo?: (to: string) => void;
@@ -31,23 +26,24 @@ const Footer: React.FC<FooterProps> = ({ scrollTo }) => {
     <Box
       width="full"
       position="absolute"
-      bottom={isMobile ? "-30rem" : "-7rem"}
+      bottom={isMobile ? "-30rem" : "-4rem"}
       bgColor="black"
+      zIndex={6}
+      // marginTop="-8rem"
     >
-      <Image
+      <Icon
         top="-4rem"
-        right={0}
-        left={0}
+        width="inherit"
+        height="inherit"
         position="absolute"
-        width="full"
-        src={footerBg}
+        name="footer"
         objectFit={isMobile ? "cover" : "fill"}
       />
       <Container
         position="relative"
         zIndex={1}
         maxW={1920}
-        py={isMobile ? "2rem" : "5rem"}
+        p={isMobile ? "2rem 1rem" : "4rem 1rem 5rem"}
       >
         <Flex
           justifyContent="space-between"
@@ -70,18 +66,17 @@ const Footer: React.FC<FooterProps> = ({ scrollTo }) => {
               justifyContent="center"
               flexDirection={isMobile ? "column" : "row"}
             >
-              <ScrollLink color="white" onClick={() => handleOnClick("hero")}>
-                HOME
-              </ScrollLink>
-              <ScrollLink color="white" onClick={() => handleOnClick("lore")}>
-                THE LORE
-              </ScrollLink>
-              <ScrollLink color="white" onClick={() => handleOnClick("path")}>
-                THE PATH
-              </ScrollLink>
-              <ScrollLink color="white" onClick={() => handleOnClick("team")}>
-                THE TEAM
-              </ScrollLink>
+              {navLinks.map((sl) => {
+                return (
+                  <ScrollLink
+                    key={sl.title}
+                    color="white"
+                    onClick={() => handleOnClick(sl.link)}
+                  >
+                    {sl.title}
+                  </ScrollLink>
+                );
+              })}
             </Flex>
           </Box>
           <Box>
@@ -91,24 +86,20 @@ const Footer: React.FC<FooterProps> = ({ scrollTo }) => {
               justifyContent="flex-end"
               flex={1}
             >
-              <SocialLink size="40px" fill="white">
-                <DiscordIcon />
-              </SocialLink>
-              <SocialLink
-                size="40px"
-                fill="white"
-                onClick={() =>
-                  handleOpenLink("https://twitter.com/kitsudennft")
-                }
-              >
-                <TwitterIcon />
-              </SocialLink>
-              <SocialLink size="40px" fill="white">
-                <OpenseaIcon />
-              </SocialLink>
-              <SocialLink size="40px" fill="white">
-                <EtherscanIcon />
-              </SocialLink>
+              {socialLinks.map((sl) => {
+                return (
+                  <Icon
+                    key={sl.name}
+                    name={sl.name}
+                    cursor="pointer"
+                    height="1.25rem"
+                    width="1.25rem"
+                    fill="white"
+                    _hover={{ fill: "brand.200" }}
+                    onClick={() => handleOpenLink(sl.link)}
+                  />
+                );
+              })}
             </Flex>
           </Box>
         </Flex>

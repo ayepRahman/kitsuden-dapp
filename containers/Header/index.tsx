@@ -16,49 +16,9 @@ import { SOCIAL_LINKS } from "constants/constants";
 import { useRouter } from "next/router";
 import { Mobile, Desktop } from "components/MediaQuery";
 import Icon, { IconNamesType } from "components/Icon";
+import { navLinks, socialLinks } from "constants/links";
 
 const MetamaskButton = dynamic(() => import("containers/MetamaskButton"));
-
-const navLinks = [
-  {
-    title: "HOME",
-    link: "hero",
-  },
-  {
-    title: "THE LORE",
-    link: "lore",
-  },
-  {
-    title: "THE PATH",
-    link: "path",
-  },
-  {
-    title: "THE TEAM",
-    link: "team",
-  },
-];
-
-const socialLinks: {
-  name: IconNamesType;
-  link: string;
-}[] = [
-  {
-    name: "discord",
-    link: SOCIAL_LINKS.discord,
-  },
-  {
-    name: "twitter",
-    link: SOCIAL_LINKS.twitter,
-  },
-  {
-    name: "opensea",
-    link: SOCIAL_LINKS.discord,
-  },
-  {
-    name: "etherscan",
-    link: SOCIAL_LINKS.discord,
-  },
-];
 
 interface HeaderProps {
   scrollTo?: (to: string) => void;

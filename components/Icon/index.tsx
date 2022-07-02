@@ -19,7 +19,8 @@ export type IconNamesType =
   | "headerClip"
   | "lock"
   | "modalMobile"
-  | "modal";
+  | "modal"
+  | "footer";
 
 const iconNames: {
   [K in IconNamesType]: any;
@@ -39,6 +40,7 @@ const iconNames: {
   lock: SvgIcons.LockSvg,
   modalMobile: SvgIcons.ModalMobileSvg,
   modal: SvgIcons.ModalBgSvg,
+  footer: SvgIcons.FooterSvg,
 };
 
 interface IconProps extends ChakraIconProps {

@@ -1,6 +1,6 @@
 export const SOCIAL_LINKS = {
   twitter: "https://twitter.com/kitsudennft",
-  discord: "https://discord.gg/kitsuden",
+  discord: "https://discord.gg/XNYvaFcw",
   instagram: "https://www.instagram.com/kitsudennft/",
   etherscan: "", // link to
 };

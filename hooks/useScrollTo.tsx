@@ -9,7 +9,7 @@ const useScrollTo = <T extends Element>(): [
 
   React.useEffect(() => {
     if (ref.current && shouldScrollTo) {
-      ref.current!.scrollIntoView({ behavior: "smooth" });
+      ref?.current?.scrollIntoView({ behavior: "smooth" });
       setShouldScrollTo(false);
     }
   }, [shouldScrollTo]);

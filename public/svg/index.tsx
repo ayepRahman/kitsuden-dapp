@@ -13,3 +13,4 @@ export { default as HeaderClipSvg } from "./header_clip.svg";
 export { default as LockSvg } from "./lock.svg";
 export { default as ModalMobileSvg } from "./mobile_modal_bg.svg";
 export { default as ModalBgSvg } from "./modal_bg.svg";
+export { default as FooterSvg } from "./footer.svg";
