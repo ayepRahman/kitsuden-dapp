@@ -80,6 +80,8 @@ const Team = React.forwardRef((_, ref) => {
   const [teamRef, InView] = useInView();
   const refs = useMergeRefs(ref, teamRef);
 
+  console.log("SHOW", show);
+
   React.useEffect(() => {
     if (InView) {
       controlsTeam.start("visible");
