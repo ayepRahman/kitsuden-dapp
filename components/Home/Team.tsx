@@ -8,11 +8,15 @@ import {
   useMediaQuery,
   Text,
   Icon,
+  useMergeRefs,
 } from "@chakra-ui/react";
 import teamBg from "public/img/team_bg.png";
 import { FaLinkedin, FaTwitter } from "react-icons/fa";
 import Image from "components/Image";
 import useIsMounted from "hooks/useIsMounted";
+import ChakraBox from "components/ChakraBox";
+import { useInView } from "react-intersection-observer";
+import { useAnimation } from "framer-motion";
 
 const teams = [
   {
@@ -70,8 +74,39 @@ const TeamImage = styled(Box)<{ show: boolean }>`
 
 const Team = React.forwardRef((_, ref) => {
   const isMounted = useIsMounted();
+  const controlsTeam = useAnimation();
   const [isMobile] = useMediaQuery("(max-width: 767.98px)");
   const [show, setShow] = React.useState<number | null>(null);
+  const [teamRef, InView] = useInView();
+  const refs = useMergeRefs(ref, teamRef);
+
+  React.useEffect(() => {
+    if (InView) {
+      controlsTeam.start("visible");
+    }
+  }, [InView]);
+
+  const teamsVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delay: 0.5,
+        staggerChildren: 0.5,
+      },
+    },
+  };
+
+  const teamVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 1,
+      },
+    },
+  };
 
   const handlOnHover = (value: number | null) => setShow(value);
 
@@ -91,32 +126,41 @@ const Team = React.forwardRef((_, ref) => {
         zIndex={1}
         maxW="container.xl"
         p="6rem 0 12rem"
+        ref={refs}
       >
-        <Heading
-          fontWeight={400}
-          fontSize={84}
-          lineHeight="76px"
-          color="white"
-          textAlign="center"
-          mb="3rem"
-        >
-          The team
-        </Heading>
+        <ChakraBox>
+          <Heading
+            fontWeight={400}
+            fontSize={84}
+            lineHeight="76px"
+            color="white"
+            textAlign="center"
+            mb="3rem"
+          >
+            The team
+          </Heading>
+        </ChakraBox>
 
-        <Flex
+        <ChakraBox
+          display="flex"
           justifyContent="space-around"
           alignItems="center"
           flexWrap={isMobile ? "wrap" : "nowrap"}
           gap="1rem"
+          initial="hidden"
+          animate={controlsTeam}
+          variants={teamsVariants}
         >
           {teams.map((t, i) => {
             return (
-              <Box
+              <ChakraBox
+                key={`${t?.name}-${i}`}
                 position="relative"
                 height={isMobile ? 168 : 272}
                 width={isMobile ? 168 : 272}
                 onMouseOver={() => handlOnHover(i + 1)}
                 onMouseOut={() => handlOnHover(null)}
+                variants={teamVariants}
               >
                 <TeamImage src={t.img} show={show === i + 1} />
                 {show === i + 1 && (
@@ -175,10 +219,10 @@ const Team = React.forwardRef((_, ref) => {
                     </Flex>
                   </Box>
                 )}
-              </Box>
+              </ChakraBox>
             );
           })}
-        </Flex>
+        </ChakraBox>
       </Container>
     </Box>
   );

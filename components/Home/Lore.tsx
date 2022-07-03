@@ -24,35 +24,6 @@ const lines = {
   four: "As it beckons to you..are you brave enough to follow it?",
 };
 
-const headerVariants = {
-  hidden: { opacity: 0, x: 100 },
-  visible: { opacity: 1, x: 0 },
-};
-
-const loreBrushBgVariants = {
-  hidden: { opacity: 0, x: -100 },
-  visible: { opacity: 1, x: 0 },
-};
-
-const sentenceVariants = {
-  hidden: { opacity: 1 },
-  visible: {
-    opacity: 1,
-    transition: {
-      delay: 0.5,
-      staggerChildren: 0.02,
-    },
-  },
-};
-
-const letterVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: {
-    opacity: 1,
-    y: 0,
-  },
-};
-
 const Lore = React.forwardRef((_, ref) => {
   const isMounted = useIsMounted();
   const [isMobile] = useMediaQuery("(max-width: 767.98px)");
@@ -64,6 +35,35 @@ const Lore = React.forwardRef((_, ref) => {
   const controlsLineTwo = useAnimation();
   const controlsLineThree = useAnimation();
   const controlsLineFour = useAnimation();
+
+  const headerVariants = {
+    hidden: { opacity: 0, x: 100 },
+    visible: { opacity: 1, x: 0 },
+  };
+
+  const loreBrushBgVariants = {
+    hidden: { opacity: 0, x: -100 },
+    visible: { opacity: 1, x: 0 },
+  };
+
+  const sentenceVariants = {
+    hidden: { opacity: 1 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delay: 0.5,
+        staggerChildren: 0.02,
+      },
+    },
+  };
+
+  const letterVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+    },
+  };
 
   React.useEffect(() => {
     if (inView) {
@@ -83,6 +83,7 @@ const Lore = React.forwardRef((_, ref) => {
       position="relative"
       zIndex={3}
       p={isMobile ? "8rem 0" : "8rem 0"}
+      overflow="hidden"
     >
       <Image
         position="absolute"

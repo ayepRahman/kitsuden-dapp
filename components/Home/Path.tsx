@@ -7,7 +7,6 @@ import {
   Heading,
   useMediaQuery,
   Text,
-  useMergeRefs,
 } from "@chakra-ui/react";
 import { TimeLine, TimeLineItem } from "./path.styled";
 import pathBg from "public/img/path_bg.png";
@@ -16,28 +15,7 @@ import Icon from "components/Icon";
 import useIsMounted from "hooks/useIsMounted";
 import { useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-
-const timelinesVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      delay: 0.5,
-      staggerChildren: 0.5,
-    },
-  },
-};
-
-const timelinesItemsVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 1,
-    },
-  },
-};
+import ChakraBox from "components/ChakraBox";
 
 const timelineItems = [
   {
@@ -80,24 +58,78 @@ const timelineItems = [
   },
 ];
 
-const Path = React.forwardRef((_, ref) => {
+const Path = React.forwardRef((_, ref: any) => {
   const isMounted = useIsMounted();
   const controlsTimelines = useAnimation();
-  const [inViewRef, inView] = useInView();
+  const controlsHeading = useAnimation();
+  const controlsImg = useAnimation();
+  const [imgRef, imgRefInView] = useInView();
+  const [timelinesREf, timelinesRfInView] = useInView();
   const [isMobile] = useMediaQuery("(max-width: 767.98px)");
-  const refs = useMergeRefs(ref, inViewRef);
+  // const refs = useMergeRefs(ref, inViewRef);
+
+  const headingVariants = {
+    hidden: { opacity: 0, y: 100 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: 0.5,
+        duration: 1,
+      },
+    },
+  };
+
+  const timelinesVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delay: 0.5,
+        staggerChildren: 0.5,
+      },
+    },
+  };
+
+  const timelinesItemsVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 1,
+      },
+    },
+  };
+
+  const imgVariants = {
+    hidden: { opacity: 0, x: isMobile ? 0 : 100, y: isMobile ? 100 : 0 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      y: 0,
+      transition: {
+        delay: 0.5,
+        duration: 1,
+      },
+    },
+  };
 
   React.useEffect(() => {
-    if (inView) {
-      console.log("INVIEW");
-      controlsTimelines.start("visible");
+    if (imgRefInView) {
+      controlsImg.start("visible");
     }
-  }, [inView]);
+
+    if (timelinesRfInView) {
+      controlsTimelines.start("visible");
+      controlsHeading.start("visible");
+    }
+  }, [imgRefInView, timelinesRfInView]);
 
   if (!isMounted) return null;
 
   return (
-    <Box ref={refs} top="-8rem" width="full" position="relative" zIndex={4}>
+    <Box ref={ref} top="-8rem" width="full" position="relative" zIndex={4}>
       {/* bg img */}
       <Image
         position="absolute"
@@ -120,16 +152,23 @@ const Path = React.forwardRef((_, ref) => {
           flexDirection={isMobile ? "column-reverse" : "row"}
         >
           <Box position="relative">
-            <Heading
-              fontWeight={400}
-              fontSize={84}
-              lineHeight="76px"
-              color="white"
-              textAlign={isMobile ? "center" : "left"}
+            <ChakraBox
+              initial="hidden"
+              animate={controlsHeading}
+              variants={headingVariants}
             >
-              The Path
-            </Heading>
+              <Heading
+                fontWeight={400}
+                fontSize={84}
+                lineHeight="76px"
+                color="white"
+                textAlign={isMobile ? "center" : "left"}
+              >
+                The Path
+              </Heading>
+            </ChakraBox>
             <TimeLine
+              ref={timelinesREf}
               initial="hidden"
               animate={controlsTimelines}
               variants={timelinesVariants}
@@ -184,7 +223,17 @@ const Path = React.forwardRef((_, ref) => {
               })}
             </TimeLine>
           </Box>
-          <Flex flex="0 0 50%" position="relative" flexDir="column">
+
+          <ChakraBox
+            ref={imgRef}
+            display="flex"
+            flex="0 0 50%"
+            position="relative"
+            flexDir="column"
+            initial="hidden"
+            animate={controlsImg}
+            variants={imgVariants}
+          >
             <Image
               src="/img/path_device.png"
               position="absolute"
@@ -214,7 +263,7 @@ const Path = React.forwardRef((_, ref) => {
               auto-rotate
               ar
             ></model-viewer>
-          </Flex>
+          </ChakraBox>
         </Flex>
       </Container>
     </Box>
