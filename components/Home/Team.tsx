@@ -91,7 +91,7 @@ const Team = React.forwardRef((_, ref) => {
     visible: {
       opacity: 1,
       transition: {
-        delay: 0.5,
+        delay: 1,
         staggerChildren: 0.5,
       },
     },
@@ -126,7 +126,6 @@ const Team = React.forwardRef((_, ref) => {
         zIndex={1}
         maxW="container.xl"
         p="6rem 0 12rem"
-        ref={refs}
       >
         <ChakraBox>
           <Heading
@@ -142,6 +141,7 @@ const Team = React.forwardRef((_, ref) => {
         </ChakraBox>
 
         <ChakraBox
+          ref={refs}
           display="flex"
           justifyContent="space-around"
           alignItems="center"

@@ -74,7 +74,7 @@ const Path = React.forwardRef((_, ref: any) => {
       opacity: 1,
       y: 0,
       transition: {
-        delay: 0.5,
+        delay: 1,
         duration: 1,
       },
     },
@@ -85,7 +85,7 @@ const Path = React.forwardRef((_, ref: any) => {
     visible: {
       opacity: 1,
       transition: {
-        delay: 0.5,
+        delay: 1,
         staggerChildren: 0.5,
       },
     },
@@ -109,7 +109,7 @@ const Path = React.forwardRef((_, ref: any) => {
       x: 0,
       y: 0,
       transition: {
-        delay: 0.5,
+        delay: 1,
         duration: 1,
       },
     },
