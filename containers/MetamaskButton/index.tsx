@@ -53,7 +53,12 @@ const MetamaskButton: React.FC<ButtonProps> = ({ ...props }) => {
             <span>Connected</span>
           ) : (
             <>
-              <Image src={metamaskImg.src} height="16px" width="16px" />
+              <Image
+                src={metamaskImg.src}
+                height="16px"
+                width="16px"
+                placeholder="empty"
+              />
               <span>
                 {!isConnected && !metamaskConnector?.ready
                   ? "Install Metamask"

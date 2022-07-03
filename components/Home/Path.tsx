@@ -24,7 +24,7 @@ const timelineItems = [
     descOne:
       "The ancient tech known as the FOXFONE are available to be activated. who knows what it will uncover, Will the path to the hidden village finally be discovered?",
     descTwo:
-      " 5,555 FOXFONE NFTs will be available to mint. There will be 3 tiers of rarity (Common, Uncommon and Rare) that can be randomly minted.",
+      "6,666 FOXFONE NFTs will be available to mint. There will be 3 tiers of rarity (Common, Uncommon and Rare) that can be randomly minted.",
     isLock: false,
     size: 44,
     headerMargin: "0 0 1rem",
@@ -74,7 +74,7 @@ const Path = React.forwardRef((_, ref: any) => {
       opacity: 1,
       y: 0,
       transition: {
-        delay: 1,
+        delay: 0.5,
         duration: 1,
       },
     },
@@ -85,7 +85,7 @@ const Path = React.forwardRef((_, ref: any) => {
     visible: {
       opacity: 1,
       transition: {
-        delay: 1,
+        delay: 0.5,
         staggerChildren: 0.5,
       },
     },
@@ -109,7 +109,7 @@ const Path = React.forwardRef((_, ref: any) => {
       x: 0,
       y: 0,
       transition: {
-        delay: 1,
+        delay: 0.5,
         duration: 1,
       },
     },
@@ -137,6 +137,7 @@ const Path = React.forwardRef((_, ref: any) => {
         src={pathBg.src}
         objectFit={isMobile ? "cover" : "fill"}
         objectPosition={isMobile ? "35% 50%" : "center"}
+        placeholder="empty"
       />
       <Container
         position="relative"
@@ -243,6 +244,7 @@ const Path = React.forwardRef((_, ref: any) => {
               left="0"
               height="700px"
               width="700px"
+              placeholder="empty"
             />
 
             <model-viewer

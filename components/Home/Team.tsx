@@ -80,8 +80,6 @@ const Team = React.forwardRef((_, ref) => {
   const [teamRef, InView] = useInView();
   const refs = useMergeRefs(ref, teamRef);
 
-  console.log("SHOW", show);
-
   React.useEffect(() => {
     if (InView) {
       controlsTeam.start("visible");
@@ -93,7 +91,7 @@ const Team = React.forwardRef((_, ref) => {
     visible: {
       opacity: 1,
       transition: {
-        delay: 1,
+        delay: 0.5,
         staggerChildren: 0.5,
       },
     },
@@ -122,6 +120,7 @@ const Team = React.forwardRef((_, ref) => {
         src={teamBg}
         bgRepeat="repeat"
         objectFit={isMobile ? "cover" : "fill"}
+        placeholder="empty"
       />
       <Container
         position="relative"

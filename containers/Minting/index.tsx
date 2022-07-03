@@ -25,8 +25,10 @@ import useWhitelistMint from "hooks/useWhitelistMint";
 import MintSuccessModal from "containers/MintSuccessModal";
 import { CONTRACT_ADDRESS } from "constants/constants";
 import { truncateAddress } from "utils/address";
+import useIsMounted from "hooks/useIsMounted";
 
 const Minting = () => {
+  const isMounted = useIsMounted();
   const [isMobile] = useMediaQuery("(max-width: 767.98px)");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { activeChain } = useNetwork();
@@ -121,10 +123,12 @@ const Minting = () => {
     }
   };
 
+  if (!isMounted) return null;
+
   return (
     <Box color="white" width="100%">
       <MintSuccessModal
-        isOpen={true}
+        isOpen={isOpen}
         onClose={onClose}
         contractAddress={mintSuccessProps?.contractAddress}
         tokenId={mintSuccessProps?.tokenId}

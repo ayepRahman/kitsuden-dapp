@@ -44,7 +44,7 @@ const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
     onClose();
   };
 
-  if (!isMounted) return null;
+  // if (!isMounted) return null;
 
   return (
     <Box

@@ -1,6 +1,6 @@
 import React from "react";
 import dynamic from "next/dynamic";
-import { Box, Heading } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import Header from "containers/Header";
 import Footer from "components/Footer";
 import Hero from "./Hero";

@@ -19,6 +19,7 @@ import Button from "components/Button";
 import { useNetwork } from "wagmi";
 import { KitsudenModalContent } from "./styled";
 import { MintSuccessModalProps } from "./interfaces";
+import Icon from "components/Icon";
 
 const MintSuccessModal: React.FC<MintSuccessModalProps> = ({
   isOpen,
@@ -94,7 +95,7 @@ const MintSuccessModal: React.FC<MintSuccessModalProps> = ({
             alignItems="center"
           >
             {Array.from({ length: quantity }, (_, i) => {
-              return <FoxfoneLogo key={i} />;
+              return <Icon name="foxfoneLogo" key={i} />;
             })}
           </Box>
 
@@ -105,12 +106,8 @@ const MintSuccessModal: React.FC<MintSuccessModalProps> = ({
           <Text>VIEW YOUR TRANSACTION ON</Text>
 
           <Flex justifyContent="center" gap="1rem">
-            <SocialLink onClick={() => window.open(osLink)}>
-              <OpenseaIcon />
-            </SocialLink>
-            <SocialLink onClick={() => window.open(esLink)}>
-              <EtherscanIcon />
-            </SocialLink>
+            <Icon name="opensea" onClick={() => window.open(osLink)} />
+            <Icon name="etherscan" onClick={() => window.open(esLink)} />
           </Flex>
 
           <Text mt="1rem">LEAVE A PARTING NOTE TO YOUR FRIENDS...</Text>
@@ -121,9 +118,7 @@ const MintSuccessModal: React.FC<MintSuccessModalProps> = ({
             mx="auto"
             onClick={() => window.open(generateTwitterLink())}
           >
-            <SocialLink mr="0.5rem">
-              <TwitterIcon />
-            </SocialLink>
+            <Icon name="twitter" mr="0.5rem" />
             SHARE ON TWITTER
           </Button>
         </ModalBody>

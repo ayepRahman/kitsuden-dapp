@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { ModalContent } from "@chakra-ui/react";
-import modalBg from "public/img/modal_bg.svg";
-import mobileModalBg from "public/img/mobile_modal_bg.svg";
+import modalBg from "public/svg/modal_bg.svg";
+import mobileModalBg from "public/svg/mobile_modal_bg.svg";
 
 export const KitsudenModalContent = styled(ModalContent)`
   position: relative;
@@ -11,7 +11,7 @@ export const KitsudenModalContent = styled(ModalContent)`
   max-width: 600px;
   padding: 3rem 4rem 4rem;
   background-color: transparent;
-  background-image: url(${modalBg});
+  background-image: url(${modalBg.src});
   background-size: 100% 100%;
   -o-background-size: 100% 100%;
   -webkit-background-size: 100% 100%;
@@ -27,6 +27,6 @@ export const KitsudenModalContent = styled(ModalContent)`
     background-size: 100% 100%;
     padding: 1rem; */
     background-size: fill;
-    background-image: url(${mobileModalBg});
+    background-image: url(${mobileModalBg.src});
   }
 `;

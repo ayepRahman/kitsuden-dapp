@@ -9,12 +9,18 @@ import {
 } from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
 import Header from "containers/Header";
-import Minting from "containers/Minting";
-import mintBrushImg from "public/img/mint_brush_bg.png";
-import loreBanneMist from "public/img/lore_banner_mist.jpg";
+import mintFoxfoneBg from "public/img/mint_foxfone_bg.png";
 import { useNetwork } from "wagmi";
+import useIsMounted from "hooks/useIsMounted";
+import dynamic from "next/dynamic";
+
+const Minting = dynamic(() => import("containers/Minting"), { ssr: false });
+const MintModelViewer = dynamic(() => import("./MintModelViewer"), {
+  ssr: false,
+});
 
 const Mint = () => {
+  const isMounted = useIsMounted();
   const [isShowWarning, setIsShowWarning] = React.useState<boolean>(false);
   const { activeChain, switchNetwork } = useNetwork();
   const [isMobile] = useMediaQuery("(max-width: 767.98px)");
@@ -27,62 +33,62 @@ const Mint = () => {
     }
   }, [activeChain]);
 
-  return null;
+  if (!isMounted) return null;
 
-  // return (
-  //   <Box h="100%">
-  //     {isShowWarning && (
-  //       <Box
-  //         position="relative"
-  //         textAlign="center"
-  //         color="white"
-  //         p={3}
-  //         bg="brand.200"
-  //       >
-  //         Please switch to{" "}
-  //         <Link textDecor="underline" onClick={() => switchNetwork?.(1)}>
-  //           mainnet
-  //         </Link>{" "}
-  //         , currently connected to {activeChain?.name}
-  //         <CloseIcon
-  //           cursor="pointer"
-  //           fontSize={16}
-  //           position="absolute"
-  //           top="1rem"
-  //           right="1rem"
-  //           onClick={() => setIsShowWarning(false)}
-  //         />
-  //       </Box>
-  //     )}
-  //     <Header />
-  //     <Box position="relative" height="100%">
-  //       <Image
-  //         position="absolute"
-  //         src={loreBanneMist}
-  //         height={isMobile ? "100%" : "100vh"}
-  //         width="100%"
-  //         objectFit={"cover"}
-  //         bgPos="top"
-  //         zIndex="-1"
-  //       />
-  //       <Container maxW={1600} py="5rem">
-  //         <Flex
-  //           flexWrap={isMobile ? "wrap-reverse" : "nowrap"}
-  //           gap="5rem"
-  //           alignItems="center"
-  //           w="100%"
-  //         >
-  //           <Box flexBasis={isMobile ? "100%" : "50%"} w="100%">
-  //             <Minting />
-  //           </Box>
-  //           <Box flexBasis={isMobile ? "100%" : "50%"} w="100%">
-  //             <Image src={mintBrushImg} width="100%" height="100%" />
-  //           </Box>
-  //         </Flex>
-  //       </Container>
-  //     </Box>
-  //   </Box>
-  // );
+  return (
+    <Box h="100%">
+      {isShowWarning && (
+        <Box
+          position="relative"
+          textAlign="center"
+          color="white"
+          p={3}
+          bg="brand.200"
+        >
+          Please switch to{" "}
+          <Link textDecor="underline" onClick={() => switchNetwork?.(1)}>
+            mainnet
+          </Link>{" "}
+          , currently connected to {activeChain?.name}
+          <CloseIcon
+            cursor="pointer"
+            fontSize={16}
+            position="absolute"
+            top="1rem"
+            right="1rem"
+            onClick={() => setIsShowWarning(false)}
+          />
+        </Box>
+      )}
+      <Header />
+      <Box position="relative" height="100%">
+        <Image
+          position="absolute"
+          src={mintFoxfoneBg.src}
+          height={isMobile ? "100%" : "100vh"}
+          width="100%"
+          objectFit={"cover"}
+          bgPos="top"
+          zIndex="-1"
+          placeholder="empty"
+        />
+        <Container maxW={1600} py="5rem">
+          <Flex
+            flexWrap={isMobile ? "wrap-reverse" : "nowrap"}
+            gap="5rem"
+            alignItems="center"
+            w="100%"
+          >
+            <Box flexBasis={isMobile ? "100%" : "50%"} w="100%">
+              <Minting />
+            </Box>
+
+            <MintModelViewer />
+          </Flex>
+        </Container>
+      </Box>
+    </Box>
+  );
 };
 
 export default Mint;
