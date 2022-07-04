@@ -199,10 +199,6 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
         whitelistMintRate = _mintRate;
     }
 
-    function setMaxSupply(uint256 _newSupply) public onlyOwner {
-        maxSupply = _newSupply;
-    }
-
     function setMaxMints(uint256 _newMaxMints) public onlyOwner {
         maxMints = _newMaxMints;
     }
