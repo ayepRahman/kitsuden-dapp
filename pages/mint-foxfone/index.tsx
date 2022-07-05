@@ -15,7 +15,7 @@ import useIsMounted from "hooks/useIsMounted";
 import dynamic from "next/dynamic";
 
 const Minting = dynamic(() => import("containers/Minting"), { ssr: false });
-const MintModelViewer = dynamic(() => import("./MintModelViewer"), {
+const MintModelViewer = dynamic(() => import("components/MintModelViewer"), {
   ssr: false,
 });
 
