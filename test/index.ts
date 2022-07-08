@@ -3,7 +3,7 @@
  */
 
 import { expect } from "chai";
-import { WHITE_LIST_ADDRESSES } from "constants/constants";
+import { WHITE_LIST_ADDRESSES } from "../constants/constants";
 import { ethers, waffle } from "hardhat";
 import { getMerkleProof, generateMerkle } from "../utils/merkle";
 
@@ -59,7 +59,7 @@ describe("KitsudenFoxfone", () => {
 
     maxSupply = await contract.maxSupply();
     expect(maxSupply).to.equal(contractMaxSupply);
-    await contract.setMaxSupply(1);
+    // await contract.setMaxSupply(1);
     maxSupply = await contract.maxSupply();
     expect(maxSupply).to.equal(1);
 
@@ -214,7 +214,7 @@ describe("KitsudenFoxfone", () => {
 
     await contract.setMerkleRoot(hash);
     const proof = getMerkleProof(WHITE_LIST_ADDRESSES, owner.address);
-    await contract.setMaxSupply(0);
+    // await contract.setMaxSupply(0);
     await contract.toggleWhitelistSale();
 
     await expect(
@@ -479,21 +479,21 @@ describe("KitsudenFoxfone", () => {
     expect(balanceInEth).to.equal(mockMintRate);
   });
 
-  it("should be able to setMaxSupply", async () => {
-    const mockMaxSupply = "123123";
-    const factory = await ethers.getContractFactory("KitsudenFoxfone");
-    const contract = await factory.deploy();
+  // it("should be able to setMaxSupply", async () => {
+  //   const mockMaxSupply = "123123";
+  //   const factory = await ethers.getContractFactory("KitsudenFoxfone");
+  //   const contract = await factory.deploy();
 
-    let maxSupply = await contract.maxSupply();
+  //   let maxSupply = await contract.maxSupply();
 
-    expect(maxSupply).to.equal("6666");
+  //   expect(maxSupply).to.equal("6666");
 
-    await contract.setMaxSupply(mockMaxSupply);
+  //   await contract.setMaxSupply(mockMaxSupply);
 
-    maxSupply = await contract.maxSupply();
+  //   maxSupply = await contract.maxSupply();
 
-    expect(maxSupply).to.equal(mockMaxSupply);
-  });
+  //   expect(maxSupply).to.equal(mockMaxSupply);
+  // });
 
   it("should be able to setMaxMints", async () => {
     const mockMaxMints = 123123;

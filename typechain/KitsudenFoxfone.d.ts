@@ -47,7 +47,6 @@ interface KitsudenFoxfoneInterface extends ethers.utils.Interface {
     "setBaseHiddenUri(string)": FunctionFragment;
     "setBaseURI(string)": FunctionFragment;
     "setMaxMints(uint256)": FunctionFragment;
-    "setMaxSupply(uint256)": FunctionFragment;
     "setMerkleRoot(bytes32)": FunctionFragment;
     "setMintRate(uint256)": FunctionFragment;
     "setWhiteListMaxMints(uint256)": FunctionFragment;
@@ -138,10 +137,6 @@ interface KitsudenFoxfoneInterface extends ethers.utils.Interface {
   encodeFunctionData(functionFragment: "setBaseURI", values: [string]): string;
   encodeFunctionData(
     functionFragment: "setMaxMints",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setMaxSupply",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
@@ -275,10 +270,6 @@ interface KitsudenFoxfoneInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "setBaseURI", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "setMaxMints",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setMaxSupply",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -529,11 +520,6 @@ export class KitsudenFoxfone extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    setMaxSupply(
-      _newSupply: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
     setMerkleRoot(
       _root: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -711,11 +697,6 @@ export class KitsudenFoxfone extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  setMaxSupply(
-    _newSupply: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
   setMerkleRoot(
     _root: BytesLike,
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -876,11 +857,6 @@ export class KitsudenFoxfone extends BaseContract {
 
     setMaxMints(
       _newMaxMints: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    setMaxSupply(
-      _newSupply: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1120,11 +1096,6 @@ export class KitsudenFoxfone extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    setMaxSupply(
-      _newSupply: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
     setMerkleRoot(
       _root: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -1303,11 +1274,6 @@ export class KitsudenFoxfone extends BaseContract {
 
     setMaxMints(
       _newMaxMints: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setMaxSupply(
-      _newSupply: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
