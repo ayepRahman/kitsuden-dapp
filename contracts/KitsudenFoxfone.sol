@@ -80,6 +80,7 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
             revert WrongEther();
         }
 
+        usedAddresses[msg.sender] += quantity;
         _safeMint(msg.sender, quantity);
     }
 
@@ -109,7 +110,7 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
             revert NotEnoughTokensLeft();
         }
 
-        usedAddresses[msg.sender] += quantity;
+        whiteListUsedAddresses[msg.sender] += quantity;
         _safeMint(msg.sender, quantity);
     }
 
