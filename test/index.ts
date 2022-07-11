@@ -6,10 +6,7 @@ import { expect } from "chai";
 import { WHITE_LIST_ADDRESSES } from "../constants/constants";
 import { ethers } from "hardhat";
 import { loadFixture } from "@nomicfoundation/hardhat-network-helpers";
-
 import { getMerkleProof, generateMerkle } from "../utils/merkle";
-
-const contractMaxSupply = 6666;
 
 describe("KitsudenFoxfone", () => {
   // We define a fixture to reuse the same setup in every test. We use
