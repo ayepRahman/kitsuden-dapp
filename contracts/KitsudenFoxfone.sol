@@ -1,11 +1,31 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.9;
 
 import "hardhat/console.sol";
 import "erc721a/contracts/ERC721A.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
+
+// @@@@@@@@@@@(@@@@@@@@@@@@@@@@@@@@@@@@@@@/@@@@@@@@@@
+// @@@@@@@@@@////%@@@@@@@@@@@@@@@@@@@@@%////@@@@@@@@@
+// @@@@@@@@@////////@@@@@@@@@@@@@@@@@////////@@@@@@@@
+// @@@@@@@@#//////////@@@@@@@@@@@@@//////////@@@@@@@@
+// @@@@@@@@/////////////@@@@@@@@@/////////////@@@@@@@
+// @@@@@@@////////////////////////////////////#@@@@@@
+// @@@@@@@/////////////////////////////////////@@@@@@
+// @@@@@@@/////////////////////////////////////@@@@@@
+// @@@@@@/////// //////////////////////* ///////@@@@@
+// @@@@@////////.    ///////////////    *////////@@@@
+// @@@@//////////      ,/////////.     .//////////@@@
+// @@#/////////////////////////////////////////////@@
+// @/////////////////////////////////////////////////
+// @&///////////////////////////////////////////////@
+// @@@@@@@#///////////////////////////////////#@@@@@@
+// @@@@@@@@@@@&////////////, *////////////@@@@@@@@@@@
+// @@@@@@@@@@@@@@@@///////////////////&@@@@@@@@@@@@@@
+// @@@@@@@@@@@@@@@@@@@////////////%@@@@@@@@@@@@@@@@@@
+// @@@@@@@@@@@@@@@@@@@@@@%/////&@@@@@@@@@@@@@@@@@@@@@
 
 error PublicSaleNotLive();
 error WhitelistNotActive();
@@ -29,8 +49,8 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
     uint256 public mintRate = 0.07777 ether;
     uint256 public whitelistMintRate = 0.05555 ether;
     string public baseExtension = ".json";
-    string public baseURI = ""; // ipfs://<LIVE_ID>/
-    string public baseHiddenUri = ""; // ipfs://<HIDDEN_ID>/
+    string public baseURI = ""; // ipfs://<LIVE_CID>/
+    string public baseHiddenUri = ""; // ipfs://<HIDDEN_CID>/
     bool public revealed = false;
     bool public publicSale = false;
     bool public whitelistSale = false;
@@ -38,7 +58,7 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
     mapping(address => uint256) public whiteListUsedAddresses;
     mapping(address => uint256) public usedAddresses;
 
-    constructor() ERC721A("Kitsuden Foxfone", "KSDNFF") {}
+    constructor() ERC721A("KitsudenFoxFone", "KSDFF") {}
 
     function mint(uint256 quantity) external payable nonReentrant {
         if (!publicSale) revert PublicSaleNotLive();
@@ -63,29 +83,39 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
         _safeMint(msg.sender, quantity);
     }
 
+    /**
+     * @dev a function that only allow whitelisted addresses to mint
+     */
     function whiteListMint(uint256 quantity, bytes32[] calldata proof)
         external
         payable
         nonReentrant
     {
+        if (!whitelistSale) revert WhitelistNotActive();
+
+        if (!isWhiteListed(msg.sender, proof)) revert InvalidMerkle();
+
         if (quantity > whiteListMaxMints) revert ExceededLimit();
+
         if (whitelistMintRate * quantity != msg.value) {
             revert WrongEther();
         }
 
-        if (usedAddresses[msg.sender] + quantity > whiteListMaxMints) {
+        if (whiteListUsedAddresses[msg.sender] + quantity > whiteListMaxMints) {
             revert WhitelistUsed();
         }
-        if (!whitelistSale) revert WhitelistNotActive();
 
         if (totalSupply() + quantity > maxSupply) {
             revert NotEnoughTokensLeft();
         }
-        if (!isWhiteListed(msg.sender, proof)) revert InvalidMerkle();
+
         usedAddresses[msg.sender] += quantity;
         _safeMint(msg.sender, quantity);
     }
 
+    /**
+     * @dev a function that check for user address and verify its proof
+     */
     function isWhiteListed(address _account, bytes32[] calldata _proof)
         internal
         view
@@ -100,7 +130,7 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
         override
         returns (string memory)
     {
-        require(_exists(tokenId), "nonexistent token");
+        require(_exists(tokenId), "token doest not exist");
 
         if (!revealed) {
             string memory currentHiddenBaseURI = _baseHiddenURI();
@@ -142,14 +172,14 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
         return baseURI;
     }
 
-    // Check the number of mint available
+    // @dev Check the number of mint available
     function mintAvailable() public view returns (uint256) {
         if (whitelistSale) {
-            return whiteListMaxMints - usedAddresses[msg.sender];
+            return whiteListMaxMints - whiteListUsedAddresses[msg.sender];
         }
 
         if (publicSale) {
-            return maxMints - _numberMinted(msg.sender);
+            return maxMints - usedAddresses[msg.sender];
         }
 
         return 0;

@@ -4,38 +4,65 @@
 
 import { expect } from "chai";
 import { WHITE_LIST_ADDRESSES } from "../constants/constants";
-import { ethers, waffle } from "hardhat";
+import { ethers } from "hardhat";
+import { loadFixture } from "@nomicfoundation/hardhat-network-helpers";
+
 import { getMerkleProof, generateMerkle } from "../utils/merkle";
 
 const contractMaxSupply = 6666;
 
 describe("KitsudenFoxfone", () => {
+  // We define a fixture to reuse the same setup in every test. We use
+  // loadFixture to run this setup once, snapshot that state, and reset Hardhat
+  // Network to that snapshopt in every test.
+  async function deployContractFixture() {
+    // Get the ContractFactory and Signers here.
+    const KitsudenFoxfone = await ethers.getContractFactory("KitsudenFoxfone");
+    const [owner, addr1, addr2] = await ethers.getSigners();
+
+    // To deploy our contract, we just have to call Token.deploy() and await
+    // its deployed() method, which happens onces its transaction has been
+    // mined.
+    const contract = await KitsudenFoxfone.deploy();
+    const provider = await ethers.getDefaultProvider();
+
+    await contract.deployed();
+
+    // Fixtures can return anything you consider useful for your tests
+    return {
+      KitsudenFoxfone,
+      provider,
+      contract,
+      owner,
+      addr1,
+      addr2,
+    };
+  }
+
   it("should deployed", async () => {
-    const factory = await ethers.getContractFactory("KitsudenFoxfone");
-    const contract = await factory.deploy();
+    const { contract } = await loadFixture(deployContractFixture);
     expect(contract).not.equal("");
   });
 
   // publicMint test
 
-  it("publicMint should fail when is not publicSale", async () => {
-    const factory = await ethers.getContractFactory("KitsudenFoxfone");
-    const contract = await factory.deploy();
-    await contract.deployed();
+  it.only("publicMint should fail when is not publicSale", async () => {
+    const { contract } = await loadFixture(deployContractFixture);
     const quantity = 1;
     const publicSale = await contract.publicSale();
 
+    console.log("PUBLIC SALE >>>>>>>>>>>", publicSale);
+
     expect(publicSale).to.equal(false);
 
-    await expect(contract.mint(quantity)).to.be.revertedWith(
+    await expect(contract.mint(quantity)).to.be.revertedWithCustomError(
+      contract,
       "PublicSaleNotLive"
     );
   });
 
   it("publicMint should fail when quantity is greater than maxMints", async () => {
-    const factory = await ethers.getContractFactory("KitsudenFoxfone");
-    const contract = await factory.deploy();
-    await contract.deployed();
+    const { contract } = await loadFixture(deployContractFixture);
     const quantity = 10;
 
     await contract.togglePublicSale();
@@ -47,9 +74,7 @@ describe("KitsudenFoxfone", () => {
   });
 
   it("publicMint should fail when quantity set is more than max supply ", async () => {
-    const factory = await ethers.getContractFactory("KitsudenFoxfone");
-    const contract = await factory.deploy();
-    await contract.deployed();
+    const { contract } = await loadFixture(deployContractFixture);
     const quantity = 2; // quantity more than set maxSupploy
     let maxSupply;
 
@@ -69,9 +94,7 @@ describe("KitsudenFoxfone", () => {
   });
 
   it("publicMint should fail when msg value is not equal to minRate * quantity ", async () => {
-    const factory = await ethers.getContractFactory("KitsudenFoxfone");
-    const contract = await factory.deploy();
-    await contract.deployed();
+    const { contract } = await loadFixture(deployContractFixture);
     const quantity = 2;
     const minRate = 0.07;
     let wei = ethers.utils.parseEther(`${minRate}`);
@@ -85,9 +108,7 @@ describe("KitsudenFoxfone", () => {
   });
 
   it("publicMint should be call successfull", async () => {
-    const factory = await ethers.getContractFactory("KitsudenFoxfone");
-    const contract = await factory.deploy();
-    await contract.deployed();
+    const { contract, provider } = await loadFixture(deployContractFixture);
     const quantity = ethers.BigNumber.from(2);
     const minRate = await contract.mintRate();
     const balanceInEth = ethers.utils.formatEther(minRate);
@@ -105,7 +126,6 @@ describe("KitsudenFoxfone", () => {
     const totalSupply = await contract.totalSupply();
     expect(totalSupply.toNumber()).to.equal(quantity);
 
-    const provider = waffle.provider;
     const balanceInWei = await provider.getBalance(contract.address);
     const contractBalanceInEth = ethers.utils.formatEther(balanceInWei);
 
@@ -113,10 +133,10 @@ describe("KitsudenFoxfone", () => {
   });
 
   it("whiteListMint should fail when quantity is greater than whiteListMaxMints", async () => {
-    const [owner] = await ethers.getSigners();
-    const factory = await ethers.getContractFactory("KitsudenFoxfone");
-    const contract = await factory.deploy();
-    await contract.deployed();
+    const { contract, provider, owner } = await loadFixture(
+      deployContractFixture
+    );
+
     const quantity = 10;
     const merkle = generateMerkle([owner.address]);
     const hash = `0x${merkle?.merkleRootHash}`;
@@ -130,10 +150,7 @@ describe("KitsudenFoxfone", () => {
   });
 
   it("whiteListMint should fail when quantity and msg value does not match ", async () => {
-    const [owner] = await ethers.getSigners();
-    const factory = await ethers.getContractFactory("KitsudenFoxfone");
-    const contract = await factory.deploy();
-    await contract.deployed();
+    const { contract, owner } = await loadFixture(deployContractFixture);
     const quantity = 2;
     const merkle = generateMerkle([owner.address]);
     const hash = `0x${merkle?.merkleRootHash}`;
@@ -152,10 +169,7 @@ describe("KitsudenFoxfone", () => {
   });
 
   it("whiteListMint should fail when whitelist is used", async () => {
-    const [owner] = await ethers.getSigners();
-    const factory = await ethers.getContractFactory("KitsudenFoxfone");
-    const contract = await factory.deploy();
-    await contract.deployed();
+    const { contract, owner } = await loadFixture(deployContractFixture);
     const quantity = 2;
     const merkle = generateMerkle([owner.address]);
     const hash = `0x${merkle?.merkleRootHash}`;
@@ -177,10 +191,8 @@ describe("KitsudenFoxfone", () => {
   });
 
   it("whiteListMint should fail when whitelist is used", async () => {
-    const [owner] = await ethers.getSigners();
-    const factory = await ethers.getContractFactory("KitsudenFoxfone");
-    const contract = await factory.deploy();
-    await contract.deployed();
+    const { contract, owner } = await loadFixture(deployContractFixture);
+
     const quantity = 2;
     const merkle = generateMerkle([owner.address]);
     const hash = `0x${merkle?.merkleRootHash}`;
@@ -199,10 +211,8 @@ describe("KitsudenFoxfone", () => {
   });
 
   it("whiteListMint should fail when is not maxSupply is MAX ", async () => {
-    const [owner] = await ethers.getSigners();
-    const factory = await ethers.getContractFactory("KitsudenFoxfone");
-    const contract = await factory.deploy();
-    await contract.deployed();
+    const { contract, owner } = await loadFixture(deployContractFixture);
+
     const quantity = 2;
     const merkle = generateMerkle([owner.address]);
     const hash = `0x${merkle?.merkleRootHash}`;
@@ -223,12 +233,10 @@ describe("KitsudenFoxfone", () => {
   });
 
   it("whiteListMint should fail when invalida merkle proof ", async () => {
-    const [owner, owner2] = await ethers.getSigners();
-    const factory = await ethers.getContractFactory("KitsudenFoxfone");
-    const contract = await factory.deploy();
-    await contract.deployed();
+    const { contract, addr1 } = await loadFixture(deployContractFixture);
+
     const quantity = 2;
-    const merkle = generateMerkle([owner2.address]);
+    const merkle = generateMerkle([addr1.address]);
     const hash = `0x${merkle?.merkleRootHash}`;
     const whitelistMintRate = await contract.whitelistMintRate();
     const balanceInEth = ethers.utils.formatEther(whitelistMintRate);
@@ -237,7 +245,7 @@ describe("KitsudenFoxfone", () => {
     const msg = { value: wei };
 
     await contract.setMerkleRoot(hash);
-    const proof = getMerkleProof(WHITE_LIST_ADDRESSES, owner2.address);
+    const proof = getMerkleProof(WHITE_LIST_ADDRESSES, addr1.address);
     await contract.toggleWhitelistSale();
 
     await expect(
@@ -246,10 +254,8 @@ describe("KitsudenFoxfone", () => {
   });
 
   it("whiteListMint should succeed ", async () => {
-    const [owner] = await ethers.getSigners();
-    const factory = await ethers.getContractFactory("KitsudenFoxfone");
-    const contract = await factory.deploy();
-    await contract.deployed();
+    const { contract, owner } = await loadFixture(deployContractFixture);
+
     const quantity = 2;
     const merkle = generateMerkle([owner.address]);
     const hash = `0x${merkle?.merkleRootHash}`;
@@ -273,10 +279,8 @@ describe("KitsudenFoxfone", () => {
   });
 
   it("should get default hiddenTokenUri when is not revealed", async () => {
-    const [owner] = await ethers.getSigners();
-    const factory = await ethers.getContractFactory("KitsudenFoxfone");
-    const contract = await factory.deploy();
-    await contract.deployed();
+    const { contract, owner } = await loadFixture(deployContractFixture);
+
     const quantity = 2;
     const merkle = generateMerkle([owner.address]);
     const hash = `0x${merkle?.merkleRootHash}`;
@@ -306,10 +310,8 @@ describe("KitsudenFoxfone", () => {
   it("should get updated hiddenTokenUri when is not revealed", async () => {
     const mockHiddenUri = "ipfs://mockhiddenuri/";
     const mockTokenId = 0;
-    const [owner] = await ethers.getSigners();
-    const factory = await ethers.getContractFactory("KitsudenFoxfone");
-    const contract = await factory.deploy();
-    await contract.deployed();
+    const { contract, owner } = await loadFixture(deployContractFixture);
+
     const quantity = 2;
     const merkle = generateMerkle([owner.address]);
     const hash = `0x${merkle?.merkleRootHash}`;
@@ -342,10 +344,8 @@ describe("KitsudenFoxfone", () => {
   it("should get default revealed token uri", async () => {
     const mockHiddenUri = "ipfs://revealed/";
     const mockTokenId = 0;
-    const [owner] = await ethers.getSigners();
-    const factory = await ethers.getContractFactory("KitsudenFoxfone");
-    const contract = await factory.deploy();
-    await contract.deployed();
+    const { contract, owner } = await loadFixture(deployContractFixture);
+
     const quantity = 2;
     const merkle = generateMerkle([owner.address]);
     const hash = `0x${merkle?.merkleRootHash}`;
@@ -376,9 +376,7 @@ describe("KitsudenFoxfone", () => {
   });
 
   it("withdraw should fail if not owner ", async () => {
-    const [owner, account2] = await ethers.getSigners();
-    const factory = await ethers.getContractFactory("KitsudenFoxfone");
-    const contract = await factory.deploy();
+    const { contract, owner, addr1 } = await loadFixture(deployContractFixture);
 
     const quantity = 2;
     const merkle = generateMerkle([owner.address]);
@@ -401,15 +399,13 @@ describe("KitsudenFoxfone", () => {
     expect(totalSupply.toNumber()).to.equal(quantity);
     expect(count).to.equal(quantity);
 
-    await expect(contract.connect(account2).withdraw()).to.revertedWith(
+    await expect(contract.connect(addr1).withdraw()).to.revertedWith(
       "Ownable: caller is not the owner"
     );
   });
 
   it("withdraw should succeed if owner ", async () => {
-    const [owner] = await ethers.getSigners();
-    const factory = await ethers.getContractFactory("KitsudenFoxfone");
-    const contract = await factory.deploy();
+    const { contract, owner } = await loadFixture(deployContractFixture);
 
     const quantity = 2;
     const merkle = generateMerkle([owner.address]);
@@ -444,8 +440,7 @@ describe("KitsudenFoxfone", () => {
   it("should be able to setMintRate", async () => {
     const mockMintRate = "999.99";
     const mockMintRateInWei = ethers.utils.parseEther(mockMintRate);
-    const factory = await ethers.getContractFactory("KitsudenFoxfone");
-    const contract = await factory.deploy();
+    const { contract } = await loadFixture(deployContractFixture);
 
     let minRate = await contract.mintRate();
     let balanceInEth = ethers.utils.formatEther(minRate);
@@ -463,8 +458,7 @@ describe("KitsudenFoxfone", () => {
   it("should be able to setWhitelistMintRate", async () => {
     const mockMintRate = "999.99";
     const mockMintRateInWei = ethers.utils.parseEther(mockMintRate);
-    const factory = await ethers.getContractFactory("KitsudenFoxfone");
-    const contract = await factory.deploy();
+    const { contract } = await loadFixture(deployContractFixture);
 
     let minRate = await contract.whitelistMintRate();
     let balanceInEth = ethers.utils.formatEther(minRate);
@@ -497,9 +491,7 @@ describe("KitsudenFoxfone", () => {
 
   it("should be able to setMaxMints", async () => {
     const mockMaxMints = 123123;
-    const [owner] = await ethers.getSigners();
-    const factory = await ethers.getContractFactory("KitsudenFoxfone");
-    const contract = await factory.deploy();
+    const { contract } = await loadFixture(deployContractFixture);
 
     let maxMints = await contract.maxMints();
 
@@ -514,9 +506,7 @@ describe("KitsudenFoxfone", () => {
 
   it("should be able to setWhiteListMaxMints", async () => {
     const mockMaxMints = 123123;
-    const [owner] = await ethers.getSigners();
-    const factory = await ethers.getContractFactory("KitsudenFoxfone");
-    const contract = await factory.deploy();
+    const { contract } = await loadFixture(deployContractFixture);
 
     let maxMints = await contract.maxMints();
 
@@ -530,19 +520,15 @@ describe("KitsudenFoxfone", () => {
   });
 
   it("mintAvailable should return correct value when is not live", async () => {
-    const factory = await ethers.getContractFactory("KitsudenFoxfone");
-    const contract = await factory.deploy();
-    await contract.deployed();
-
+    const { contract } = await loadFixture(deployContractFixture);
     const count = await contract.mintAvailable();
 
     expect(count).to.equal(0);
   });
 
   it("mintAvailable should return correct value for publicSale", async () => {
-    const factory = await ethers.getContractFactory("KitsudenFoxfone");
-    const contract = await factory.deploy();
-    await contract.deployed();
+    const { contract, provider } = await loadFixture(deployContractFixture);
+
     const quantity = ethers.BigNumber.from(2);
     const minRate = await contract.mintRate();
     const balanceInEth = ethers.utils.formatEther(minRate);
@@ -560,7 +546,6 @@ describe("KitsudenFoxfone", () => {
     const totalSupply = await contract.totalSupply();
     expect(totalSupply.toNumber()).to.equal(quantity);
 
-    const provider = waffle.provider;
     const balanceInWei = await provider.getBalance(contract.address);
     const contractBalanceInEth = ethers.utils.formatEther(balanceInWei);
 

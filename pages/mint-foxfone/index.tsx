@@ -7,7 +7,6 @@ import {
   Link,
   useMediaQuery,
 } from "@chakra-ui/react";
-import { CloseIcon } from "@chakra-ui/icons";
 import Header from "containers/Header";
 import mintFoxfoneBg from "public/img/mint_foxfone_bg.png";
 import { useNetwork } from "wagmi";
@@ -36,7 +35,7 @@ const Mint = () => {
   if (!isMounted) return null;
 
   return (
-    <Box h="100%">
+    <Box h="full">
       {isShowWarning && (
         <Box
           position="relative"
@@ -50,18 +49,10 @@ const Mint = () => {
             mainnet
           </Link>{" "}
           , currently connected to {activeChain?.name}
-          <CloseIcon
-            cursor="pointer"
-            fontSize={16}
-            position="absolute"
-            top="1rem"
-            right="1rem"
-            onClick={() => setIsShowWarning(false)}
-          />
         </Box>
       )}
       <Header />
-      <Box position="relative" height="100%">
+      <Box position="relative" h="full">
         <Image
           position="absolute"
           src={mintFoxfoneBg.src}
@@ -72,7 +63,7 @@ const Mint = () => {
           zIndex="-1"
           placeholder="empty"
         />
-        <Container maxW={1600} py="5rem">
+        <Container h="full" maxW={1600} py="5rem">
           <Flex
             flexWrap={isMobile ? "wrap-reverse" : "nowrap"}
             gap="5rem"
