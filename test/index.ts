@@ -552,4 +552,60 @@ describe("KitsudenFoxfone", () => {
 
     expect(count.toNumber()).to.equal(0);
   });
+
+  it("reserveMint should fail when supplied quantity is more than the avaiable supply", async () => {
+    const { contract, provider, owner, addr1 } = await loadFixture(
+      deployContractFixture
+    );
+
+    const quantity = 6666;
+    const mintRate = await contract.mintRate();
+    const totalEth = mintRate.mul(quantity);
+    const msg = { value: totalEth };
+
+    await contract.setMaxMints(9999999);
+    await contract.togglePublicSale();
+    await contract.connect(addr1).mint(quantity, msg);
+
+    await expect(contract.reserveMint(1)).to.be.revertedWithCustomError(
+      contract,
+      "NotEnoughTokensLeft"
+    );
+  });
+
+  it("reserveMint should fail when supplied quantity is more than the avaiable supply", async () => {
+    const { contract, addr1 } = await loadFixture(deployContractFixture);
+
+    const quantity = 6666;
+    const mintRate = await contract.mintRate();
+    const totalEth = mintRate.mul(quantity);
+    const msg = { value: totalEth };
+
+    await contract.setMaxMints(9999999);
+    await contract.togglePublicSale();
+    await contract.connect(addr1).mint(quantity, msg);
+
+    await expect(contract.reserveMint(1)).to.be.revertedWithCustomError(
+      contract,
+      "NotEnoughTokensLeft"
+    );
+  });
+
+  it("reserveMint should fail when msg sender is not an owner", async () => {
+    const { contract, addr1 } = await loadFixture(deployContractFixture);
+
+    await expect(contract.connect(addr1).reserveMint(1)).to.be.revertedWith(
+      "Ownable: caller is not the owner"
+    );
+  });
+
+  it("reserveMint should succeed", async () => {
+    const { contract, addr1 } = await loadFixture(deployContractFixture);
+    const quantity = 2;
+
+    await contract.reserveMint(quantity);
+
+    const totalSupply = await contract.totalSupply();
+    expect(totalSupply.toNumber()).to.equal(quantity);
+  });
 });

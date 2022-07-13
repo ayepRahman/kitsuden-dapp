@@ -41,6 +41,7 @@ interface KitsudenFoxfoneInterface extends ethers.utils.Interface {
     "ownerOf(uint256)": FunctionFragment;
     "publicSale()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
+    "reserveMint(uint256)": FunctionFragment;
     "revealed()": FunctionFragment;
     "safeTransferFrom(address,address,uint256)": FunctionFragment;
     "setApprovalForAll(address,bool)": FunctionFragment;
@@ -120,6 +121,10 @@ interface KitsudenFoxfoneInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: "renounceOwnership",
     values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "reserveMint",
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "revealed", values?: undefined): string;
   encodeFunctionData(
@@ -252,6 +257,10 @@ interface KitsudenFoxfoneInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "publicSale", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "renounceOwnership",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "reserveMint",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "revealed", data: BytesLike): Result;
@@ -482,6 +491,11 @@ export class KitsudenFoxfone extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    reserveMint(
+      quantity: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     revealed(overrides?: CallOverrides): Promise<[boolean]>;
 
     "safeTransferFrom(address,address,uint256)"(
@@ -659,6 +673,11 @@ export class KitsudenFoxfone extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  reserveMint(
+    quantity: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   revealed(overrides?: CallOverrides): Promise<boolean>;
 
   "safeTransferFrom(address,address,uint256)"(
@@ -824,6 +843,11 @@ export class KitsudenFoxfone extends BaseContract {
     publicSale(overrides?: CallOverrides): Promise<boolean>;
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
+
+    reserveMint(
+      quantity: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     revealed(overrides?: CallOverrides): Promise<boolean>;
 
@@ -1058,6 +1082,11 @@ export class KitsudenFoxfone extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    reserveMint(
+      quantity: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     revealed(overrides?: CallOverrides): Promise<BigNumber>;
 
     "safeTransferFrom(address,address,uint256)"(
@@ -1236,6 +1265,11 @@ export class KitsudenFoxfone extends BaseContract {
     publicSale(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     renounceOwnership(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    reserveMint(
+      quantity: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 

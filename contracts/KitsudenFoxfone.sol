@@ -115,6 +115,17 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
     }
 
     /**
+     * @dev a function that only allow owner to reserve nft for marketing/giveaway purpose
+     */
+    function reserveMint(uint256 quantity) public onlyOwner {
+        if (totalSupply() + quantity > maxSupply) {
+            revert NotEnoughTokensLeft();
+        }
+
+        _safeMint(msg.sender, quantity);
+    }
+
+    /**
      * @dev a function that check for user address and verify its proof
      */
     function isWhiteListed(address _account, bytes32[] calldata _proof)
@@ -173,7 +184,9 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
         return baseURI;
     }
 
-    // @dev Check the number of mint available
+    /**
+     * @dev a function that check the remainding mint available
+     */
     function mintAvailable() public view returns (uint256) {
         if (whitelistSale) {
             return whiteListMaxMints - whiteListUsedAddresses[msg.sender];

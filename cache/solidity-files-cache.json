@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/arifrahman/Code/personal/kitsuden-dapp/contracts/KitsudenFoxfone.sol": {
-      "lastModificationDate": 1657551442324,
-      "contentHash": "3d2133af242e02563b7d08c494484417",
+      "lastModificationDate": 1657634149980,
+      "contentHash": "9f84bb565d80aff002dd03067d8c75de",
       "sourceName": "contracts/KitsudenFoxfone.sol",
       "solcConfig": {
         "version": "0.8.9",
