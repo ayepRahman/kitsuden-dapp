@@ -8,16 +8,15 @@ import {
   Flex,
   useDisclosure,
 } from "@chakra-ui/react";
-
 import ScrollLink from "components/ScrollLink";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { HeaderClip } from "./styled";
-import { SOCIAL_LINKS } from "constants/constants";
 import { useRouter } from "next/router";
 import { Mobile, Desktop } from "components/MediaQuery";
-import Icon, { IconNamesType } from "components/Icon";
+import Icon from "components/Icon";
 import { navLinks, socialLinks } from "constants/links";
 import useIsMounted from "hooks/useIsMounted";
+import ChakraBox from "components/ChakraBox";
 
 const MetamaskButton = dynamic(() => import("containers/MetamaskButton"));
 
@@ -44,15 +43,10 @@ const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
     onClose();
   };
 
-  // if (!isMounted) return null;
+  if (!isMounted) return null;
 
   return (
-    <Box
-      bg="brand.100"
-      height="max-content"
-      position="relative"
-      // overflowX="hidden"
-    >
+    <ChakraBox bg="brand.100" height="max-content" position="relative">
       <Container
         position="relative"
         padding={{ base: "0.5rem 1rem", lg: "1rem" }}
@@ -198,7 +192,7 @@ const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
       </Container>
 
       <HeaderClip />
-    </Box>
+    </ChakraBox>
   );
 };
 

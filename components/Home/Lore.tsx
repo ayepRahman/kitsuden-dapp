@@ -51,7 +51,7 @@ const Lore = React.forwardRef((_, ref) => {
     visible: {
       opacity: 1,
       transition: {
-        delay: 0.5,
+        // delay: 0.3,
         staggerChildren: 0.02,
       },
     },
@@ -169,10 +169,6 @@ const Lore = React.forwardRef((_, ref) => {
               initial="hidden"
               animate={controlsLineOne}
               onAnimationComplete={() => controlsLineTwo.start("visible")}
-              // @ts-ignore
-              transition={{
-                duration: 0.1,
-              }}
             >
               {lines.one.split("").map((char, i) => {
                 return (

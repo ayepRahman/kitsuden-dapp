@@ -91,7 +91,7 @@ const Team = React.forwardRef((_, ref) => {
     visible: {
       opacity: 1,
       transition: {
-        delay: 0.5,
+        // delay: 0.3,
         staggerChildren: 0.5,
       },
     },

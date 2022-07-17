@@ -25,7 +25,7 @@ const Hero = React.forwardRef<any>((_, ref) => {
         initial={{ opacity: 0.1, scale: 1.3 }}
         animate={{ opacity: 1, scale: 1 }}
         // @ts-ignore no problem in operation, although type error appears.
-        transition={{ duration: 2 }}
+        transition={{ duration: 1.5 }}
         top="0"
         position="absolute"
         h="100%"
