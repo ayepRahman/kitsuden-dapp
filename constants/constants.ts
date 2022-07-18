@@ -10,7 +10,7 @@ export const CONTRACT_ADDRESS: { [key: number]: string } = {
   3: "0xDAA87A5d8036347Ec796F994861B4BE466E2C997", // ropsten
   4: "0xDAA87A5d8036347Ec796F994861B4BE466E2C997", // rinkeby
   1337: "0x5fbdb2315678afecb367f032d93f642f64180aa3", // localhost
-  31337: "0x5fbdb2315678afecb367f032d93f642f64180aa3", // localhost
+  31337: "0x5fbdb2315678afecb367f032d93f642f64180aa3", // hardhat
 };
 
 export const WHITE_LIST_ADDRESSES = [

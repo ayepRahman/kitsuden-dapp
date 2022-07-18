@@ -53,24 +53,31 @@
 //   },
 // });
 
-import { createClient, defaultChains, configureChains } from "wagmi";
+import { createClient, defaultChains, chain, configureChains } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
+import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 
 const ALCHEMY_ID = process.env.NEXT_PUBLIC_ALCHEMY_API_ID;
 
 // Configure chains & providers with the Alchemy provider.
 // Two popular providers are Alchemy (alchemy.com) and Infura (infura.io)
-const { chains, provider, webSocketProvider } = configureChains(defaultChains, [
-  alchemyProvider({ alchemyId: ALCHEMY_ID }),
-  publicProvider(),
-]);
 
-console.log("chains >>>>", { chains });
+const { chains, provider, webSocketProvider } = configureChains(
+  [chain.mainnet, chain.goerli, chain.hardhat],
+  [
+    alchemyProvider({
+      alchemyId: ALCHEMY_ID,
+    }),
+    publicProvider(),
+  ]
+);
+
+console.log("chains >>>>", chains);
 
 // Set up client
 export const wagmiClient = createClient({
