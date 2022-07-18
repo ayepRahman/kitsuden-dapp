@@ -36,8 +36,6 @@ const Minting = () => {
   const [selected, setSelected] = React.useState<number | null>(null);
   const currentChainId = activeChain?.id || 1;
 
-  console.log("currentChainId", currentChainId);
-
   const [mintSuccessProps, setMintSuccessProps] = React.useState<{
     contractAddress?: string;
     tokenId?: number;
