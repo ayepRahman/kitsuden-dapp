@@ -26,6 +26,7 @@ import MintSuccessModal from "containers/MintSuccessModal";
 import { CONTRACT_ADDRESS } from "constants/constants";
 import { truncateAddress } from "utils/address";
 import useIsMounted from "hooks/useIsMounted";
+import useGetContractAddress from "hooks/useGetContractAddress";
 
 const Minting = () => {
   const isMounted = useIsMounted();
@@ -34,6 +35,9 @@ const Minting = () => {
   const { activeChain } = useNetwork();
   const [selected, setSelected] = React.useState<number | null>(null);
   const currentChainId = activeChain?.id || 1;
+
+  console.log("currentChainId", currentChainId);
+
   const [mintSuccessProps, setMintSuccessProps] = React.useState<{
     contractAddress?: string;
     tokenId?: number;
@@ -50,8 +54,10 @@ const Minting = () => {
   const { mintLimit } = useGetMintAvailable();
   const { currentMintRateEth, currentMintRateWei } = useGetMintRate();
   const { isWhiteListed } = useCheckIsAddressWhiteListed();
+  const { contractAddress } = useGetContractAddress();
 
-  console.log({
+  console.log("Minting >>>>", {
+    account,
     mintLimit,
     isPublicSale,
     isWhitelistSale,
@@ -63,7 +69,7 @@ const Minting = () => {
   const { write: mint, isLoading: isMinting } = useMint({
     onSuccess: (data) => {
       setMintSuccessProps({
-        contractAddress: CONTRACT_ADDRESS[currentChainId],
+        contractAddress: contractAddress,
         tokenId: 0,
         quantity: selected || 0,
         txHash: data?.hash,
@@ -75,7 +81,7 @@ const Minting = () => {
   const { whiteListMint, isLoading: isWhiteListMinting } = useWhitelistMint({
     onSuccess: (data) => {
       setMintSuccessProps({
-        contractAddress: CONTRACT_ADDRESS[currentChainId],
+        contractAddress: contractAddress,
         tokenId: 0,
         quantity: selected || 0,
         txHash: data?.hash,

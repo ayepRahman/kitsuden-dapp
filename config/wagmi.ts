@@ -70,6 +70,8 @@ const { chains, provider, webSocketProvider } = configureChains(defaultChains, [
   publicProvider(),
 ]);
 
+console.log("chains >>>>", { chains });
+
 // Set up client
 export const wagmiClient = createClient({
   autoConnect: true,

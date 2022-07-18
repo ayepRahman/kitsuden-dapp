@@ -4,16 +4,17 @@ import { CONTRACT_ADDRESS } from "constants/constants";
 import FoxfoneContract from "artifacts/contracts/KitsudenFoxfone.sol/KitsudenFoxfone.json";
 import useGetPublicSale from "./useGetPublicSale";
 import useGetWhitelistSale from "./useGetWhitelistSale";
+import useGetContractAddress from "./useGetContractAddress";
 
+// TODO: to add
 const useGetMintRate = () => {
-  const { activeChain } = useNetwork();
-  const currentChainId = activeChain?.id || 1;
   const { data: isPublicSale } = useGetPublicSale();
   const { data: isWhitelistSale } = useGetWhitelistSale();
+  const { contractAddress } = useGetContractAddress();
 
   const mintRateRes = useContractRead(
     {
-      addressOrName: CONTRACT_ADDRESS[currentChainId],
+      addressOrName: contractAddress,
       contractInterface: FoxfoneContract.abi,
     },
     "mintRate",
@@ -21,12 +22,13 @@ const useGetMintRate = () => {
       onError: (error) => {
         console.log("error", error.message);
       },
+      enabled: !!contractAddress,
     }
   );
 
   const whitelistMintRateRes = useContractRead(
     {
-      addressOrName: CONTRACT_ADDRESS[currentChainId],
+      addressOrName: contractAddress,
       contractInterface: FoxfoneContract.abi,
     },
     "whitelistMintRate",
@@ -34,6 +36,7 @@ const useGetMintRate = () => {
       onError: (error) => {
         console.log("error", error.message);
       },
+      enabled: !!contractAddress,
     }
   );
 

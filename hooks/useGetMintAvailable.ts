@@ -1,16 +1,14 @@
-import { useNetwork, useContractRead, useConnect, useAccount } from "wagmi";
-import * as ethers from "ethers";
-import { CONTRACT_ADDRESS } from "constants/constants";
+import { useContractRead, useAccount } from "wagmi";
 import FoxfoneContract from "artifacts/contracts/KitsudenFoxfone.sol/KitsudenFoxfone.json";
+import useGetContractAddress from "./useGetContractAddress";
 
 const useGetMintAvailable = () => {
-  const { activeChain } = useNetwork();
   const { data } = useAccount();
-  const currentChainId = activeChain?.id || 1;
+  const { contractAddress } = useGetContractAddress();
 
   const res = useContractRead(
     {
-      addressOrName: CONTRACT_ADDRESS[currentChainId],
+      addressOrName: contractAddress,
       contractInterface: FoxfoneContract.abi,
     },
     "mintAvailable",
@@ -19,6 +17,7 @@ const useGetMintAvailable = () => {
       onError: (error) => {
         console.log("error", error.message);
       },
+      enabled: !!data?.address && !!contractAddress,
     }
   );
 

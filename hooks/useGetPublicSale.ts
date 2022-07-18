@@ -1,14 +1,15 @@
 import { useNetwork, useContractRead } from "wagmi";
 import { CONTRACT_ADDRESS } from "constants/constants";
 import FoxfoneContract from "artifacts/contracts/KitsudenFoxfone.sol/KitsudenFoxfone.json";
+import useGetContractAddress from "./useGetContractAddress";
 
 const useGetPublicSale = () => {
   const { activeChain } = useNetwork();
-  const currentChainId = activeChain?.id || 1;
+  const { contractAddress } = useGetContractAddress();
 
   return useContractRead(
     {
-      addressOrName: CONTRACT_ADDRESS[currentChainId],
+      addressOrName: contractAddress,
       contractInterface: FoxfoneContract.abi,
     },
     "publicSale",
@@ -16,6 +17,7 @@ const useGetPublicSale = () => {
       onError: (error) => {
         console.log("error", error.message);
       },
+      enabled: !!contractAddress,
     }
   );
 };

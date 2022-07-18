@@ -1,20 +1,13 @@
-import {
-  useContract,
-  useConnect,
-  useProvider,
-  useNetwork,
-  useContractRead,
-} from "wagmi";
-import { CONTRACT_ADDRESS } from "constants/constants";
+import { useNetwork, useContractRead } from "wagmi";
 import FoxfoneContract from "artifacts/contracts/KitsudenFoxfone.sol/KitsudenFoxfone.json";
+import useGetContractAddress from "./useGetContractAddress";
 
 const useGetMaxSupply = () => {
-  const { activeChain } = useNetwork();
-  const currentChainId = activeChain?.id || 1;
+  const { contractAddress } = useGetContractAddress();
 
   const res = useContractRead(
     {
-      addressOrName: CONTRACT_ADDRESS[currentChainId],
+      addressOrName: contractAddress,
       contractInterface: FoxfoneContract.abi,
     },
     "maxSupply",
@@ -22,6 +15,7 @@ const useGetMaxSupply = () => {
       onError: (error) => {
         console.log("error", error.message);
       },
+      enabled: !!contractAddress,
     }
   );
 
