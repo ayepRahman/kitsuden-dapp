@@ -39,9 +39,6 @@ const config: HardhatUserConfig = {
       url: "",
       accounts: [],
     },
-    // hardhat: {
-    //   chainId: 1337,
-    // },
   },
   gasReporter: {
     enabled: REPORT_GAS !== undefined,
