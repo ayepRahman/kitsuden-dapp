@@ -1,18 +1,17 @@
-import React from "react";
 import { Box, Container, Flex, useMediaQuery } from "@chakra-ui/react";
+import Icon from "components/Icon";
+import ScrollLink from "components/ScrollLink";
+import { navLinks, socialLinks } from "constants/links";
 import LogoImg from "public/svg/kitsuden_logo_1.svg";
 import LogoIcon from "public/svg/logo_icon.svg";
-import ScrollLink from "components/ScrollLink";
-import Icon from "components/Icon";
-import { navLinks, socialLinks } from "constants/links";
-import useIsMounted from "hooks/useIsMounted";
+import React from "react";
 
 interface FooterProps {
   scrollTo?: (to: string) => void;
 }
 
 const Footer: React.FC<FooterProps> = ({ scrollTo }) => {
-  const isMounted = useIsMounted();
+  // const isMounted = useIsMounted();
   const [isMobile] = useMediaQuery("(max-width: 767.98px)");
 
   const handleOnClick = (to: string) => {
@@ -24,7 +23,7 @@ const Footer: React.FC<FooterProps> = ({ scrollTo }) => {
     window.open(link);
   };
 
-  if (!isMounted) return null;
+  // if (!isMounted) return null;
 
   return (
     <Box

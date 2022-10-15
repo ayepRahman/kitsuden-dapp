@@ -1,17 +1,16 @@
-import React from "react";
 import { Box, useMediaQuery } from "@chakra-ui/react";
+import Button from "components/Button";
+import ChakraBox from "components/ChakraBox";
+import Image from "components/Image";
 import heroBg from "public/img/hero_bg.png";
 import kitsudenLog from "public/img/kitsuden_logo_0.png";
-import Button from "components/Button";
-import Image from "components/Image";
-import ChakraBox from "components/ChakraBox";
-import useIsMounted from "hooks/useIsMounted";
+import React from "react";
 
 const Hero = React.forwardRef<any>((_, ref) => {
-  const isMounted = useIsMounted();
+  // const isMounted = useIsMounted();
   const [isMobile] = useMediaQuery("(max-width: 767.98px)");
 
-  if (!isMounted) return null;
+  // if (!isMounted) return null;
 
   return (
     <Box

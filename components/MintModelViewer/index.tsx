@@ -1,17 +1,15 @@
-import "@google/model-viewer";
-import React from "react";
 import { useMediaQuery } from "@chakra-ui/react";
-import useIsMounted from "hooks/useIsMounted";
+import "@google/model-viewer";
 import Image from "components/Image";
 
-import mintBrushImg from "public/img/mint_brush_bg.png";
 import ChakraBox from "components/ChakraBox";
+import mintBrushImg from "public/img/mint_brush_bg.png";
 
 const MintModelViewer = () => {
-  const isMounted = useIsMounted();
+  // const isMounted = useIsMounted();
   const [isMobile] = useMediaQuery("(max-width: 767.98px)");
 
-  if (!isMounted) return null;
+  // if (!isMounted) return null;
 
   return (
     <ChakraBox

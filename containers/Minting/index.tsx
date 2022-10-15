@@ -1,6 +1,3 @@
-import React from "react";
-import * as ethers from "ethers";
-import { useAccount, useConnect, useNetwork } from "wagmi";
 import {
   Box,
   Flex,
@@ -10,26 +7,27 @@ import {
   useMediaQuery,
   useToast,
 } from "@chakra-ui/react";
-import MetamaskButton from "containers/MetamaskButton";
 import Button from "components/Button";
-import useGetPublicSale from "hooks/useGetPublicSale";
-import useGetWhitelistSale from "hooks/useGetWhitelistSale";
-import useGetMintAvailable from "hooks/useGetMintAvailable";
-import useGetMaxSupply from "hooks/useGetMaxSupply";
-import useGetTotalSupply from "hooks/useGetTotalSupply";
-import useGetMintRate from "hooks/useGetMintRate";
 import ButtonCount from "components/ButtonCount";
-import useMint from "hooks/useMint";
-import useCheckIsAddressWhiteListed from "hooks/useCheckIsAddressWhiteListed";
-import useWhitelistMint from "hooks/useWhitelistMint";
+import MetamaskButton from "containers/MetamaskButton";
 import MintSuccessModal from "containers/MintSuccessModal";
-import { CONTRACT_ADDRESS } from "constants/constants";
-import { truncateAddress } from "utils/address";
-import useIsMounted from "hooks/useIsMounted";
+import * as ethers from "ethers";
+import useCheckIsAddressWhiteListed from "hooks/useCheckIsAddressWhiteListed";
 import useGetContractAddress from "hooks/useGetContractAddress";
+import useGetMaxSupply from "hooks/useGetMaxSupply";
+import useGetMintAvailable from "hooks/useGetMintAvailable";
+import useGetMintRate from "hooks/useGetMintRate";
+import useGetPublicSale from "hooks/useGetPublicSale";
+import useGetTotalSupply from "hooks/useGetTotalSupply";
+import useGetWhitelistSale from "hooks/useGetWhitelistSale";
+import useMint from "hooks/useMint";
+import useWhitelistMint from "hooks/useWhitelistMint";
+import React from "react";
+import { truncateAddress } from "utils/address";
+import { useAccount, useConnect, useNetwork } from "wagmi";
 
 const Minting = () => {
-  const isMounted = useIsMounted();
+  // const isMounted = useIsMounted();
   const [isMobile] = useMediaQuery("(max-width: 767.98px)");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { activeChain } = useNetwork();
@@ -127,7 +125,7 @@ const Minting = () => {
     }
   };
 
-  if (!isMounted) return null;
+  // if (!isMounted) return null;
 
   return (
     <Box color="white" width="100%">

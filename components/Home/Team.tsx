@@ -1,22 +1,21 @@
-import React from "react";
-import styled from "@emotion/styled";
 import {
   Box,
   Container,
   Flex,
   Heading,
-  useMediaQuery,
-  Text,
   Icon,
+  Text,
+  useMediaQuery,
   useMergeRefs,
 } from "@chakra-ui/react";
-import teamBg from "public/img/team_bg.png";
-import { FaLinkedin, FaTwitter } from "react-icons/fa";
-import Image from "components/Image";
-import useIsMounted from "hooks/useIsMounted";
+import styled from "@emotion/styled";
 import ChakraBox from "components/ChakraBox";
-import { useInView } from "react-intersection-observer";
+import Image from "components/Image";
 import { useAnimation } from "framer-motion";
+import teamBg from "public/img/team_bg.png";
+import React from "react";
+import { FaLinkedin, FaTwitter } from "react-icons/fa";
+import { useInView } from "react-intersection-observer";
 
 const teams = [
   {
@@ -73,7 +72,7 @@ const TeamImage = styled(Box)<{ show: boolean }>`
 `;
 
 const Team = React.forwardRef((_, ref) => {
-  const isMounted = useIsMounted();
+  // const isMounted = useIsMounted();
   const controlsTeam = useAnimation();
   const [isMobile] = useMediaQuery("(max-width: 767.98px)");
   const [show, setShow] = React.useState<number | null>(null);
@@ -110,7 +109,7 @@ const Team = React.forwardRef((_, ref) => {
 
   const handlOnHover = (value: number | null) => setShow(value);
 
-  if (!isMounted) return null;
+  // if (!isMounted) return null;
 
   return (
     <Box top="-12rem" width="full" position="relative" zIndex={5}>

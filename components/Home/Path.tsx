@@ -1,21 +1,20 @@
-import "@google/model-viewer";
-import React from "react";
 import {
   Box,
   Container,
   Flex,
   Heading,
-  useMediaQuery,
   Text,
+  useMediaQuery,
 } from "@chakra-ui/react";
-import { TimeLine, TimeLineItem } from "./path.styled";
-import pathBg from "public/img/path_bg.png";
-import Image from "components/Image";
-import Icon from "components/Icon";
-import useIsMounted from "hooks/useIsMounted";
-import { useAnimation } from "framer-motion";
-import { useInView } from "react-intersection-observer";
+import "@google/model-viewer";
 import ChakraBox from "components/ChakraBox";
+import Icon from "components/Icon";
+import Image from "components/Image";
+import { useAnimation } from "framer-motion";
+import pathBg from "public/img/path_bg.png";
+import React from "react";
+import { useInView } from "react-intersection-observer";
+import { TimeLine, TimeLineItem } from "./path.styled";
 
 const timelineItems = [
   {
@@ -59,7 +58,7 @@ const timelineItems = [
 ];
 
 const Path = React.forwardRef((_, ref: any) => {
-  const isMounted = useIsMounted();
+  // const isMounted = useIsMounted();
   const controlsTimelines = useAnimation();
   const controlsHeading = useAnimation();
   const controlsImg = useAnimation();
@@ -126,7 +125,7 @@ const Path = React.forwardRef((_, ref: any) => {
     }
   }, [imgRefInView, timelinesRfInView]);
 
-  if (!isMounted) return null;
+  // if (!isMounted) return null;
 
   return (
     <Box ref={ref} top="-8rem" width="full" position="relative" zIndex={4}>
@@ -249,8 +248,8 @@ const Path = React.forwardRef((_, ref: any) => {
 
             <model-viewer
               style={{
-                width: "60%",
-                height: "60%",
+                width: "80%",
+                height: "80%",
                 backgroundColor: "transparent",
                 position: "absolute",
                 top: "60%",

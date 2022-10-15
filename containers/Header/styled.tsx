@@ -1,5 +1,5 @@
+import { Box, Link } from "@chakra-ui/react";
 import styled from "@emotion/styled";
-import { Link, Box } from "@chakra-ui/react";
 import Clip from "public/svg/header_clip.svg";
 
 export const HeaderLink = styled(Box)`

@@ -6,6 +6,8 @@ import "erc721a/contracts/ERC721A.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
+import "@openzeppelin/contracts/utils/Address.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 
 // @@@@@@@@@@@(@@@@@@@@@@@@@@@@@@@@@@@@@@@/@@@@@@@@@@
 // @@@@@@@@@@////%@@@@@@@@@@@@@@@@@@@@@%////@@@@@@@@@
@@ -35,19 +37,21 @@ error WrongEther();
 error InvalidMerkle();
 error WhitelistUsed();
 
+/**
+    using block timestamp instead
+ */
+
 contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
     using Address for address;
     using Strings for uint256;
     using MerkleProof for bytes32[];
 
-    address proxyRegistryAddress;
-
     bytes32 public merkleRoot;
     uint256 public maxMints = 5;
     uint256 public whiteListMaxMints = 2;
     uint256 public maxSupply = 6666;
-    uint256 public mintRate = 0.07777 ether;
-    uint256 public whitelistMintRate = 0.05555 ether;
+    uint256 public mintRate = 0.029 ether;
+    uint256 public whitelistMintRate = 0.029 ether;
     string public baseExtension = ".json";
     string public baseURI = ""; // ipfs://<LIVE_CID>/
     string public baseHiddenUri = ""; // ipfs://<HIDDEN_CID>/
@@ -81,7 +85,7 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
         }
 
         usedAddresses[msg.sender] += quantity;
-        _safeMint(msg.sender, quantity);
+        _mint(msg.sender, quantity);
     }
 
     /**
@@ -111,7 +115,7 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
         }
 
         whiteListUsedAddresses[msg.sender] += quantity;
-        _safeMint(msg.sender, quantity);
+        _mint(msg.sender, quantity);
     }
 
     /**
@@ -122,7 +126,7 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
             revert NotEnoughTokensLeft();
         }
 
-        _safeMint(msg.sender, quantity);
+        _mint(msg.sender, quantity);
     }
 
     /**
@@ -180,10 +184,6 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
         return baseURI;
     }
 
-    function baseTokenURI() public view returns (string memory) {
-        return baseURI;
-    }
-
     /**
      * @dev a function that check the remainding mint available
      */
@@ -231,30 +231,7 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
         baseURI = _newBaseURI;
     }
 
-    function setBaseHiddenUri(string memory _baseHiddenUri) public onlyOwner {
-        baseHiddenUri = _baseHiddenUri;
-    }
-
-    function setMintRate(uint256 _mintRate) public onlyOwner {
-        mintRate = _mintRate;
-    }
-
-    function setWhitelistMintRate(uint256 _mintRate) public onlyOwner {
-        whitelistMintRate = _mintRate;
-    }
-
-    function setMaxMints(uint256 _newMaxMints) public onlyOwner {
-        maxMints = _newMaxMints;
-    }
-
-    function setWhiteListMaxMints(uint256 _newWhiteListMaxMints)
-        public
-        onlyOwner
-    {
-        whiteListMaxMints = _newWhiteListMaxMints;
-    }
-
-    function withdraw() external payable onlyOwner {
+    function withdraw() external onlyOwner {
         payable(owner()).transfer(address(this).balance);
     }
 }

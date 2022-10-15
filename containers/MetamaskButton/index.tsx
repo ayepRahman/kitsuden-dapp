@@ -1,16 +1,20 @@
-import React from "react";
 import { ButtonProps, useToast } from "@chakra-ui/react";
-import { useConnect, useDisconnect, useProvider } from "wagmi";
-import metamaskImg from "public/img/metamask.png";
 import Button from "components/Button";
 import Image from "components/Image";
-import useIsMounted from "hooks/useIsMounted";
+import metamaskImg from "public/img/metamask.png";
+import React, { useMemo } from "react";
+import { useConnect, useDisconnect } from "wagmi";
 
 const MetamaskButton: React.FC<ButtonProps> = ({ ...props }) => {
-  const isMounted = useIsMounted();
+  // const isMounted = useIsMounted();
   const toast = useToast();
   const { disconnect } = useDisconnect();
-  const { connect, isConnected, connectors, isConnecting } = useConnect({
+  const {
+    connect,
+    isConnected: _isConnected,
+    connectors,
+    isConnecting,
+  } = useConnect({
     onError(error) {
       console.log("Error", error);
       toast({
@@ -22,12 +26,16 @@ const MetamaskButton: React.FC<ButtonProps> = ({ ...props }) => {
     },
   });
 
+  const isConnected = useMemo(() => {
+    return _isConnected;
+  }, [_isConnected]);
+
   const metamaskConnector = connectors[0];
 
   return (
     <Button
       size="sm"
-      isLoading={isMounted && isConnecting}
+      isLoading={isConnecting}
       onClick={() => {
         if (isConnected) {
           disconnect();
@@ -47,28 +55,22 @@ const MetamaskButton: React.FC<ButtonProps> = ({ ...props }) => {
       gap="0.5rem"
       {...props}
     >
-      {isMounted ? (
-        <>
-          {isConnected ? (
-            <span>Connected</span>
-          ) : (
-            <>
-              <Image
-                src={metamaskImg.src}
-                height="16px"
-                width="16px"
-                placeholder="empty"
-              />
-              <span>
-                {!isConnected && !metamaskConnector?.ready
-                  ? "Install Metamask"
-                  : "Connect"}
-              </span>
-            </>
-          )}
-        </>
+      {isConnected ? (
+        <span>Connected</span>
       ) : (
-        <span>Connect</span>
+        <>
+          <Image
+            src={metamaskImg.src}
+            height="16px"
+            width="16px"
+            placeholder="empty"
+          />
+          <span>
+            {!isConnected && !metamaskConnector?.ready
+              ? "Install Metamask"
+              : "Connect"}
+          </span>
+        </>
       )}
     </Button>
   );

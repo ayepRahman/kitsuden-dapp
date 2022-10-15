@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Box,
   Container,
@@ -7,17 +6,17 @@ import {
   useMediaQuery,
   useMergeRefs,
 } from "@chakra-ui/react";
+import ChakraBox from "components/ChakraBox";
+import ChakraText from "components/ChakraText";
+import Image from "components/Image";
+import { motion, useAnimation } from "framer-motion";
 import loreBg from "public/img/bg_section_1.png";
 import loreBrushBg from "public/img/lore_brush_bg.png";
-import Image from "components/Image";
-import ChakraText from "components/ChakraText";
-import ChakraBox from "components/ChakraBox";
-import { motion, useAnimation } from "framer-motion";
+import React from "react";
 import { useInView } from "react-intersection-observer";
-import useIsMounted from "hooks/useIsMounted";
 
 const lines = {
-  one: "It is said there lies a hidden village located at the eastern par of the world. Deep within the forest of spirits where no man dares to enter. Elusive beings are seen to inhabit the mysterious village. Living their daily lives unbeknownst to the world.",
+  one: "It is said there lies a hidden village located at the eastern part of the world. Deep within the forest of spirits where no man dares to enter. Elusive beings are seen to inhabit the mysterious village. Living their daily lives unbeknownst to the world.",
   two: "The only thing thats known about this village, is that locating it requires a very special device. This device is known to be called as a “FOXFONE” discovered by a group of explorers that once braved to venture to the most eastern part of the forest of spirits. It is a shame though, they never came back and the only thing the search rescue part found was this piece of ancient tech.",
   three:
     "Little did we know that this piece of tech just let out a signal.It’s showing something of a map and the words “Loading, Finding shortest path...”",
@@ -25,7 +24,7 @@ const lines = {
 };
 
 const Lore = React.forwardRef((_, ref) => {
-  const isMounted = useIsMounted();
+  // const isMounted = useIsMounted();
   const [isMobile] = useMediaQuery("(max-width: 767.98px)");
   const [boxRef, inView] = useInView();
   const refs = useMergeRefs(ref, boxRef);
@@ -73,7 +72,7 @@ const Lore = React.forwardRef((_, ref) => {
     }
   }, [inView]);
 
-  if (!isMounted) return null;
+  // if (!isMounted) return null;
 
   return (
     <Box

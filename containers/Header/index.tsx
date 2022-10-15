@@ -1,5 +1,4 @@
-import React from "react";
-import dynamic from "next/dynamic";
+import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import {
   Box,
   Container,
@@ -8,24 +7,26 @@ import {
   Flex,
   useDisclosure,
 } from "@chakra-ui/react";
-import ScrollLink from "components/ScrollLink";
-import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
-import { HeaderClip } from "./styled";
-import { useRouter } from "next/router";
-import { Mobile, Desktop } from "components/MediaQuery";
-import Icon from "components/Icon";
-import { navLinks, socialLinks } from "constants/links";
-import useIsMounted from "hooks/useIsMounted";
 import ChakraBox from "components/ChakraBox";
+import Icon from "components/Icon";
+import { Desktop, Mobile } from "components/MediaQuery";
+import ScrollLink from "components/ScrollLink";
+import { navLinks, socialLinks } from "constants/links";
+import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
+import React from "react";
+import { HeaderClip } from "./styled";
 
-const MetamaskButton = dynamic(() => import("containers/MetamaskButton"));
+const MetamaskButton = dynamic(() => import("containers/MetamaskButton"), {
+  ssr: false,
+});
 
 interface HeaderProps {
   scrollTo?: (to: string) => void;
 }
 
 const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
-  const isMounted = useIsMounted();
+  // const isMounted = useIsMounted();
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -42,8 +43,6 @@ const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
     window && window.open(link);
     onClose();
   };
-
-  if (!isMounted) return null;
 
   return (
     <ChakraBox bg="brand.100" height="max-content" position="relative">
@@ -104,7 +103,7 @@ const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
                 );
               })}
 
-              <MetamaskButton width="fit-content" />
+              {/* <MetamaskButton width="fit-content" /> */}
             </Flex>
           </Flex>
         </Desktop>

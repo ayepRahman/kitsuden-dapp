@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Box,
   Container,
@@ -8,10 +7,10 @@ import {
   useMediaQuery,
 } from "@chakra-ui/react";
 import Header from "containers/Header";
-import mintFoxfoneBg from "public/img/mint_foxfone_bg.png";
-import { useNetwork } from "wagmi";
-import useIsMounted from "hooks/useIsMounted";
 import dynamic from "next/dynamic";
+import mintFoxfoneBg from "public/img/mint_foxfone_bg.png";
+import React from "react";
+import { useNetwork } from "wagmi";
 
 const Minting = dynamic(() => import("containers/Minting"), { ssr: false });
 const MintModelViewer = dynamic(() => import("components/MintModelViewer"), {
@@ -19,7 +18,7 @@ const MintModelViewer = dynamic(() => import("components/MintModelViewer"), {
 });
 
 const Mint = () => {
-  const isMounted = useIsMounted();
+  // const isMounted = useIsMounted();
   const [isShowWarning, setIsShowWarning] = React.useState<boolean>(false);
   const { activeChain, switchNetwork } = useNetwork();
   const [isMobile] = useMediaQuery("(max-width: 767.98px)");
@@ -32,7 +31,7 @@ const Mint = () => {
     }
   }, [activeChain]);
 
-  if (!isMounted) return null;
+  // if (!isMounted) return null;
 
   return (
     <Box h="full">
