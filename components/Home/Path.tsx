@@ -248,8 +248,8 @@ const Path = React.forwardRef((_, ref: any) => {
 
             <model-viewer
               style={{
-                width: "80%",
-                height: "80%",
+                width: "100%",
+                height: "100%",
                 backgroundColor: "transparent",
                 position: "absolute",
                 top: "60%",

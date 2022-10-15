@@ -22,7 +22,10 @@
     "**/*.ts",
     "**/*.tsx",
     "pages/api/graphql.ts",
-    "next.config.js"
+    "next.config.js",
+    "hardhat/tsconfig.json",
+    "hardhat.config.tsadasdadasd",
+    "hardhat.config.tadads"
   ],
   "exclude": ["node_modules"]
 }

@@ -48,3 +48,16 @@ cache
 
 
 
+# hardhat
+/hardhat/cache
+/hardhat/node_modules
+/hardhat/.env*.local
+/hardhat.env
+/hardhat.env.example
+/hardhat.env.local
+/hardhat.env.development.local
+/hardhat.env.test.local
+/hardhat.env.production.local
+/hardhat.env*.local
+
+
