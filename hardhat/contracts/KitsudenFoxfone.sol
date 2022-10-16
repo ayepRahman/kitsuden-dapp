@@ -47,9 +47,9 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
     uint256 public maxSupply = 6666;
     uint256 public mintRate = 0.029 ether;
     uint256 public whitelistMintRate = 0.029 ether;
-    string public baseExtension = "/.json";
-    string public baseURI = ""; // ipfs://<LIVE_CID>/
-    string public baseHiddenUri = ""; // ipfs://<HIDDEN_CID>/
+    string public baseExtension = ".json";
+    string public baseURI = ""; // ipfs://<LIVE_CID>
+    string public baseHiddenUri = ""; // TODO: to update before deploying
     bool public revealed = false;
     bool public publicSale = false;
     bool public whitelistSale = false;
@@ -57,7 +57,11 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
     mapping(address => uint256) public whiteListUsedAddresses;
     mapping(address => uint256) public usedAddresses;
 
-    constructor() ERC721A("KitsudenFoxFone", "KSDFF") {}
+    constructor(string memory _baseHiddenUri)
+        ERC721A("KitsudenFoxFone", "KSDFF")
+    {
+        baseHiddenUri = _baseHiddenUri;
+    }
 
     function mint(uint256 quantity) external payable nonReentrant {
         // check if public sale is live
@@ -74,10 +78,7 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
         }
 
         // check for user mint limit
-        if (
-            quantity + _numberMinted(msg.sender) - usedAddresses[msg.sender] >
-            maxMints
-        ) {
+        if (quantity + usedAddresses[msg.sender] > maxMints) {
             revert ExceededLimit();
         }
 
@@ -184,21 +185,6 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
         return baseURI;
     }
 
-    /**
-     * @dev a function that check the remainding mint available
-     */
-    function mintAvailable() public view returns (uint256) {
-        if (whitelistSale) {
-            return whiteListMaxMints - whiteListUsedAddresses[msg.sender];
-        }
-
-        if (publicSale) {
-            return maxMints - usedAddresses[msg.sender];
-        }
-
-        return 0;
-    }
-
     function leaf(address _account) internal pure returns (bytes32) {
         return keccak256(abi.encodePacked(_account));
     }
@@ -230,6 +216,14 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
      * @dev a function to setBaseURI only once, this to ensure that the tokenURI can't be meddle with!
      */
     function setBaseURI(string memory _newBaseURI) public onlyOwner {
+        require(bytes(_newBaseURI).length > 1, "_newBaseURI cannot be empty!");
+        uint256 len = stringLength(_newBaseURI);
+        string memory char = substring(_newBaseURI, len - 1, len);
+
+        require(
+            compareStrings(char, "/"),
+            "_newBaseURI should have a suffix of '/'"
+        );
         require(!revealed, "You can only set baseURI once!");
         revealed = true;
         baseURI = _newBaseURI;
@@ -237,5 +231,58 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
 
     function withdraw() external onlyOwner {
         payable(owner()).transfer(address(this).balance);
+    }
+
+    function substring(
+        string memory str,
+        uint256 startIndex,
+        uint256 endIndex
+    ) public pure returns (string memory) {
+        bytes memory strBytes = bytes(str);
+        bytes memory result = new bytes(endIndex - startIndex);
+        for (uint256 i = startIndex; i < endIndex; i++) {
+            result[i - startIndex] = strBytes[i];
+        }
+        return string(result);
+    }
+
+    /**
+     * @dev Returns the length of a given string
+     *
+     * @param s The string to measure the length of
+     * @return The length of the input string
+     */
+    function stringLength(string memory s) internal pure returns (uint256) {
+        uint256 len;
+        uint256 i = 0;
+        uint256 bytelength = bytes(s).length;
+
+        for (len = 0; i < bytelength; len++) {
+            bytes1 b = bytes(s)[i];
+            if (b < 0x80) {
+                i += 1;
+            } else if (b < 0xE0) {
+                i += 2;
+            } else if (b < 0xF0) {
+                i += 3;
+            } else if (b < 0xF8) {
+                i += 4;
+            } else if (b < 0xFC) {
+                i += 5;
+            } else {
+                i += 6;
+            }
+        }
+        return len;
+    }
+
+    function compareStrings(string memory a, string memory b)
+        internal
+        pure
+        returns (bool)
+    {
+        return
+            keccak256(abi.encodePacked((a))) ==
+            keccak256(abi.encodePacked((b)));
     }
 }

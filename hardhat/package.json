@@ -4,17 +4,17 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "node": "npx hardhat node",
-    "compile": "npx hardhat compile",
-    "console": "npx hardhat console --network localhost",
-    "deploy-dev": "npx hardhat run scripts/deploy-testnet.ts --network localhost",
-    "deploy-testnet": "npx hardhat run scripts/deploy-testnet.ts --network goerli",
-    "deploy-mainnet": "npx hardhat run scripts/deploy-mainnet.ts --network mainnet",
-    "verify-testnet": "npx hardhat verify --network goerli 0x9555DF1b31b092D25F17D77aA00FC935d48C81df",
-    "verify-testnet-args": "npx hardhat verify --constructor-args arguments-testnet.js  --network goerli 0x3DA1F997a59E76E534fC62ED0d029ef008f5e694",
-    "verify-mainnet": "npx hardhat verify --network mainnet <smart contract address>",
-    "verify-mainnet-args": "npx hardhat verify --constructor-args arguments-mainnet.js  --network mainnet <smart contract address>",
-    "test": "npx hardhat test"
+    "node": "yarn run hardhat node",
+    "compile": "yarn run hardhat compile",
+    "console": "yarn run hardhat console --network localhost",
+    "deploy-dev": "yarn test && yarn run hardhat run scripts/deploy-testnet.ts --network localhost",
+    "deploy-testnet": "yarn test && yarn run hardhat run scripts/deploy-testnet.ts --network goerli",
+    "deploy-mainnet": "yarn test && yarn run hardhat run scripts/deploy-mainnet.ts --network mainnet",
+    "verify-testnet": "yarn run hardhat verify --network goerli 0x9555DF1b31b092D25F17D77aA00FC935d48C81df",
+    "verify-testnet-args": "yarn run hardhat verify --constructor-args arguments-testnet.js  --network goerli 0x3DA1F997a59E76E534fC62ED0d029ef008f5e694",
+    "verify-mainnet": "yarn run hardhat verify --network mainnet <smart contract address>",
+    "verify-mainnet-args": "yarn run hardhat verify --constructor-args arguments-mainnet.js  --network mainnet <smart contract address>",
+    "test": "yarn run hardhat test"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-chai-matchers": "^1.0.4",
