@@ -22,7 +22,7 @@ import useGetTotalSupply from "hooks/useGetTotalSupply";
 import useGetWhitelistSale from "hooks/useGetWhitelistSale";
 import useMint from "hooks/useMint";
 import useWhitelistMint from "hooks/useWhitelistMint";
-import React from "react";
+import React, { useMemo } from "react";
 import { truncateAddress } from "utils/address";
 import { useAccount, useNetwork } from "wagmi";
 
@@ -42,7 +42,7 @@ const Minting = () => {
   }>({});
   const toast = useToast();
   const { address, isConnected } = useAccount();
-  const { maxSupply } = useGetMaxSupply();
+  const { data: maxSupplyBn } = useGetMaxSupply();
   const { totalSupply } = useGetTotalSupply();
   const { data: isPublicSale } = useGetPublicSale();
   const { data: isWhitelistSale } = useGetWhitelistSale();
@@ -51,7 +51,12 @@ const Minting = () => {
   const { isWhiteListed } = useCheckIsAddressWhiteListed();
   const { contractAddress } = useGetContractAddress();
 
+  const maxSupply = useMemo(() => {
+    return maxSupplyBn ? ethers.BigNumber.from(maxSupplyBn).toNumber() : 0;
+  }, [maxSupplyBn]);
+
   console.log("Minting >>>>", {
+    maxSupply,
     address,
     mintLimit,
     isPublicSale,
@@ -62,6 +67,7 @@ const Minting = () => {
   });
 
   const { write: mint, isLoading: isMinting } = useMint({
+    mode: "recklesslyUnprepared",
     onSuccess: (data) => {
       setMintSuccessProps({
         contractAddress: contractAddress,
@@ -74,6 +80,7 @@ const Minting = () => {
     },
   });
   const { whiteListMint, isLoading: isWhiteListMinting } = useWhitelistMint({
+    mode: "recklesslyUnprepared",
     onSuccess: (data) => {
       setMintSuccessProps({
         contractAddress: contractAddress,
@@ -117,9 +124,9 @@ const Minting = () => {
     }
 
     if (isPublicSale && selected && totalMintPriceInWei) {
-      mint({
-        args: [selected, { value: totalMintPriceInWei }],
-      });
+      // mint({
+      //   recklesslySetUnpreparedArgs: [selected, { value: totalMintPriceInWei }],
+      // });
       return;
     }
   };
@@ -139,7 +146,7 @@ const Minting = () => {
 
       <Flex fontSize={isMobile ? "1rem" : "22px"} fontWeight={600} mb="1rem">
         <Text color="brand.200">{totalSupply}</Text>&nbsp;/&nbsp;
-        <Text>{maxSupply} FOXFONEX REMAINING</Text>
+        <Text>{`${maxSupply} FOXFONEX REMAINING`}</Text>
       </Flex>
       {isLive && !mintLimit ? (
         <>
@@ -257,9 +264,7 @@ const Minting = () => {
                 overflow="hidden"
                 textOverflow="ellipsis"
               >
-                {isMobile
-                  ? truncateAddress(account?.address || "")
-                  : account?.address}
+                {isMobile ? truncateAddress(address || "") : address}
               </Text>
             </Box>
 

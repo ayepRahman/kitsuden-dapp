@@ -29,7 +29,7 @@ const MintSuccessModal: React.FC<MintSuccessModalProps> = ({
   quantity = 5,
   txHash,
 }) => {
-  const { activeChain } = useNetwork();
+  const { chain } = useNetwork();
   const [isMobile] = useMediaQuery("(max-width: 767.98px)");
 
   console.log({
@@ -40,20 +40,20 @@ const MintSuccessModal: React.FC<MintSuccessModalProps> = ({
   });
 
   const osLink = React.useMemo(() => {
-    if (activeChain?.id === 1) {
+    if (chain?.id === 1) {
       return `https://opensea.io/opensea/need-to-update`;
     }
 
     return `https://testnets.opensea.io/collection/kitsuden-foxfone-v2`;
-  }, [activeChain, activeChain?.id, contractAddress, tokenId]);
+  }, [chain, chain?.id, contractAddress, tokenId]);
 
   const esLink = React.useMemo(() => {
-    if (activeChain?.id === 1) {
+    if (chain?.id === 1) {
       return `https://etherscan.io/tx/${txHash}`;
     }
 
     return `https://rinkeby.etherscan.io/tx/${txHash}`;
-  }, [activeChain, activeChain?.id, txHash]);
+  }, [chain, chain?.id, txHash]);
 
   const generateTwitterLink = () => {
     const text =

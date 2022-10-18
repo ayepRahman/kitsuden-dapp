@@ -10,7 +10,7 @@ import FoxfoneContract from "artifacts/contracts/KitsudenFoxfone.sol/KitsudenFox
 import useGetContractAddress from "./useGetContractAddress";
 
 const useGetWhitelistSale = () => {
-  const { activeChain } = useNetwork();
+  const { chain } = useNetwork();
   const { contractAddress } = useGetContractAddress();
 
   return useContractRead(

@@ -1,12 +1,12 @@
 import { useToast } from "@chakra-ui/react";
-import { useContractWrite } from "wagmi";
 import FoxfoneContract from "artifacts/contracts/KitsudenFoxfone.sol/KitsudenFoxfone.json";
-import useCheckIsAddressWhiteListed from "./useCheckIsAddressWhiteListed";
 import { BigNumber } from "ethers";
+import { useContractWrite } from "wagmi";
 import {
   UseContractWriteArgs,
   UseContractWriteConfig,
 } from "wagmi/dist/declarations/src/hooks/contracts/useContractWrite";
+import useCheckIsAddressWhiteListed from "./useCheckIsAddressWhiteListed";
 import useGetContractAddress from "./useGetContractAddress";
 
 const useWhitelistMint = (
@@ -18,21 +18,23 @@ const useWhitelistMint = (
 
   const contractWrite = useContractWrite(
     {
-      addressOrName: contractAddress,
-      contractInterface: FoxfoneContract.abi,
-    },
-    "whiteListMint",
-    {
-      onError: (error) => {
-        const convertedError = error as unknown as any;
-        toast({
-          status: "error",
-          description: convertedError?.reason,
-          position: "top-right",
-        });
-      },
-      ...options,
+      mode: "prepared",
+      address: contractAddress,
+      abi: FoxfoneContract.abi,
+      functionName: "whiteListMint",
     }
+    // "whiteListMint",
+    // {
+    //   onError: (error) => {
+    //     const convertedError = error as unknown as any;
+    //     toast({
+    //       status: "error",
+    //       description: convertedError?.reason,
+    //       position: "top-right",
+    //     });
+    //   },
+    //   ...options,
+    // }
   );
 
   const whiteListMint = (count: number, totalMintPriceInWei: BigNumber) => {
@@ -44,9 +46,15 @@ const useWhitelistMint = (
       count &&
       proof
     ) {
-      contractWrite.write({
-        args: [count, proof, { value: totalMintPriceInWei }],
-      });
+      if (count && proof && totalMintPriceInWei) {
+        contractWrite.write({
+          recklesslySetUnpreparedArgs: [
+            count,
+            proof,
+            { value: totalMintPriceInWei },
+          ],
+        });
+      }
     }
   };
 

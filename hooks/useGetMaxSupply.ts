@@ -1,28 +1,20 @@
-import { useNetwork, useContractRead } from "wagmi";
 import FoxfoneContract from "artifacts/contracts/KitsudenFoxfone.sol/KitsudenFoxfone.json";
+import { useContractRead } from "wagmi";
+import { UseContractReadConfig } from "wagmi/dist/declarations/src/hooks/contracts/useContractRead";
 import useGetContractAddress from "./useGetContractAddress";
 
-const useGetMaxSupply = () => {
+const useGetMaxSupply = (
+  options?: UseContractReadConfig<any[], "maxSupply">
+) => {
   const { contractAddress } = useGetContractAddress();
 
-  const res = useContractRead(
-    {
-      addressOrName: contractAddress,
-      contractInterface: FoxfoneContract.abi,
-    },
-    "maxSupply",
-    {
-      onError: (error) => {
-        console.log("error", error.message);
-      },
-      enabled: !!contractAddress,
-    }
-  );
-
-  return {
-    ...res,
-    maxSupply: res?.data ? Number(res?.data) : 0,
-  };
+  return useContractRead({
+    address: contractAddress,
+    abi: FoxfoneContract.abi,
+    functionName: "maxSupply",
+    enabled: !!contractAddress,
+    ...options,
+  });
 };
 
 export default useGetMaxSupply;

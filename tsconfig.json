@@ -24,7 +24,8 @@
     "next.config.js",
     "hardhat/tsconfig.json",
     "hardhat.config.tsadasdadasd",
-    "hardhat.config.tadads"
+    "hardhat.config.tadads",
+    "hardhat/arguments/tesnet.js"
   ],
   "exclude": ["node_modules"]
 }
