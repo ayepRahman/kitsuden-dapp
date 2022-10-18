@@ -7,7 +7,7 @@ export const socialLinks: {
 }[] = [
   {
     name: "discord",
-    link: SOCIAL_LINKS.discord,
+    link: SOCIAL_LINKS.twitter,
   },
   {
     name: "twitter",
@@ -15,11 +15,11 @@ export const socialLinks: {
   },
   {
     name: "opensea",
-    link: SOCIAL_LINKS.discord,
+    link: SOCIAL_LINKS.twitter,
   },
   {
     name: "etherscan",
-    link: SOCIAL_LINKS.discord,
+    link: SOCIAL_LINKS.twitter,
   },
 ];
 

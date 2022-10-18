@@ -10,7 +10,7 @@ import Header from "containers/Header";
 import dynamic from "next/dynamic";
 import mintFoxfoneBg from "public/img/mint_foxfone_bg.png";
 import React from "react";
-import { useNetwork } from "wagmi";
+import { useAccount, useNetwork, useSwitchNetwork } from "wagmi";
 
 const Minting = dynamic(() => import("containers/Minting"), { ssr: false });
 const MintModelViewer = dynamic(() => import("components/MintModelViewer"), {
@@ -20,16 +20,18 @@ const MintModelViewer = dynamic(() => import("components/MintModelViewer"), {
 const Mint = () => {
   // const isMounted = useIsMounted();
   const [isShowWarning, setIsShowWarning] = React.useState<boolean>(false);
-  const { activeChain, switchNetwork } = useNetwork();
+  const { isConnected } = useAccount();
+  const { chain } = useNetwork();
+  const { switchNetwork } = useSwitchNetwork();
   const [isMobile] = useMediaQuery("(max-width: 767.98px)");
 
   React.useEffect(() => {
-    if (activeChain?.id !== 1) {
+    if (chain?.id !== 1 && isConnected) {
       setIsShowWarning(true);
     } else {
       setIsShowWarning(false);
     }
-  }, [activeChain]);
+  }, [chain, chain?.id]);
 
   // if (!isMounted) return null;
 
@@ -47,7 +49,7 @@ const Mint = () => {
           <Link textDecor="underline" onClick={() => switchNetwork?.(1)}>
             mainnet
           </Link>{" "}
-          , currently connected to {activeChain?.name}
+          , currently connected to {chain?.name}
         </Box>
       )}
       <Header />

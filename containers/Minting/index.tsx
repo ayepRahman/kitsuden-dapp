@@ -24,15 +24,15 @@ import useMint from "hooks/useMint";
 import useWhitelistMint from "hooks/useWhitelistMint";
 import React from "react";
 import { truncateAddress } from "utils/address";
-import { useAccount, useConnect, useNetwork } from "wagmi";
+import { useAccount, useNetwork } from "wagmi";
 
 const Minting = () => {
   // const isMounted = useIsMounted();
   const [isMobile] = useMediaQuery("(max-width: 767.98px)");
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { activeChain } = useNetwork();
+  const { chain } = useNetwork();
   const [selected, setSelected] = React.useState<number | null>(null);
-  const currentChainId = activeChain?.id || 1;
+  const currentChainId = chain?.id || 1;
 
   const [mintSuccessProps, setMintSuccessProps] = React.useState<{
     contractAddress?: string;
@@ -41,8 +41,7 @@ const Minting = () => {
     txHash?: string;
   }>({});
   const toast = useToast();
-  const { isConnected } = useConnect();
-  const { data: account } = useAccount();
+  const { address, isConnected } = useAccount();
   const { maxSupply } = useGetMaxSupply();
   const { totalSupply } = useGetTotalSupply();
   const { data: isPublicSale } = useGetPublicSale();
@@ -53,7 +52,7 @@ const Minting = () => {
   const { contractAddress } = useGetContractAddress();
 
   console.log("Minting >>>>", {
-    account,
+    address,
     mintLimit,
     isPublicSale,
     isWhitelistSale,

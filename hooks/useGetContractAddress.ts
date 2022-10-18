@@ -1,9 +1,9 @@
-import { useNetwork } from "wagmi";
 import { CONTRACT_ADDRESS } from "constants/constants";
+import { useNetwork } from "wagmi";
 
 const useGetContractAddress = () => {
-  const { activeChain } = useNetwork();
-  const currentChainId = activeChain?.id || 1;
+  const { chain } = useNetwork();
+  const currentChainId = chain?.id || 1;
 
   return {
     contractAddress: CONTRACT_ADDRESS[currentChainId],

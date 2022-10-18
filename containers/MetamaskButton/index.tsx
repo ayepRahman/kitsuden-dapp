@@ -2,18 +2,18 @@ import { ButtonProps, useToast } from "@chakra-ui/react";
 import Button from "components/Button";
 import Image from "components/Image";
 import metamaskImg from "public/img/metamask.png";
-import React, { useMemo } from "react";
-import { useConnect, useDisconnect } from "wagmi";
+import React, { useState } from "react";
+import { useAccount, useConnect, useDisconnect } from "wagmi";
 
 const MetamaskButton: React.FC<ButtonProps> = ({ ...props }) => {
-  // const isMounted = useIsMounted();
+  const [showDisconnect, setShowDisconnect] = useState<boolean>(false);
   const toast = useToast();
+  const { isConnected } = useAccount();
   const { disconnect } = useDisconnect();
   const {
     connect,
-    isConnected: _isConnected,
     connectors,
-    isConnecting,
+    isLoading: isConnecting,
   } = useConnect({
     onError(error) {
       console.log("Error", error);
@@ -26,9 +26,9 @@ const MetamaskButton: React.FC<ButtonProps> = ({ ...props }) => {
     },
   });
 
-  const isConnected = useMemo(() => {
-    return _isConnected;
-  }, [_isConnected]);
+  // const isConnected = useMemo(() => {
+  //   return _isConnected;
+  // }, [_isConnected]);
 
   const metamaskConnector = connectors[0];
 
@@ -36,6 +36,8 @@ const MetamaskButton: React.FC<ButtonProps> = ({ ...props }) => {
     <Button
       size="sm"
       isLoading={isConnecting}
+      onMouseEnter={() => isConnected && setShowDisconnect(true)}
+      onMouseLeave={() => isConnected && setShowDisconnect(false)}
       onClick={() => {
         if (isConnected) {
           disconnect();
@@ -46,7 +48,9 @@ const MetamaskButton: React.FC<ButtonProps> = ({ ...props }) => {
           window.open("https://metamask.io/download/");
           return;
         }
-        connect(metamaskConnector);
+        connect({
+          connector: metamaskConnector,
+        });
       }}
       w="100%"
       colorScheme="orange"
@@ -56,7 +60,7 @@ const MetamaskButton: React.FC<ButtonProps> = ({ ...props }) => {
       {...props}
     >
       {isConnected ? (
-        <span>Connected</span>
+        <span>{showDisconnect ? "Disconnect" : "Connected"}</span>
       ) : (
         <>
           <Image

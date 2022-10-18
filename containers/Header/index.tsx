@@ -103,7 +103,7 @@ const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
                 );
               })}
 
-              {/* <MetamaskButton width="fit-content" /> */}
+              <MetamaskButton width="fit-content" />
             </Flex>
           </Flex>
         </Desktop>

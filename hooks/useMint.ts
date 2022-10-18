@@ -1,6 +1,6 @@
-import { useContractWrite } from "wagmi";
-import FoxfoneContract from "artifacts/contracts/KitsudenFoxfone.sol/KitsudenFoxfone.json";
 import { useToast } from "@chakra-ui/react";
+import FoxfoneContract from "artifacts/contracts/KitsudenFoxfone.sol/KitsudenFoxfone.json";
+import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import {
   UseContractWriteArgs,
   UseContractWriteConfig,
@@ -11,24 +11,13 @@ const useMint = (options?: UseContractWriteArgs & UseContractWriteConfig) => {
   const toast = useToast();
   const { contractAddress } = useGetContractAddress();
 
-  return useContractWrite(
-    {
-      addressOrName: contractAddress,
-      contractInterface: FoxfoneContract.abi,
-    },
-    "mint",
-    {
-      onError: (error) => {
-        const convertedError = error as unknown as any;
-        toast({
-          status: "error",
-          description: convertedError?.reason,
-          position: "top-right",
-        });
-      },
-      ...options,
-    }
-  );
+  const { config } = usePrepareContractWrite({
+    address: contractAddress,
+    contractInterface: FoxfoneContract.abi,
+    functionName: "mint",
+  });
+
+  return useContractWrite(config);
 };
 
 export default useMint;
