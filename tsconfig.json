@@ -16,15 +16,6 @@
     "incremental": true,
     "baseUrl": "."
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "src/pages/api/graphql.ts",
-    "next.config.js",
-    "hardhat/tsconfig.json",
-    "hardhat.config.tsadasdadasd",
-    "hardhat.config.tadads"
-  ],
-  "exclude": ["node_modules"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "next.config.js"],
+  "exclude": ["node_modules", "hardhat"]
 }
