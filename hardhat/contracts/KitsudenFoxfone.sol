@@ -1,13 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
-import "hardhat/console.sol";
 import "erc721a/contracts/ERC721A.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
+import "./StringUtils.sol";
 
 // @@@@@@@@@@@(@@@@@@@@@@@@@@@@@@@@@@@@@@@/@@@@@@@@@@
 // @@@@@@@@@@////%@@@@@@@@@@@@@@@@@@@@@%////@@@@@@@@@
@@ -36,26 +35,33 @@ error NotEnoughTokensLeft();
 error WrongEther();
 error InvalidMerkle();
 
-contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
+contract KitsudenFoxfone is ERC721A, Ownable, StringUtils {
     using Address for address;
-    using Strings for uint256;
     using MerkleProof for bytes32[];
+    using Strings for uint256;
 
     bytes32 public merkleRoot;
     uint256 public maxMints = 5;
     uint256 public whiteListMaxMints = 2;
     uint256 public maxSupply = 6666;
-    uint256 public mintRate = 0.029 ether;
-    uint256 public whitelistMintRate = 0.029 ether;
+    uint256 public mintRate = 0.03 ether;
     string public baseExtension = ".json";
     string public baseURI = ""; // ipfs://<LIVE_CID>
     string public baseHiddenUri = ""; // TODO: to update before deploying
+    uint256 public mintPhase;
+    bool public paused = false;
     bool public revealed = false;
-    bool public publicSale = false;
-    bool public whitelistSale = false;
 
     mapping(address => uint256) public whiteListUsedAddresses;
     mapping(address => uint256) public usedAddresses;
+
+    //  ==========================================
+    //  ========== FAIL SAFE STRATEGY ============
+    //  ==========================================
+    modifier unpaused() {
+        require(!paused, "Paused");
+        _;
+    }
 
     constructor(string memory _baseHiddenUri)
         ERC721A("KitsudenFoxFone", "KSDFF")
@@ -63,9 +69,9 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
         baseHiddenUri = _baseHiddenUri;
     }
 
-    function mint(uint256 quantity) external payable nonReentrant {
+    function mint(uint256 quantity) external payable unpaused {
         // check if public sale is live
-        if (!publicSale) revert PublicSaleNotLive();
+        if (mintPhase != 2) revert PublicSaleNotLive();
 
         // check if enough token balance
         if (totalSupply() + quantity > maxSupply) {
@@ -92,10 +98,10 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
     function whiteListMint(uint256 quantity, bytes32[] calldata proof)
         external
         payable
-        nonReentrant
+        unpaused
     {
         // check if white list sale is live
-        if (!whitelistSale) revert WhitelistNotLive();
+        if (mintPhase != 1) revert WhitelistNotLive();
 
         // check if the user is white listed.
         if (!isWhiteListed(msg.sender, proof)) revert InvalidMerkle();
@@ -106,7 +112,7 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
         }
 
         // check for the value user pass is equal to the quantity and the mintRate
-        if (whitelistMintRate * quantity != msg.value) {
+        if (mintRate * quantity != msg.value) {
             revert WrongEther();
         }
 
@@ -141,48 +147,32 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
         return _verify(leaf(_account), _proof);
     }
 
-    function tokenURI(uint256 tokenId)
+    function tokenURI(uint256 _tokenId)
         public
         view
         override
         returns (string memory)
     {
-        require(_exists(tokenId), "token does not exist!");
-
-        if (!revealed) {
-            string memory currentHiddenBaseURI = _baseHiddenURI();
-
+        require(_exists(_tokenId), "token does not exist!");
+        if (revealed)
             return
-                bytes(currentHiddenBaseURI).length > 0
-                    ? string(
-                        abi.encodePacked(
-                            currentHiddenBaseURI,
-                            tokenId.toString(),
-                            baseExtension
-                        )
-                    )
-                    : "";
-        }
-
-        string memory currentBaseURI = _baseURI();
-        return
-            bytes(currentBaseURI).length > 0
-                ? string(
+                string(
                     abi.encodePacked(
-                        currentBaseURI,
-                        tokenId.toString(),
+                        baseURI,
+                        _tokenId.toString(),
                         baseExtension
                     )
-                )
-                : "";
-    }
-
-    function _baseHiddenURI() internal view returns (string memory) {
-        return baseHiddenUri;
-    }
-
-    function _baseURI() internal view override returns (string memory) {
-        return baseURI;
+                );
+        else {
+            return
+                string(
+                    abi.encodePacked(
+                        baseHiddenUri,
+                        _tokenId.toString(),
+                        baseExtension
+                    )
+                );
+        }
     }
 
     function leaf(address _account) internal pure returns (bytes32) {
@@ -197,6 +187,14 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
         return MerkleProof.verify(_proof, merkleRoot, _leaf);
     }
 
+    function withdraw() external onlyOwner {
+        payable(owner()).transfer(address(this).balance);
+    }
+
+    //  ==========================================
+    //  ============= MODIFY STATES ==============
+    //  ==========================================
+
     /**
      * @dev a function to set white list merkle root
      */
@@ -204,12 +202,18 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
         merkleRoot = _root;
     }
 
-    function togglePublicSale() public onlyOwner {
-        publicSale = !publicSale;
+    /**
+     * @dev a function to set mint phase
+     */
+    function setMintPhase(uint256 _phase) external onlyOwner {
+        mintPhase = _phase;
     }
 
-    function toggleWhitelistSale() public onlyOwner {
-        whitelistSale = !whitelistSale;
+    /**
+     * @dev a function to toggle fail safee paused
+     */
+    function setTogglePaused() external onlyOwner {
+        paused = !paused;
     }
 
     /**
@@ -217,7 +221,7 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
      */
     function setBaseURI(string memory _newBaseURI) public onlyOwner {
         require(bytes(_newBaseURI).length > 1, "_newBaseURI cannot be empty!");
-        uint256 len = stringLength(_newBaseURI);
+        uint256 len = strLen(_newBaseURI);
         string memory char = substring(_newBaseURI, len - 1, len);
 
         require(
@@ -227,62 +231,5 @@ contract KitsudenFoxfone is ERC721A, ReentrancyGuard, Ownable {
         require(!revealed, "You can only set baseURI once!");
         revealed = true;
         baseURI = _newBaseURI;
-    }
-
-    function withdraw() external onlyOwner {
-        payable(owner()).transfer(address(this).balance);
-    }
-
-    function substring(
-        string memory str,
-        uint256 startIndex,
-        uint256 endIndex
-    ) public pure returns (string memory) {
-        bytes memory strBytes = bytes(str);
-        bytes memory result = new bytes(endIndex - startIndex);
-        for (uint256 i = startIndex; i < endIndex; i++) {
-            result[i - startIndex] = strBytes[i];
-        }
-        return string(result);
-    }
-
-    /**
-     * @dev Returns the length of a given string
-     *
-     * @param s The string to measure the length of
-     * @return The length of the input string
-     */
-    function stringLength(string memory s) internal pure returns (uint256) {
-        uint256 len;
-        uint256 i = 0;
-        uint256 bytelength = bytes(s).length;
-
-        for (len = 0; i < bytelength; len++) {
-            bytes1 b = bytes(s)[i];
-            if (b < 0x80) {
-                i += 1;
-            } else if (b < 0xE0) {
-                i += 2;
-            } else if (b < 0xF0) {
-                i += 3;
-            } else if (b < 0xF8) {
-                i += 4;
-            } else if (b < 0xFC) {
-                i += 5;
-            } else {
-                i += 6;
-            }
-        }
-        return len;
-    }
-
-    function compareStrings(string memory a, string memory b)
-        internal
-        pure
-        returns (bool)
-    {
-        return
-            keccak256(abi.encodePacked((a))) ==
-            keccak256(abi.encodePacked((b)));
     }
 }
