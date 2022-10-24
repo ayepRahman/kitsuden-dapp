@@ -28,6 +28,9 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
   // const isMounted = useIsMounted();
   const router = useRouter();
+  const pathname = router.pathname;
+  const isHome = pathname === "/";
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleOnClick = (to: string) => {
@@ -62,27 +65,29 @@ const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
             width="full"
             justifyContent="space-between"
           >
-            <Box flex={1}>
+            <Box cursor="pointer" onClick={() => router.push("/")} flex={1}>
               <Icon name="kitsudenName" width="111px" height="33px" />
             </Box>
-            <Flex
-              gap="2rem"
-              flex={1}
-              textAlign="center"
-              justifyContent="center"
-            >
-              {navLinks.map((l) => {
-                return (
-                  <ScrollLink
-                    key={l.title}
-                    color="black"
-                    onClick={() => handleOnClick(`${l.link}`)}
-                  >
-                    {l.title}
-                  </ScrollLink>
-                );
-              })}
-            </Flex>
+            {isHome && (
+              <Flex
+                gap="2rem"
+                flex={1}
+                textAlign="center"
+                justifyContent="center"
+              >
+                {navLinks.map((l) => {
+                  return (
+                    <ScrollLink
+                      key={l.title}
+                      color="black"
+                      onClick={() => handleOnClick(`${l.link}`)}
+                    >
+                      {l.title}
+                    </ScrollLink>
+                  );
+                })}
+              </Flex>
+            )}
             <Flex
               gap="1.5rem"
               alignItems="center"

@@ -46,8 +46,8 @@ contract KitsudenFoxfone is ERC721A, Ownable, StringUtils {
     uint256 public maxSupply = 6666;
     uint256 public mintRate = 0.03 ether;
     string public baseExtension = ".json";
-    string public baseURI = ""; // ipfs://<LIVE_CID>
-    string public baseHiddenUri = ""; // TODO: to update before deploying
+    string public baseURI = "ipfs://<live_uri>/"; // ipfs://<LIVE_CID>
+    string public baseHiddenUri = "ipfs://<hidden_uri>/"; // TODO: to update before deploying
     uint256 public mintPhase;
     bool public paused = false;
     bool public revealed = false;
@@ -63,11 +63,7 @@ contract KitsudenFoxfone is ERC721A, Ownable, StringUtils {
         _;
     }
 
-    constructor(string memory _baseHiddenUri)
-        ERC721A("KitsudenFoxFone", "KSDFF")
-    {
-        baseHiddenUri = _baseHiddenUri;
-    }
+    constructor() ERC721A("KitsudenFoxFone", "KSDFF") {}
 
     function mint(uint256 quantity) external payable unpaused {
         // check if public sale is live

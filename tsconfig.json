@@ -25,7 +25,8 @@
     "hardhat/tsconfig.json",
     "hardhat.config.tsadasdadasd",
     "hardhat.config.tadads",
-    "hardhat/arguments/tesnet.js"
+    "hardhat/arguments/tesnet.js",
+    "hardhat/scripts/convertAbi.js"
   ],
   "exclude": ["node_modules"]
 }

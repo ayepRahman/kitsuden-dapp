@@ -7,26 +7,37 @@ const useGetMintAvailable = () => {
   const { address } = useAccount();
   const { contractAddress } = useGetContractAddress();
 
-  const res = useContractRead({
+  const useAddressRes = useContractRead({
     address: contractAddress,
     abi: FoxfoneContract.abi,
-    functionName: "useAddress",
+    functionName: "usedAddresses",
     args: [address],
   });
-  const res2 = useContractRead({
+  const whiteListUsedAddressesRes = useContractRead({
+    address: contractAddress,
+    abi: FoxfoneContract.abi,
+    functionName: "whiteListUsedAddresses",
+    args: [address],
+  });
+  const maxMintsRes = useContractRead({
     address: contractAddress,
     abi: FoxfoneContract.abi,
     functionName: "maxMints",
   });
-
-  console.log("useGetMintAvailable: res", res?.data, res2?.data);
-  console.log("useGetMintAvailable: res2", res2?.data);
+  const whiteListMaxMintsRes = useContractRead({
+    address: contractAddress,
+    abi: FoxfoneContract.abi,
+    functionName: "whiteListMaxMints",
+  });
 
   return {
-    ...res,
+    ...useAddressRes,
     mintLimit:
-      ethers.BigNumber.from(res2?.data || 0).toNumber() -
-      ethers.BigNumber.from(res?.data || 0).toNumber(),
+      ethers.BigNumber.from(maxMintsRes?.data || 0).toNumber() -
+      ethers.BigNumber.from(useAddressRes?.data || 0).toNumber(),
+    whiteListMintLimit:
+      ethers.BigNumber.from(whiteListMaxMintsRes?.data || 0).toNumber() -
+      ethers.BigNumber.from(whiteListUsedAddressesRes?.data || 0).toNumber(),
   };
 };
 

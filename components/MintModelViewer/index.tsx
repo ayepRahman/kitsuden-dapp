@@ -38,8 +38,8 @@ const MintModelViewer = () => {
 
       <model-viewer
         style={{
-          width: "60%",
-          height: "60%",
+          width: "80%",
+          height: "80%",
           backgroundColor: "transparent",
           position: "absolute",
           top: "60%",

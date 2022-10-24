@@ -2,8 +2,8 @@
  * https://medium.com/@ItsCuzzo/using-merkle-trees-for-nft-whitelists-523b58ada3f9
  */
 
-import { MerkleTree } from "merkletreejs";
 import keccak256 from "keccak256";
+import { MerkleTree } from "merkletreejs";
 import { getAndConvertAddresses } from "./ethers";
 
 const generateMerkle = (addresses: string[]) => {

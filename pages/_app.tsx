@@ -1,15 +1,18 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import { WagmiConfig } from "wagmi";
+import { wagmiClient } from "config/wagmi";
+import { ConnectKitProvider } from "connectkit";
 import type { AppProps } from "next/app";
 import { theme } from "styles";
-import { wagmiClient } from "config/wagmi";
+import { WagmiConfig } from "wagmi";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <WagmiConfig client={wagmiClient}>
-      <ChakraProvider theme={theme}>
-        <Component {...pageProps} />
-      </ChakraProvider>
+      <ConnectKitProvider>
+        <ChakraProvider theme={theme}>
+          <Component {...pageProps} />
+        </ChakraProvider>
+      </ConnectKitProvider>
     </WagmiConfig>
   );
 };

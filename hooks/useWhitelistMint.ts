@@ -1,67 +1,18 @@
-import { useToast } from "@chakra-ui/react";
-import FoxfoneContract from "artifacts/contracts/KitsudenFoxfone.sol/KitsudenFoxfone.json";
-import { BigNumber } from "ethers";
-import { useContractWrite } from "wagmi";
-import {
-  UseContractWriteArgs,
-  UseContractWriteConfig,
-} from "wagmi/dist/declarations/src/hooks/contracts/useContractWrite";
-import useCheckIsAddressWhiteListed from "./useCheckIsAddressWhiteListed";
+import { abi } from "contracts/abi";
+import { useContractWrite, usePrepareContractWrite } from "wagmi";
+import { UsePrepareContractWriteConfig } from "wagmi/dist/declarations/src/hooks/contracts/usePrepareContractWrite";
 import useGetContractAddress from "./useGetContractAddress";
 
-const useWhitelistMint = (
-  options?: UseContractWriteArgs & UseContractWriteConfig
-) => {
-  const toast = useToast();
-  const { isWhiteListed, getProof } = useCheckIsAddressWhiteListed();
+const useWhitelistMint = (options?: UsePrepareContractWriteConfig) => {
   const { contractAddress } = useGetContractAddress();
+  const { config } = usePrepareContractWrite({
+    address: contractAddress,
+    abi: abi,
+    functionName: "whiteListMint",
+    ...options,
+  });
 
-  const contractWrite = useContractWrite(
-    {
-      mode: "prepared",
-      address: contractAddress,
-      abi: FoxfoneContract.abi,
-      functionName: "whiteListMint",
-    }
-    // "whiteListMint",
-    // {
-    //   onError: (error) => {
-    //     const convertedError = error as unknown as any;
-    //     toast({
-    //       status: "error",
-    //       description: convertedError?.reason,
-    //       position: "top-right",
-    //     });
-    //   },
-    //   ...options,
-    // }
-  );
-
-  const whiteListMint = (count: number, totalMintPriceInWei: BigNumber) => {
-    const proof = getProof();
-    if (
-      isWhiteListed &&
-      isWhiteListed &&
-      totalMintPriceInWei &&
-      count &&
-      proof
-    ) {
-      if (count && proof && totalMintPriceInWei) {
-        contractWrite.write({
-          recklesslySetUnpreparedArgs: [
-            count,
-            proof,
-            { value: totalMintPriceInWei },
-          ],
-        });
-      }
-    }
-  };
-
-  return {
-    ...contractWrite,
-    whiteListMint,
-  };
+  return useContractWrite({ ...config });
 };
 
 export default useWhitelistMint;

@@ -8,6 +8,7 @@ import { ethers } from "hardhat";
 import { generateMerkle, getMerkleProof } from "../utils/merkle";
 
 const mockHiddenURI = "ipfs://<hidden_uri>/";
+const mockBaseURI = "ipfs://<live_uri>/";
 
 describe("KitsudenFoxfone", () => {
   // We define a fixture to reuse the same setup in every test. We use
@@ -21,7 +22,7 @@ describe("KitsudenFoxfone", () => {
     // To deploy our contract, we just have to call Token.deploy() and await
     // its deployed() method, which happens onces its transaction has been
     // mined.
-    const contract = await KitsudenFoxfone.deploy(mockHiddenURI);
+    const contract = await KitsudenFoxfone.deploy();
 
     await contract.deployed();
 
@@ -54,7 +55,7 @@ describe("KitsudenFoxfone", () => {
       expect(maxSupply.toNumber()).to.equal(6666);
       expect(ethers.utils.formatEther(mintRate)).to.equal("0.03");
       expect(baseExtension).to.equal(".json");
-      expect(baseURI).to.equal("");
+      expect(baseURI).to.equal(mockBaseURI);
       expect(baseHiddenUri).to.equal(mockHiddenURI);
       expect(revealed).to.equal(false);
     });

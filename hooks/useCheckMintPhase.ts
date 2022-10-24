@@ -1,21 +1,20 @@
 import FoxfoneContract from "artifacts/contracts/KitsudenFoxfone.sol/KitsudenFoxfone.json";
 import { useContractRead } from "wagmi";
+import { UseContractReadConfig } from "wagmi/dist/declarations/src/hooks/contracts/useContractRead";
 import useGetContractAddress from "./useGetContractAddress";
 
-const useGetTotalSupply = () => {
+const useCheckMintPhase = (
+  options?: UseContractReadConfig<any[], "mintPhase">
+) => {
   const { contractAddress } = useGetContractAddress();
 
-  const res = useContractRead({
+  return useContractRead({
     address: contractAddress,
     abi: FoxfoneContract.abi,
-    functionName: "totalSupply",
+    functionName: "mintPhase",
     enabled: !!contractAddress,
+    ...options,
   });
-
-  return {
-    ...res,
-    totalSupply: res?.data ? Number(res?.data) : 0,
-  };
 };
 
-export default useGetTotalSupply;
+export default useCheckMintPhase;
