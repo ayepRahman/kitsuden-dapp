@@ -13,11 +13,10 @@ import useGetMintRate from "hooks/useGetMintRate";
 import useGetTotalSupply from "hooks/useGetTotalSupply";
 import React from "react";
 import { truncateAddress } from "utils/address";
-import { useAccount, useNetwork } from "wagmi";
+import { useAccount } from "wagmi";
 
 const Minting = () => {
   const [isMobile] = useMediaQuery("(max-width: 767.98px)");
-  const { chain } = useNetwork();
   const [selected, setSelected] = React.useState<number | null>(null);
   const { address, isConnected } = useAccount();
   const { data: maxSupplyBn } = useGetMaxSupply();
@@ -39,16 +38,6 @@ const Minting = () => {
     ethers.BigNumber.from(0);
   const totalMintPriceText = ethers.utils.formatEther(totalMintPriceInWei);
   const isLive = !!mintPhase;
-
-  console.log("Minting Component >>>>", {
-    maxSupply,
-    address,
-    mintLimit,
-    mintPhase,
-    isWhitelistSale,
-
-    selected,
-  });
 
   return (
     <Box color="white" width="100%">

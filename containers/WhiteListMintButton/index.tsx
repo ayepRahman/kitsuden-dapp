@@ -1,4 +1,4 @@
-import { Box, Text, useDisclosure } from "@chakra-ui/react";
+import { Box, Text, useDisclosure, useToast } from "@chakra-ui/react";
 import Button from "components/Button";
 import MintSuccessModal from "containers/MintSuccessModal";
 import { abi } from "contracts/abi";
@@ -19,6 +19,7 @@ const WhiteListMintButton: React.FC<WhiteListMintButtonProps> = ({
   count,
   price,
 }) => {
+  const toast = useToast();
   const [mintSuccessProps, setMintSuccessProps] = useState<{
     contractAddress: string;
     quantity: number;
@@ -46,7 +47,42 @@ const WhiteListMintButton: React.FC<WhiteListMintButtonProps> = ({
     overrides: {
       value: price,
     },
-    enabled: isWhiteListed,
+    onSettled(data, error: any) {
+      console.log("onSettled", {
+        data,
+        error,
+      });
+
+      if (error && !isWhiteListed) {
+        return toast({
+          title: "Error",
+          description: "You're not white listed!",
+          status: "error",
+          isClosable: true,
+          duration: 5000,
+          position: "top",
+          containerStyle: {
+            background: "red",
+            borderRadius: "8px",
+          },
+        });
+      }
+
+      if (error) {
+        return toast({
+          title: "Error",
+          description: error?.reason,
+          status: "error",
+          isClosable: true,
+          duration: 5000,
+          position: "top",
+          containerStyle: {
+            background: "red",
+            borderRadius: "8px",
+          },
+        });
+      }
+    },
   });
 
   const { write, isLoading } = useContractWrite({
@@ -81,11 +117,13 @@ const WhiteListMintButton: React.FC<WhiteListMintButtonProps> = ({
         <Box>
           {whiteListMintLimit === 0 ? (
             <Text>You've have minted out!</Text>
-          ) : (
+          ) : isWhiteListed ? (
             <>
               <Text>CONTINUE</Text>
               <Text>(White List Mint)</Text>
             </>
+          ) : (
+            <Text>You're not white listed!</Text>
           )}
         </Box>
       </Button>

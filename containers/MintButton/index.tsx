@@ -51,8 +51,8 @@ const MintButton: React.FC<MintButtonProps> = ({ count, price }) => {
           description: error?.reason,
           status: "error",
           isClosable: true,
-          duration: null,
-          position: "bottom",
+          duration: 5000,
+          position: "top",
           containerStyle: {
             background: "red",
             borderRadius: "8px",
