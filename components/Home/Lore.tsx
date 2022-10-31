@@ -10,6 +10,7 @@ import ChakraBox from "components/ChakraBox";
 import ChakraText from "components/ChakraText";
 import Image from "components/Image";
 import { motion, useAnimation } from "framer-motion";
+import useIsMounted from "hooks/useIsMounted";
 import loreBg from "public/img/bg_section_1.png";
 import loreBrushBg from "public/img/lore_brush_bg.png";
 import React from "react";
@@ -24,7 +25,7 @@ const lines = {
 };
 
 const Lore = React.forwardRef((_, ref) => {
-  // const isMounted = useIsMounted();
+  const isMounted = useIsMounted();
   const [isMobile] = useMediaQuery("(max-width: 767.98px)");
   const [boxRef, inView] = useInView();
   const refs = useMergeRefs(ref, boxRef);
@@ -72,7 +73,7 @@ const Lore = React.forwardRef((_, ref) => {
     }
   }, [inView]);
 
-  // if (!isMounted) return null;
+  if (!isMounted) return null;
 
   return (
     <Box
