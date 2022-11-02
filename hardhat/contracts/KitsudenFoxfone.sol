@@ -46,8 +46,9 @@ contract KitsudenFoxfone is ERC721A, Ownable, StringUtils {
     uint256 public maxSupply = 6666;
     uint256 public mintRate = 0.03 ether;
     string public baseExtension = ".json";
-    string public baseURI = "ipfs://<live_uri>/"; // ipfs://<LIVE_CID>
-    string public baseHiddenUri = "ipfs://<hidden_uri>/"; // TODO: to update before deploying
+    string public baseURI = "";
+    string public baseHiddenUri =
+        "https://kitsuden.infura-ipfs.io/ipfs/QmcVpw78x6jatEjcWtQiawPq12hPR8ygJ9TFzJvh68oH8h/";
     uint256 public mintPhase;
     bool public paused = false;
     bool public revealed = false;
@@ -206,7 +207,7 @@ contract KitsudenFoxfone is ERC721A, Ownable, StringUtils {
     }
 
     /**
-     * @dev a function to toggle fail safee paused
+     * @dev a function to toggle fail safe paused
      */
     function setTogglePaused() external onlyOwner {
         paused = !paused;

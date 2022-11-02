@@ -7,8 +7,9 @@ import { expect } from "chai";
 import { ethers } from "hardhat";
 import { generateMerkle, getMerkleProof } from "../utils/merkle";
 
-const mockHiddenURI = "ipfs://<hidden_uri>/";
-const mockBaseURI = "ipfs://<live_uri>/";
+const mockHiddenURI =
+  "https://kitsuden.infura-ipfs.io/ipfs/QmcVpw78x6jatEjcWtQiawPq12hPR8ygJ9TFzJvh68oH8h/";
+const mockBaseURI = "";
 
 describe("KitsudenFoxfone", () => {
   // We define a fixture to reuse the same setup in every test. We use

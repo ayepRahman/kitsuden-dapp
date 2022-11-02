@@ -10,8 +10,8 @@
     "deploy-dev": "yarn test && yarn run hardhat run scripts/deploy-testnet.ts --network localhost",
     "deploy-testnet": "yarn test && yarn run hardhat run scripts/deploy-testnet.ts --network goerli",
     "deploy-mainnet": "yarn test && yarn run hardhat run scripts/deploy-mainnet.ts --network mainnet",
-    "verify-testnet": "yarn run hardhat verify --network goerli 0x7ee8e466e4B53299175e6c0E40fF3e0a588FfB61",
-    "verify-testnet-args": "yarn run hardhat verify --constructor-args arguments/testnet.js  --network goerli 0x70943eE161352e34B1db10E02141FA341cDb6d4E",
+    "verify-testnet": "yarn run hardhat verify --network goerli 0xE0E9223F8c243b1EbFA4A07A0f7a9D3285710D15",
+    "verify-testnet-args": "yarn run hardhat verify --constructor-args arguments/testnet.js  --network goerli 0xE0E9223F8c243b1EbFA4A07A0f7a9D3285710D15",
     "verify-mainnet": "yarn run hardhat verify --network mainnet <smart contract address>",
     "verify-mainnet-args": "yarn run hardhat verify --constructor-args arguments-mainnet.js  --network mainnet <smart contract address>",
     "test": "yarn run hardhat test"

@@ -9,11 +9,11 @@ export const SOCIAL_LINKS = {
 
 export const CONTRACT_ADDRESS: { [key: number]: string } = {
   1: "", // mainnet
-  3: "0x7ee8e466e4B53299175e6c0E40fF3e0a588FfB61", // ropsten
-  4: "0x7ee8e466e4B53299175e6c0E40fF3e0a588FfB61", // rinkeby
-  5: "0x7ee8e466e4B53299175e6c0E40fF3e0a588FfB61", // goerli
-  1337: "0x5fbdb2315678afecb367f032d93f642f64180aa3", // localhost
-  31337: "0x5fbdb2315678afecb367f032d93f642f64180aa3", // hardhat
+  3: "0xE0E9223F8c243b1EbFA4A07A0f7a9D3285710D15", // ropsten
+  4: "0xE0E9223F8c243b1EbFA4A07A0f7a9D3285710D15", // rinkeby
+  5: "0xE0E9223F8c243b1EbFA4A07A0f7a9D3285710D15", // goerli
+  // 1337: "0x5fbdb2315678afecb367f032d93f642f64180aa3", // localhost
+  // 31337: "0x5fbdb2315678afecb367f032d93f642f64180aa3", // hardhat
 };
 
 const PROD_WHITE_LIST_ADDRESSES = [
@@ -35,4 +35,13 @@ export const WHITE_LIST_ADDRESSES: { [key: number]: string[] } = {
 export const MINT_PHASE = {
   WHITE_LIST: 1,
   PUBLIC: 2,
+};
+
+const uri = {
+  preReveal:
+    "https://kitsuden.infura-ipfs.io/ipfs/QmcVpw78x6jatEjcWtQiawPq12hPR8ygJ9TFzJvh68oH8h",
+  testReveal:
+    "https://kitsuden.infura-ipfs.io/ipfs/QmcSamB48ffndvAiGWWwYfn2cadAjV8CHLgxYbeaPRKygA",
+  reveal:
+    "https://kitsuden.infura-ipfs.io/ipfs/QmTdkRSKPwdswaHYSQs9Zso4gwxTWaLEawMwGgaxaZndoa", // <==== to update
 };

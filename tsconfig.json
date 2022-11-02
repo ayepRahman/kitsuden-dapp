@@ -8,6 +8,7 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
+    // "module": "CommonJS",
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
@@ -21,7 +22,8 @@
     "**/*.ts",
     "**/*.tsx",
     "pages/api/graphql.ts",
-    "next.config.js"
+    "next.config.js",
+    "scripts/generateMetadata.ts"
   ],
   "exclude": ["node_modules", "hardhat"]
 }

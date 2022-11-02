@@ -3,11 +3,9 @@
 //
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
-import { artifacts, ethers } from "hardhat";
-import path from "path";
+import { ethers } from "hardhat";
 
 const KITSUDEN = "KitsudenFoxfone";
-const mockHiddenURI = "ipfs://<hidden_uri>/";
 
 async function main() {
   console.log(`deploying on TESTNET ${KITSUDEN} smart contract.......`);
@@ -26,32 +24,32 @@ async function main() {
   await contract.deployed();
 
   console.log(`${KITSUDEN} deployed to:`, contract.address);
-  saveFrontendFiles(contract);
+  // saveFrontendFiles(contract);
 }
 
-function saveFrontendFiles(token: any) {
-  const fs = require("fs");
-  const contractsDir = path.join(__dirname, "..", "abi");
+// function saveFrontendFiles(token: any) {
+//   const fs = require("fs");
+//   const contractsDir = path.join(__dirname, "..", "abi");
 
-  if (!fs.existsSync(contractsDir)) {
-    fs.mkdirSync(contractsDir);
-  }
+//   if (!fs.existsSync(contractsDir)) {
+//     fs.mkdirSync(contractsDir);
+//   }
 
-  fs.writeFileSync(
-    path.join(contractsDir, "contract-address.json"),
-    JSON.stringify({ Token: token.address }, undefined, 2)
-  );
+//   fs.writeFileSync(
+//     path.join(contractsDir, "contract-address.json"),
+//     JSON.stringify({ Token: token.address }, undefined, 2)
+//   );
 
-  const ContractArtifacts = artifacts.readArtifactSync(KITSUDEN);
+//   const ContractArtifacts = artifacts.readArtifactSync(KITSUDEN);
 
-  const abiTs = `export const abi = ${JSON.stringify(
-    ContractArtifacts.abi,
-    null,
-    2
-  )} as const`;
+//   const abiTs = `export const abi = ${JSON.stringify(
+//     ContractArtifacts.abi,
+//     null,
+//     2
+//   )} as const`;
 
-  fs.writeFileSync(path.join(contractsDir, "abi.ts"), abiTs);
-}
+//   fs.writeFileSync(path.join(contractsDir, "abi.ts"), abiTs);
+// }
 
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.
