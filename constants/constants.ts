@@ -25,6 +25,7 @@ const TESTNET_WHITE_LIST_ADDRESSES = [
   "0x0Aa32Ace6A4e447310cc145dda5D984A6B5733ea", // deployer
   "0xEeD462B644BdDCb20aCa6c0fDaEB07bF9433ef9A", // amymochi
   "0x1C0C70453C5eD96c7C4EC2EA98c3A99Fc1Dd27EF",
+  "0x020f02f24d7ba4bF69Ac2e21E32776a438Ef3e04",
 ];
 
 export const WHITE_LIST_ADDRESSES: { [key: number]: string[] } = {
