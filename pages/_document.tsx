@@ -1,5 +1,5 @@
 import { ColorModeScript } from "@chakra-ui/react";
-import NextDocument, { Html, Head, Main, NextScript } from "next/document";
+import NextDocument, { Head, Html, Main, NextScript } from "next/document";
 import { Fonts } from "styles/Global";
 
 export default class Document extends NextDocument {
@@ -7,6 +7,10 @@ export default class Document extends NextDocument {
     return (
       <Html lang="en">
         <Head />
+        <meta
+          name="google-site-verification"
+          content="NtrZuSQa6v1dEdwvQRh5le_KAuDcrhXI0kDMgbL8TUE"
+        />
         <body
           style={{
             backgroundColor: "black",
