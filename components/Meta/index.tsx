@@ -32,8 +32,6 @@ export const Meta: React.FC<{
         ],
       }}
       twitter={{
-        handle: "@KitsudenNFT",
-        site: "@KitsudenNFT",
         cardType: "summary_large_image",
       }}
     />
