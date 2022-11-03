@@ -40,7 +40,7 @@ const uri = {
   preReveal:
     "https://kitsuden.infura-ipfs.io/ipfs/QmcuoBkCv4EgFfEfMx81izNj6cY639JVi3etJiPuYvUXej",
   testReveal:
-    "https://kitsuden.infura-ipfs.io/ipfs/QmcSamB48ffndvAiGWWwYfn2cadAjV8CHLgxYbeaPRKygA",
+    "https://kitsuden.infura-ipfs.io/ipfs/QmX6SsJznBGd4utKFmgteRJXnm6qL7MNXRNrSPbXZswXnh",
   reveal:
     "https://kitsuden.infura-ipfs.io/ipfs/Qmctp442DNYMrZN6YLpEM8ZXKaQ8Q6qjAoPaCHSDqgFYBZ", // <==== to update
 };

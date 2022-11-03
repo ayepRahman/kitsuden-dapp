@@ -27,7 +27,8 @@ const WhiteListMintButton: React.FC<WhiteListMintButtonProps> = ({
   } | null>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isWhiteListed, getProof } = useCheckIsAddressWhiteListed();
-  const { whiteListMintLimit } = useGetMintAvailable();
+  const { whiteListMintLimit, refetchWhiteListMintLimit } =
+    useGetMintAvailable();
 
   const { contractAddress } = useGetContractAddress();
   const { data: mintPhaseData } = useCheckMintPhase();
@@ -48,11 +49,6 @@ const WhiteListMintButton: React.FC<WhiteListMintButtonProps> = ({
       value: price,
     },
     onSettled(data, error: any) {
-      console.log("onSettled", {
-        data,
-        error,
-      });
-
       if (error && !isWhiteListed) {
         return toast({
           title: "Error",
@@ -88,13 +84,14 @@ const WhiteListMintButton: React.FC<WhiteListMintButtonProps> = ({
   const { write, isLoading } = useContractWrite({
     ...config,
     onSuccess(data) {
-      console.log("DATA", { data });
       onOpen();
       setMintSuccessProps({
         contractAddress,
         txHash: data?.hash,
         quantity: count,
       });
+
+      refetchWhiteListMintLimit();
     },
   });
 

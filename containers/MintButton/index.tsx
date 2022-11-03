@@ -5,6 +5,7 @@ import { abi } from "contracts/abi";
 import { BigNumber } from "ethers/lib/ethers";
 import useCheckMintPhase from "hooks/useCheckMintPhase";
 import useGetContractAddress from "hooks/useGetContractAddress";
+import useGetMintAvailable from "hooks/useGetMintAvailable";
 import { useEffect, useState } from "react";
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 
@@ -23,6 +24,7 @@ const MintButton: React.FC<MintButtonProps> = ({ count, price }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { contractAddress } = useGetContractAddress();
   const { data: mintPhaseData } = useCheckMintPhase();
+  const { mintLimit, refetchMintLimit } = useGetMintAvailable();
 
   useEffect(() => {
     if (!isOpen) {
@@ -40,11 +42,6 @@ const MintButton: React.FC<MintButtonProps> = ({ count, price }) => {
     },
     enabled: count > 0 && !!price,
     onSettled(data, error: any) {
-      console.log("onSettled", {
-        data,
-        error,
-      });
-
       if (error) {
         toast({
           title: "Error",
@@ -71,20 +68,13 @@ const MintButton: React.FC<MintButtonProps> = ({ count, price }) => {
         txHash: data?.hash,
         quantity: count,
       });
+      refetchMintLimit();
     },
   });
 
   const mintPhase = Number(mintPhaseData || 0);
 
   const isLive = !!mintPhase;
-
-  console.log({
-    write,
-    count,
-    price: Number(price),
-    isLive,
-    mintPhase,
-  });
 
   if (!isLive) return null;
 
@@ -98,8 +88,14 @@ const MintButton: React.FC<MintButtonProps> = ({ count, price }) => {
         onClick={() => write?.()}
       >
         <Box>
-          <Text>CONTINUE</Text>
-          <Text>(Mint)</Text>
+          {mintLimit === 0 ? (
+            <Text>You've have minted out!</Text>
+          ) : (
+            <>
+              <Text>(Mint)</Text>
+              <Text>CONTINUE</Text>
+            </>
+          )}
         </Box>
       </Button>
       <MintSuccessModal

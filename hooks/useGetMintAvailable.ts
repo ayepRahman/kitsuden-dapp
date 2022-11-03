@@ -31,7 +31,12 @@ const useGetMintAvailable = () => {
   });
 
   return {
-    ...useAddressRes,
+    refetchMintLimit: () => {
+      useAddressRes.refetch();
+    },
+    refetchWhiteListMintLimit: () => {
+      whiteListUsedAddressesRes.refetch();
+    },
     mintLimit:
       ethers.BigNumber.from(maxMintsRes?.data || 0).toNumber() -
       ethers.BigNumber.from(useAddressRes?.data || 0).toNumber(),
