@@ -25,5 +25,5 @@
     "next.config.js",
     "scripts/generateMetadata.ts"
   ],
-  "exclude": ["node_modules", "hardhat"]
+  "exclude": ["node_modules", "hardhat", "scripts"]
 }
