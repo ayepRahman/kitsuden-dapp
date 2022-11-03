@@ -6,6 +6,7 @@ import {
   Link,
   useMediaQuery,
 } from "@chakra-ui/react";
+import { Meta } from "components/Meta";
 import Header from "containers/Header";
 import dynamic from "next/dynamic";
 import mintFoxfoneBg from "public/img/mint_foxfone_bg.png";
@@ -36,50 +37,53 @@ const Mint = () => {
   // if (!isMounted) return null;
 
   return (
-    <Box h="full">
-      {isShowWarning && (
-        <Box
-          position="relative"
-          textAlign="center"
-          color="white"
-          p={3}
-          bg="brand.200"
-        >
-          Please switch to{" "}
-          <Link textDecor="underline" onClick={() => switchNetwork?.(1)}>
-            mainnet
-          </Link>{" "}
-          , currently connected to {chain?.name}
-        </Box>
-      )}
-      <Header />
-      <Box position="relative" h="full">
-        <Image
-          position="absolute"
-          src={mintFoxfoneBg.src}
-          height={isMobile ? "100%" : "100vh"}
-          width="100%"
-          objectFit={"cover"}
-          bgPos="top"
-          zIndex="-1"
-          placeholder="empty"
-        />
-        <Container h="full" maxW={1600} py="5rem">
-          <Flex
-            flexWrap={isMobile ? "wrap-reverse" : "nowrap"}
-            gap="5rem"
-            alignItems="center"
-            w="100%"
+    <>
+      <Meta title="Kitsuden | Mint Foxfone" />
+      <Box h="full">
+        {isShowWarning && (
+          <Box
+            position="relative"
+            textAlign="center"
+            color="white"
+            p={3}
+            bg="brand.200"
           >
-            <Box flexBasis={isMobile ? "100%" : "50%"} w="100%">
-              <Minting />
-            </Box>
+            Please switch to{" "}
+            <Link textDecor="underline" onClick={() => switchNetwork?.(1)}>
+              mainnet
+            </Link>{" "}
+            , currently connected to {chain?.name}
+          </Box>
+        )}
+        <Header />
+        <Box position="relative" h="full">
+          <Image
+            position="absolute"
+            src={mintFoxfoneBg.src}
+            height={isMobile ? "100%" : "100vh"}
+            width="100%"
+            objectFit={"cover"}
+            bgPos="top"
+            zIndex="-1"
+            placeholder="empty"
+          />
+          <Container h="full" maxW={1600} py="5rem">
+            <Flex
+              flexWrap={isMobile ? "wrap-reverse" : "nowrap"}
+              gap="5rem"
+              alignItems="center"
+              w="100%"
+            >
+              <Box flexBasis={isMobile ? "100%" : "50%"} w="100%">
+                <Minting />
+              </Box>
 
-            <MintModelViewer />
-          </Flex>
-        </Container>
+              <MintModelViewer />
+            </Flex>
+          </Container>
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 };
 
