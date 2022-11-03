@@ -6,6 +6,7 @@ import { BigNumber } from "ethers/lib/ethers";
 import useCheckMintPhase from "hooks/useCheckMintPhase";
 import useGetContractAddress from "hooks/useGetContractAddress";
 import useGetMintAvailable from "hooks/useGetMintAvailable";
+import useGetTotalSupply from "hooks/useGetTotalSupply";
 import { useEffect, useState } from "react";
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 
@@ -25,6 +26,7 @@ const MintButton: React.FC<MintButtonProps> = ({ count, price }) => {
   const { contractAddress } = useGetContractAddress();
   const { data: mintPhaseData } = useCheckMintPhase();
   const { mintLimit, refetchMintLimit } = useGetMintAvailable();
+  const { refetch: refetchGetTotalSupply } = useGetTotalSupply();
 
   useEffect(() => {
     if (!isOpen) {
@@ -69,6 +71,7 @@ const MintButton: React.FC<MintButtonProps> = ({ count, price }) => {
         quantity: count,
       });
       refetchMintLimit();
+      refetchGetTotalSupply();
     },
   });
 
@@ -89,7 +92,7 @@ const MintButton: React.FC<MintButtonProps> = ({ count, price }) => {
       >
         <Box>
           {mintLimit === 0 ? (
-            <Text>You've have minted out!</Text>
+            <Text>You have minted out</Text>
           ) : (
             <>
               <Text>(Mint)</Text>

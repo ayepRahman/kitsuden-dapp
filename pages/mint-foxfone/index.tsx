@@ -56,6 +56,7 @@ const Mint = () => {
             bgPos="top"
             zIndex="-1"
             placeholder="empty"
+            opacity="70%"
           />
           <Container h="full" maxW={1600} py="5rem">
             <Flex

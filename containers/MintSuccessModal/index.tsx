@@ -79,24 +79,8 @@ const MintSuccessModal: React.FC<MintSuccessModalProps> = ({
             ADVENTURE AWAITS!
           </Heading>
           <Text fontWeight={500} fontSize={["12px", "1rem"]} mt="1rem">
-            YOU SUCCESSFULLY HAVE MINTED
+            YOU HAVE SUCCESSFULLY MINTED
           </Text>
-
-          {/* TODO: add image here */}
-          {/* <Box
-            my="2rem"
-            display="flex"
-            // width="100%"
-            gap="1rem"
-            justifyContent="center"
-            alignItems="center"
-          >
-            {Array.from({ length: quantity }, (_, i) => {
-              return (
-                <Icon height="2rem" width="2rem" name="foxfoneLogo" key={i} />
-              );
-            })}
-          </Box> */}
 
           <ModalImageWrapper>
             <Image
@@ -107,10 +91,12 @@ const MintSuccessModal: React.FC<MintSuccessModalProps> = ({
           </ModalImageWrapper>
 
           <Text fontWeight={500} fontSize={["12px", "1rem"]} mb="1rem">
-            {quantity}x FOXFONE NFTs
+            <b>{quantity}x</b> UNREVEALED FOXFONE NFTs
           </Text>
 
-          <Text fontSize={["12px", "1rem"]}>VIEW YOUR TRANSACTION ON</Text>
+          <Text fontWeight={500} fontSize={["12px", "1rem"]}>
+            VIEW YOUR TRANSACTION ON
+          </Text>
 
           <Flex justifyContent="center" gap="1rem" my="1rem">
             <Icon
@@ -128,10 +114,6 @@ const MintSuccessModal: React.FC<MintSuccessModalProps> = ({
               onClick={() => window.open(esLink)}
             />
           </Flex>
-
-          <Text my="1rem" fontSize={["12px", "1rem"]}>
-            LEAVE A PARTING NOTE TO YOUR FRIENDS...
-          </Text>
 
           <Button
             mt="1rem"

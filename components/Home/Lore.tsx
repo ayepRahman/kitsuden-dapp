@@ -9,10 +9,10 @@ import React from "react";
 import { useInView } from "react-intersection-observer";
 
 const lines = {
-  one: "It is said there lies a hidden village located at the eastern part of the world. Deep within the forest of spirits where no man dares to enter. Elusive beings are seen to inhabit the mysterious village. Living their daily lives unbeknownst to the world.",
-  two: "The only thing thats known about this village, is that locating it requires a very special device. This device is known to be called as a “FOXFONE” discovered by a group of explorers that once braved to venture to the most eastern part of the forest of spirits. It is a shame though, they never came back and the only thing the search rescue part found was this piece of ancient tech.",
+  one: "It is said there lies a hidden village located in the eastern part of the world. Deep within the forest of spirits where no man dares to enter. Elusive beings are seen to inhabit the mysterious village. Living their daily lives unbeknownst to the world.",
+  two: "The only thing that's known about this village, is that locating it requires a very special device. This device is known to be called a “FOXFONE” discovered by a group of explorers that once braved to venture to the most eastern part of the forest of spirits. It is a shame though, they never came back and the only thing the search rescue part found was this piece of ancient tech.",
   three:
-    "Little did we know that this piece of tech just let out a signal.It’s showing something of a map and the words “Loading, Finding shortest path...”",
+    "Little did we know that this piece of tech just let out a signal. It’s showing something of a map and the words “Loading, Finding shortest path...”",
   four: "As it beckons to you..are you brave enough to follow it?",
 };
 

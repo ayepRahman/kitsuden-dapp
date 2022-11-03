@@ -51,7 +51,7 @@ const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
     <ChakraBox bg="brand.100" height="max-content" position="relative">
       <Container
         position="relative"
-        padding={{ base: "0.5rem 1rem", lg: "1rem" }}
+        padding={{ base: "0.5rem 1rem", lg: "2rem" }}
         maxW={1920}
         background="Background.100"
         zIndex={4}

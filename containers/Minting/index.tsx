@@ -42,20 +42,20 @@ const Minting = () => {
     <Box color="white" width="100%">
       <Flex fontSize={["1rem", "22px"]} fontWeight={600} mb="1rem">
         <Text color="brand.200">{totalSupply}</Text>&nbsp;/&nbsp;
-        <Text>{`${maxSupply} FOXFONEX REMAINING`}</Text>
+        <Text>{`${maxSupply} FOXFONE REMAINING`}</Text>
       </Flex>
 
       {isLive && !whiteListMintLimit && isWhitelistSale && (
         <>
           <Heading fontSize={[42, 84]} lineHeight={["42px", "84px"]}>
-            CONGRATZ YOU'VE
+            Rejoice you are
           </Heading>
           <Heading
             fontSize={[42, 84]}
             lineHeight={["42px", "84px]"]}
             textAlign="right"
           >
-            FULLY MINTED
+            fully minted out
           </Heading>
         </>
       )}
@@ -63,14 +63,14 @@ const Minting = () => {
       {isLive && !mintLimit && isPublicSale && (
         <>
           <Heading fontSize={[42, 84]} lineHeight={["42px", "84px"]}>
-            CONGRATZ YOU'VE
+            Rejoice you are
           </Heading>
           <Heading
             fontSize={[42, 84]}
             lineHeight={["42px", "84px"]}
             textAlign="right"
           >
-            FULLY MINTED
+            fully minted out
           </Heading>
         </>
       )}
@@ -137,13 +137,25 @@ const Minting = () => {
         })}
       </Flex>
 
-      <Flex mt="1rem">
-        <Text fontWeight={600}>NOTE:</Text>
-        &nbsp;
-        <Text>There is a maximum of 2 Foxfones per wallet for whitelist</Text>
-      </Flex>
+      {mintPhase === 1 && (
+        <Flex mt="1rem">
+          <Text fontWeight={600}>NOTE:</Text>
+          &nbsp;
+          <Text>
+            You can only mint a maximum of 2 NFTs in the kitsulited mint
+          </Text>
+        </Flex>
+      )}
 
-      <Box mt="2rem" borderRadius="4px" bgColor="rgba(0,0,0,0.7)" p="2rem">
+      {mintPhase === 2 && (
+        <Flex mt="1rem">
+          <Text fontWeight={600}>NOTE:</Text>
+          &nbsp;
+          <Text>You can only mint a maximum of 5 NFTs in the public mint</Text>
+        </Flex>
+      )}
+
+      <Box mt="1rem" borderRadius="4px" bgColor="rgba(0,0,0,0.7)" p="2rem">
         <Flex justifyContent="space-between" flexWrap={["wrap", "nowrap"]}>
           <Box>
             <Text>PRICE</Text>

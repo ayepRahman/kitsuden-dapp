@@ -7,6 +7,7 @@ import useCheckIsAddressWhiteListed from "hooks/useCheckIsAddressWhiteListed";
 import useCheckMintPhase from "hooks/useCheckMintPhase";
 import useGetContractAddress from "hooks/useGetContractAddress";
 import useGetMintAvailable from "hooks/useGetMintAvailable";
+import useGetTotalSupply from "hooks/useGetTotalSupply";
 import { useEffect, useState } from "react";
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 
@@ -29,6 +30,7 @@ const WhiteListMintButton: React.FC<WhiteListMintButtonProps> = ({
   const { isWhiteListed, getProof } = useCheckIsAddressWhiteListed();
   const { whiteListMintLimit, refetchWhiteListMintLimit } =
     useGetMintAvailable();
+  const { refetch: refetchGetTotalSupply } = useGetTotalSupply();
 
   const { contractAddress } = useGetContractAddress();
   const { data: mintPhaseData } = useCheckMintPhase();
@@ -92,6 +94,7 @@ const WhiteListMintButton: React.FC<WhiteListMintButtonProps> = ({
       });
 
       refetchWhiteListMintLimit();
+      refetchGetTotalSupply();
     },
   });
 
@@ -112,14 +115,14 @@ const WhiteListMintButton: React.FC<WhiteListMintButtonProps> = ({
       >
         <Box>
           {whiteListMintLimit === 0 ? (
-            <Text>You've have minted out!</Text>
+            <Text>You have minted out</Text>
           ) : isWhiteListed ? (
             <>
               <Text>CONTINUE</Text>
-              <Text>(White List Mint)</Text>
+              <Text>(Kitsulist Mint)</Text>
             </>
           ) : (
-            <Text>You're not white listed!</Text>
+            <Text>You're not Kitsulisted!</Text>
           )}
         </Box>
       </Button>
