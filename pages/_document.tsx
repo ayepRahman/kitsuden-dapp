@@ -6,11 +6,12 @@ export default class Document extends NextDocument {
   render() {
     return (
       <Html lang="en">
-        <Head />
-        <meta
-          name="google-site-verification"
-          content="NtrZuSQa6v1dEdwvQRh5le_KAuDcrhXI0kDMgbL8TUE"
-        />
+        <Head>
+          <meta
+            name="google-site-verification"
+            content="NtrZuSQa6v1dEdwvQRh5le_KAuDcrhXI0kDMgbL8TUE"
+          />
+        </Head>
         <body
           style={{
             backgroundColor: "black",
