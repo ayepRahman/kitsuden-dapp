@@ -37,7 +37,7 @@ export const Meta: React.FC<{
       /> */}
       <meta property="og:url" content="http://kitsuden.com" />
       <meta name="twitter:title" content="Kitsuden" />
-      <meta name="twitter:card" content={description} />
+      <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:description" content={description} />
 
       {/* <!--  Non-Essential, But Recommended --> */}
