@@ -11,6 +11,7 @@ import ChakraBox from "components/ChakraBox";
 import Icon from "components/Icon";
 import Image from "components/Image";
 import { useAnimation } from "framer-motion";
+import useIsMounted from "hooks/useIsMounted";
 import pathBg from "public/img/path_bg.png";
 import React from "react";
 import { useInView } from "react-intersection-observer";
@@ -58,7 +59,7 @@ const timelineItems = [
 ];
 
 const Path = React.forwardRef((_, ref: any) => {
-  // const isMounted = useIsMounted();
+  const isMounted = useIsMounted();
   const controlsTimelines = useAnimation();
   const controlsHeading = useAnimation();
   const controlsImg = useAnimation();
@@ -125,7 +126,7 @@ const Path = React.forwardRef((_, ref: any) => {
     }
   }, [imgRefInView, timelinesRfInView]);
 
-  // if (!isMounted) return null;
+  if (!isMounted) return null;
 
   return (
     <Box ref={ref} top="-8rem" width="full" position="relative" zIndex={4}>
@@ -134,8 +135,10 @@ const Path = React.forwardRef((_, ref: any) => {
         position="absolute"
         layout="fill"
         src={pathBg.src}
-        objectFit={isMobile ? "cover" : "fill"}
+        objectFit={"fill"}
+        // objectFit={isMobile ? "cover" : "fill"}
         objectPosition={isMobile ? "35% 50%" : "center"}
+        // objectPosition={isMobile ? "35% 50%" : "center"}
         placeholder="empty"
       />
       <Container

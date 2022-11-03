@@ -1,8 +1,7 @@
-import { Box, Container, Flex, useMediaQuery } from "@chakra-ui/react";
+import { Box, Container, Flex } from "@chakra-ui/react";
 import Icon from "components/Icon";
 import ScrollLink from "components/ScrollLink";
 import { navLinks, socialLinks } from "constants/links";
-import useIsMounted from "hooks/useIsMounted";
 import LogoImg from "public/svg/kitsuden_logo_1.svg";
 import LogoIcon from "public/svg/logo_icon.svg";
 import React from "react";
@@ -12,9 +11,6 @@ interface FooterProps {
 }
 
 const Footer: React.FC<FooterProps> = ({ scrollTo }) => {
-  const isMounted = useIsMounted();
-  const [isMobile] = useMediaQuery("(max-width: 767.98px)");
-
   const handleOnClick = (to: string) => {
     // scroll to somewhere later
     scrollTo && scrollTo(to);
@@ -24,13 +20,11 @@ const Footer: React.FC<FooterProps> = ({ scrollTo }) => {
     window.open(link);
   };
 
-  if (!isMounted) return null;
-
   return (
     <Box
       width="full"
       position="absolute"
-      bottom={isMobile ? "-30rem" : "-4rem"}
+      bottom={["-30rem", "-4rem"]}
       bgColor="black"
       zIndex={6}
       // marginTop="-8rem"
@@ -41,18 +35,18 @@ const Footer: React.FC<FooterProps> = ({ scrollTo }) => {
         height="inherit"
         position="absolute"
         name="footer"
-        objectFit={isMobile ? "cover" : "fill"}
+        objectFit={["cover", "fill"]}
       />
       <Container
         position="relative"
         zIndex={1}
         maxW={1920}
-        p={isMobile ? "2rem 1rem" : "4rem 1rem 5rem"}
+        p={["2rem 1rem", "4rem 1rem 5rem"]}
       >
         <Flex
           justifyContent="space-between"
           alignItems="center"
-          flexDirection={isMobile ? "column" : "row"}
+          flexDirection={["column", "row"]}
           gap="3rem"
         >
           <Box>
@@ -68,7 +62,7 @@ const Footer: React.FC<FooterProps> = ({ scrollTo }) => {
               flex={1}
               textAlign="center"
               justifyContent="center"
-              flexDirection={isMobile ? "column" : "row"}
+              flexDirection={["column", "row"]}
             >
               {navLinks.map((sl) => {
                 return (

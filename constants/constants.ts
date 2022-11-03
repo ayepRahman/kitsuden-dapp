@@ -9,11 +9,7 @@ export const SOCIAL_LINKS = {
 
 export const CONTRACT_ADDRESS: { [key: number]: string } = {
   1: "", // mainnet
-  3: "0xE0E9223F8c243b1EbFA4A07A0f7a9D3285710D15", // ropsten
-  4: "0xE0E9223F8c243b1EbFA4A07A0f7a9D3285710D15", // rinkeby
-  5: "0xE0E9223F8c243b1EbFA4A07A0f7a9D3285710D15", // goerli
-  // 1337: "0x5fbdb2315678afecb367f032d93f642f64180aa3", // localhost
-  // 31337: "0x5fbdb2315678afecb367f032d93f642f64180aa3", // hardhat
+  5: "0x920A09067360E1132a6a2A8ad6A9d2968c023177", // goerli
 };
 
 const PROD_WHITE_LIST_ADDRESSES = [
@@ -42,9 +38,9 @@ export const MINT_PHASE = {
 
 const uri = {
   preReveal:
-    "https://kitsuden.infura-ipfs.io/ipfs/QmcVpw78x6jatEjcWtQiawPq12hPR8ygJ9TFzJvh68oH8h",
+    "https://kitsuden.infura-ipfs.io/ipfs/QmcuoBkCv4EgFfEfMx81izNj6cY639JVi3etJiPuYvUXej",
   testReveal:
     "https://kitsuden.infura-ipfs.io/ipfs/QmcSamB48ffndvAiGWWwYfn2cadAjV8CHLgxYbeaPRKygA",
   reveal:
-    "https://kitsuden.infura-ipfs.io/ipfs/QmTdkRSKPwdswaHYSQs9Zso4gwxTWaLEawMwGgaxaZndoa", // <==== to update
+    "https://kitsuden.infura-ipfs.io/ipfs/Qmctp442DNYMrZN6YLpEM8ZXKaQ8Q6qjAoPaCHSDqgFYBZ", // <==== to update
 };

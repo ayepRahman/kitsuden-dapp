@@ -5,10 +5,10 @@ export const socialLinks: {
   name: IconNamesType;
   link: string;
 }[] = [
-  {
-    name: "discord",
-    link: SOCIAL_LINKS.twitter,
-  },
+  // {
+  //   name: "discord",
+  //   link: SOCIAL_LINKS.twitter,
+  // },
   {
     name: "twitter",
     link: SOCIAL_LINKS.twitter,

@@ -1,16 +1,8 @@
-import {
-  Box,
-  Container,
-  Flex,
-  Heading,
-  useMediaQuery,
-  useMergeRefs,
-} from "@chakra-ui/react";
+import { Box, Container, Flex, Heading, useMergeRefs } from "@chakra-ui/react";
 import ChakraBox from "components/ChakraBox";
 import ChakraText from "components/ChakraText";
 import Image from "components/Image";
 import { motion, useAnimation } from "framer-motion";
-import useIsMounted from "hooks/useIsMounted";
 import loreBg from "public/img/bg_section_1.png";
 import loreBrushBg from "public/img/lore_brush_bg.png";
 import React from "react";
@@ -25,8 +17,6 @@ const lines = {
 };
 
 const Lore = React.forwardRef((_, ref) => {
-  const isMounted = useIsMounted();
-  const [isMobile] = useMediaQuery("(max-width: 767.98px)");
   const [boxRef, inView] = useInView();
   const refs = useMergeRefs(ref, boxRef);
   const controlsHeader = useAnimation();
@@ -73,8 +63,6 @@ const Lore = React.forwardRef((_, ref) => {
     }
   }, [inView]);
 
-  if (!isMounted) return null;
-
   return (
     <Box
       top="-4rem"
@@ -82,16 +70,28 @@ const Lore = React.forwardRef((_, ref) => {
       width="full"
       position="relative"
       zIndex={3}
-      p={isMobile ? "8rem 0" : "8rem 0"}
+      p={["8rem 0", "8rem 0"]}
       overflow="hidden"
     >
-      <Image
-        position="absolute"
-        layout="fill"
-        placeholder="empty"
-        src={loreBg}
-        objectFit={isMobile ? "cover" : "fill"}
-      />
+      {/* desktop */}
+      <Box h="inherit" w="inherit" display={["none", "none", "block"]}>
+        <Image
+          layout="fill"
+          placeholder="empty"
+          src={loreBg}
+          objectFit="fill"
+        />
+      </Box>
+      {/* mobile */}
+      <Box h="inherit" w="inherit" display={["block", "block", "none"]}>
+        <Image
+          layout="fill"
+          placeholder="empty"
+          src={loreBg}
+          objectFit="cover"
+        />
+      </Box>
+
       <Container
         ref={refs}
         position="relative"
@@ -102,12 +102,12 @@ const Lore = React.forwardRef((_, ref) => {
         <Flex
           gap="2rem"
           alignItems="center"
-          flexWrap={isMobile ? "wrap" : "nowrap"}
+          flexWrap={["wrap", "wrap", "wrap", "nowrap"]}
         >
           <ChakraBox
-            flex={`0 0 ${isMobile ? "100%" : "780px"} `}
-            width={isMobile ? "100%" : "748px"}
-            height={isMobile ? "400px" : "748px"}
+            flex={[`0 0 100%`, `0 0 100%`, `0 0 100%`, `0 0 50%`]}
+            width={["100%", "748px"]}
+            height={["400px", "748px"]}
             position="relative"
             initial="hidden"
             animate={controlsImg}
@@ -120,7 +120,7 @@ const Lore = React.forwardRef((_, ref) => {
             <Image src={loreBrushBg} layout="fill" placeholder="empty" />
           </ChakraBox>
 
-          <Box width={isMobile ? "100%" : "50%"}>
+          <Box width={["100%", "100%", "100%", "50%"]}>
             <ChakraBox
               initial="hidden"
               animate={controlsHeader}
@@ -133,8 +133,8 @@ const Lore = React.forwardRef((_, ref) => {
               <Heading
                 color="black"
                 fontWeight={400}
-                fontSize={isMobile ? 46 : 84}
-                lineHeight={isMobile ? "30px" : "76px"}
+                fontSize={[46, 84]}
+                lineHeight={["30px", "76px"]}
               >
                 The mysterious
               </Heading>
@@ -152,8 +152,8 @@ const Lore = React.forwardRef((_, ref) => {
               <Heading
                 color="black"
                 fontWeight={400}
-                fontSize={isMobile ? 46 : 84}
-                lineHeight={isMobile ? "30px" : "76px"}
+                fontSize={[46, 84]}
+                lineHeight={["30px", "76px"]}
                 textAlign="right"
               >
                 hidden village...
@@ -163,7 +163,7 @@ const Lore = React.forwardRef((_, ref) => {
               color="black"
               lineHeight="160%"
               my="2rem"
-              fontSize={isMobile ? 16 : 18}
+              fontSize={[16, 18]}
               fontWeight="600"
               variants={sentenceVariants}
               initial="hidden"
@@ -182,7 +182,7 @@ const Lore = React.forwardRef((_, ref) => {
               color="black"
               lineHeight="160%"
               my="2rem"
-              fontSize={isMobile ? 16 : 18}
+              fontSize={[16, 18]}
               fontWeight="600"
               variants={sentenceVariants}
               initial="hidden"
@@ -201,7 +201,7 @@ const Lore = React.forwardRef((_, ref) => {
               color="black"
               lineHeight="160%"
               my="2rem"
-              fontSize={isMobile ? 16 : 18}
+              fontSize={[16, 18]}
               fontWeight="600"
               variants={sentenceVariants}
               initial="hidden"
@@ -220,7 +220,7 @@ const Lore = React.forwardRef((_, ref) => {
               color="black"
               lineHeight="160%"
               my="2rem"
-              fontSize={isMobile ? 16 : 18}
+              fontSize={[16, 18]}
               fontWeight="600"
               variants={sentenceVariants}
               initial="hidden"

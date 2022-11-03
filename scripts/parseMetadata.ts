@@ -2,6 +2,15 @@ import csv from "csvtojson";
 import * as fs from "fs";
 import path from "path";
 
+const convertData = (data: any) => {
+  return {
+    name: data?.name,
+    attributes: JSON.parse(data?.attributes),
+    animation_url: data?.animation_url,
+    description: data?.description,
+  };
+};
+
 (async () => {
   try {
     const revealName = "reveal";
@@ -26,8 +35,8 @@ import path from "path";
 
     revealData.forEach((data, i) => {
       const dir = path.join(process.cwd(), "scripts", revealName, `${i}.json`);
-
-      fs.writeFileSync(dir, JSON.stringify(data));
+      const cData = convertData(data);
+      fs.writeFileSync(dir, JSON.stringify(cData));
     });
 
     preRevealData.forEach((data, i) => {
@@ -38,7 +47,9 @@ import path from "path";
         `${i}.json`
       );
 
-      fs.writeFileSync(dir, JSON.stringify(data));
+      const cData = convertData(data);
+
+      fs.writeFileSync(dir, JSON.stringify(cData));
     });
 
     testRevealData.forEach((data, i) => {
@@ -49,8 +60,12 @@ import path from "path";
         `${i}.json`
       );
 
-      fs.writeFileSync(dir, JSON.stringify(data));
+      const cData = convertData(data);
+
+      fs.writeFileSync(dir, JSON.stringify(cData));
     });
+
+    console.log("COMPLETE");
   } catch (error) {
     console.log("ERROR", error);
   }
