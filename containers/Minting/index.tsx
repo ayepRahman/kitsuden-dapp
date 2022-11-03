@@ -46,7 +46,6 @@ const Minting = () => {
         <Text>{`${maxSupply} FOXFONEX REMAINING`}</Text>
       </Flex>
 
-      {/* TODO: need to update logic here */}
       {isLive && !whiteListMintLimit && isWhitelistSale && (
         <>
           <Heading

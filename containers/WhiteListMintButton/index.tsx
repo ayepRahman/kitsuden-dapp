@@ -88,7 +88,6 @@ const WhiteListMintButton: React.FC<WhiteListMintButtonProps> = ({
   const { write, isLoading } = useContractWrite({
     ...config,
     onSuccess(data) {
-      // TODO: test white list mint again
       console.log("DATA", { data });
       onOpen();
       setMintSuccessProps({

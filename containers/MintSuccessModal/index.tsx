@@ -46,7 +46,7 @@ const MintSuccessModal: React.FC<MintSuccessModalProps> = ({
 
     const text =
       "Successfully minted my unrevealed @KitsudenNFT Foxfone! This will sure to help me uncover the hidden village! Hey, extra hands never hurt, Help us on the search by minting your own!";
-    const url = "https://www.kitsuden.com/";
+    const url = "https://www.kitsuden.com";
     const hashtages = "Kitsuden,NFT";
 
     return `https://twitter.com/intent/tweet?text=${text}&url=${url}&hashtags=${hashtages}`;

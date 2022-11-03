@@ -65,8 +65,6 @@ const MintButton: React.FC<MintButtonProps> = ({ count, price }) => {
   const { write, isLoading } = useContractWrite({
     ...config,
     onSuccess(data) {
-      // TODO: mint again
-      console.log("DATA", { data });
       onOpen();
       setMintSuccessProps({
         contractAddress,
