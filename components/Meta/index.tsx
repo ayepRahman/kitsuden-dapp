@@ -30,10 +30,11 @@ export const Meta: React.FC<{
       {/* <!--  Essential META Tags --> */}
       <meta property="og:title" content={title} />
       <meta property="og:type" content="website" />
-      <meta
+      <meta property="og:image" content="/img/kitsuden-metabackground.webp" />
+      {/* <meta
         property="og:image"
-        content="https://pbs.twimg.com/profile_banners/1463594189791236096/1656173960/600x200"
-      />
+        content="https://superful-assets-prod.s3.amazonaws.com/images/9ed4e498-ebc5-4568-845a-0b7736f159e0.png"
+      /> */}
       <meta property="og:url" content="http://kitsuden.com" />
       <meta name="twitter:title" content="Kitsuden" />
       <meta name="twitter:card" content={description} />
