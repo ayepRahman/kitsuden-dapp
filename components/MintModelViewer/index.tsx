@@ -16,17 +16,15 @@ const MintModelViewer = () => {
       overflow="hidden"
       initial={{
         opacity: 0,
-        x: 100,
       }}
       animate={{
         opacity: 1,
-        x: 0,
         transition: {
           duration: 1,
         },
       }}
       position="relative"
-      flexBasis={isMobile ? "100%" : "50%"}
+      flexBasis={["100%", "50%"]}
       w="100%"
     >
       <Image

@@ -127,7 +127,7 @@ const WhiteListMintButton: React.FC<WhiteListMintButtonProps> = ({
         </Box>
       </Button>
       <MintSuccessModal
-        isOpen={true}
+        isOpen={isOpen}
         onClose={onClose}
         contractAddress={mintSuccessProps?.contractAddress}
         quantity={mintSuccessProps?.quantity}

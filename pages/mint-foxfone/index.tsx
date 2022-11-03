@@ -1,11 +1,4 @@
-import {
-  Box,
-  Container,
-  Flex,
-  Image,
-  Link,
-  useMediaQuery,
-} from "@chakra-ui/react";
+import { Box, Container, Flex, Image, Link } from "@chakra-ui/react";
 import { Meta } from "components/Meta";
 import Header from "containers/Header";
 import dynamic from "next/dynamic";
@@ -19,12 +12,10 @@ const MintModelViewer = dynamic(() => import("components/MintModelViewer"), {
 });
 
 const Mint = () => {
-  // const isMounted = useIsMounted();
   const [isShowWarning, setIsShowWarning] = React.useState<boolean>(false);
   const { isConnected } = useAccount();
   const { chain } = useNetwork();
   const { switchNetwork } = useSwitchNetwork();
-  const [isMobile] = useMediaQuery("(max-width: 767.98px)");
 
   React.useEffect(() => {
     if (chain?.id !== 1 && isConnected) {
@@ -33,8 +24,6 @@ const Mint = () => {
       setIsShowWarning(false);
     }
   }, [chain, chain?.id]);
-
-  // if (!isMounted) return null;
 
   return (
     <>
@@ -47,6 +36,7 @@ const Mint = () => {
             color="white"
             p={3}
             bg="brand.200"
+            zIndex={1000}
           >
             Please switch to{" "}
             <Link textDecor="underline" onClick={() => switchNetwork?.(1)}>
@@ -60,7 +50,7 @@ const Mint = () => {
           <Image
             position="absolute"
             src={mintFoxfoneBg.src}
-            height={isMobile ? "100%" : "100vh"}
+            height={["100%", "100vh"]}
             width="100%"
             objectFit={"cover"}
             bgPos="top"
@@ -69,12 +59,12 @@ const Mint = () => {
           />
           <Container h="full" maxW={1600} py="5rem">
             <Flex
-              flexWrap={isMobile ? "wrap-reverse" : "nowrap"}
+              flexWrap={["wrap-reverse", "nowrap"]}
               gap="5rem"
               alignItems="center"
               w="100%"
             >
-              <Box flexBasis={isMobile ? "100%" : "50%"} w="100%">
+              <Box flexBasis={["100%", "50%"]} w="100%">
                 <Minting />
               </Box>
 

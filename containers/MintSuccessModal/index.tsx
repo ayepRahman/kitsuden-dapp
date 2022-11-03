@@ -1,6 +1,5 @@
 import { CloseIcon } from "@chakra-ui/icons";
 import {
-  Box,
   Flex,
   Heading,
   Modal,
@@ -10,10 +9,11 @@ import {
 } from "@chakra-ui/react";
 import Button from "components/Button";
 import Icon from "components/Icon";
+import Image from "next/image";
 import React from "react";
 import { useNetwork } from "wagmi";
 import { MintSuccessModalProps } from "./interfaces";
-import { KitsudenModalContent } from "./styled";
+import { KitsudenModalContent, ModalImageWrapper } from "./styled";
 
 const MintSuccessModal: React.FC<MintSuccessModalProps> = ({
   isOpen,
@@ -56,28 +56,34 @@ const MintSuccessModal: React.FC<MintSuccessModalProps> = ({
     <Modal trapFocus={false} isCentered isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <KitsudenModalContent>
-        <ModalBody
-          display="flex"
-          flexDirection="column"
-          justifyContent="space-between"
-          textAlign="center"
-        >
+        <ModalBody>
           <CloseIcon
             cursor="pointer"
             fontSize={24}
             position="absolute"
-            top="1.5rem"
-            right="1.5rem"
+            top={{
+              base: "2rem",
+              md: "3rem",
+            }}
+            right={{
+              base: "2rem",
+              md: "3rem",
+            }}
             onClick={onClose}
           />
-          <Heading fontSize="60px" lineHeight="60px" fontWeight={400}>
+          <Heading
+            fontSize={["38px", "60px"]}
+            lineHeight={["38px", "60px"]}
+            fontWeight={400}
+          >
             ADVENTURE AWAITS!
           </Heading>
-          <Text fontWeight={500} fontSize="1rem" mt="1rem">
+          <Text fontWeight={500} fontSize={["12px", "1rem"]} mt="1rem">
             YOU SUCCESSFULLY HAVE MINTED
           </Text>
 
-          <Box
+          {/* TODO: add image here */}
+          {/* <Box
             my="2rem"
             display="flex"
             // width="100%"
@@ -90,13 +96,21 @@ const MintSuccessModal: React.FC<MintSuccessModalProps> = ({
                 <Icon height="2rem" width="2rem" name="foxfoneLogo" key={i} />
               );
             })}
-          </Box>
+          </Box> */}
 
-          <Text fontWeight={500} fontSize="1rem" mb="1rem">
+          <ModalImageWrapper>
+            <Image
+              src={"/img/kitsuden-prereveal.gif"}
+              height="190px"
+              width="190px"
+            />
+          </ModalImageWrapper>
+
+          <Text fontWeight={500} fontSize={["12px", "1rem"]} mb="1rem">
             {quantity}x FOXFONE NFTs
           </Text>
 
-          <Text>VIEW YOUR TRANSACTION ON</Text>
+          <Text fontSize={["12px", "1rem"]}>VIEW YOUR TRANSACTION ON</Text>
 
           <Flex justifyContent="center" gap="1rem" my="1rem">
             <Icon
@@ -115,7 +129,9 @@ const MintSuccessModal: React.FC<MintSuccessModalProps> = ({
             />
           </Flex>
 
-          <Text my="1rem">LEAVE A PARTING NOTE TO YOUR FRIENDS...</Text>
+          <Text my="1rem" fontSize={["12px", "1rem"]}>
+            LEAVE A PARTING NOTE TO YOUR FRIENDS...
+          </Text>
 
           <Button
             mt="1rem"

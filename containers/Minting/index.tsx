@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Text, useMediaQuery } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import Button from "components/Button";
 import ButtonCount from "components/ButtonCount";
 import { MINT_PHASE } from "constants/constants";
@@ -16,7 +16,6 @@ import { truncateAddress } from "utils/address";
 import { useAccount } from "wagmi";
 
 const Minting = () => {
-  const [isMobile] = useMediaQuery("(max-width: 767.98px)");
   const [selected, setSelected] = React.useState<number | null>(null);
   const { address, isConnected } = useAccount();
   const { data: maxSupplyBn } = useGetMaxSupply();
@@ -41,22 +40,19 @@ const Minting = () => {
 
   return (
     <Box color="white" width="100%">
-      <Flex fontSize={isMobile ? "1rem" : "22px"} fontWeight={600} mb="1rem">
+      <Flex fontSize={["1rem", "22px"]} fontWeight={600} mb="1rem">
         <Text color="brand.200">{totalSupply}</Text>&nbsp;/&nbsp;
         <Text>{`${maxSupply} FOXFONEX REMAINING`}</Text>
       </Flex>
 
       {isLive && !whiteListMintLimit && isWhitelistSale && (
         <>
-          <Heading
-            fontSize={isMobile ? 42 : 84}
-            lineHeight={isMobile ? "42px" : "84px"}
-          >
+          <Heading fontSize={[42, 84]} lineHeight={["42px", "84px"]}>
             CONGRATZ YOU'VE
           </Heading>
           <Heading
-            fontSize={isMobile ? 42 : 84}
-            lineHeight={isMobile ? "42px" : "84px"}
+            fontSize={[42, 84]}
+            lineHeight={["42px", "84px]"]}
             textAlign="right"
           >
             FULLY MINTED
@@ -66,15 +62,12 @@ const Minting = () => {
 
       {isLive && !mintLimit && isPublicSale && (
         <>
-          <Heading
-            fontSize={isMobile ? 42 : 84}
-            lineHeight={isMobile ? "42px" : "84px"}
-          >
+          <Heading fontSize={[42, 84]} lineHeight={["42px", "84px"]}>
             CONGRATZ YOU'VE
           </Heading>
           <Heading
-            fontSize={isMobile ? 42 : 84}
-            lineHeight={isMobile ? "42px" : "84px"}
+            fontSize={[42, 84]}
+            lineHeight={["42px", "84px"]}
             textAlign="right"
           >
             FULLY MINTED
@@ -84,15 +77,12 @@ const Minting = () => {
 
       {isLive && !!whiteListMintLimit && isWhitelistSale && (
         <>
-          <Heading
-            fontSize={isMobile ? 42 : 84}
-            lineHeight={isMobile ? "42px" : "84px"}
-          >
+          <Heading fontSize={[42, 84]} lineHeight={["42px", "84px"]}>
             HOW MANY FOXFONES
           </Heading>
           <Heading
-            fontSize={isMobile ? 42 : 84}
-            lineHeight={isMobile ? "42px" : "84px"}
+            fontSize={[42, 84]}
+            lineHeight={["42px", "84px"]}
             textAlign="right"
           >
             ARE YOU TAKING?
@@ -101,15 +91,12 @@ const Minting = () => {
       )}
       {isLive && !!mintLimit && isPublicSale && (
         <>
-          <Heading
-            fontSize={isMobile ? 42 : 84}
-            lineHeight={isMobile ? "42px" : "84px"}
-          >
+          <Heading fontSize={[42, 84]} lineHeight={["42px", "84px"]}>
             HOW MANY FOXFONES
           </Heading>
           <Heading
-            fontSize={isMobile ? 42 : 84}
-            lineHeight={isMobile ? "42px" : "84px"}
+            fontSize={[42, 84]}
+            lineHeight={["42px", "84px"]}
             textAlign="right"
           >
             ARE YOU TAKING?
@@ -118,10 +105,7 @@ const Minting = () => {
       )}
 
       {!isLive && (
-        <Heading
-          fontSize={isMobile ? 42 : 84}
-          lineHeight={isMobile ? "42px" : "84px"}
-        >
+        <Heading fontSize={[42, 84]} lineHeight={["42px", "84px"]}>
           MINTING NOT LIVE
         </Heading>
       )}
@@ -130,7 +114,7 @@ const Minting = () => {
         alignItems="center"
         width="100%"
         justifyContent="space-between"
-        flexWrap={isMobile ? "wrap" : "nowrap"}
+        flexWrap={["wrap", "nowrap"]}
       >
         {Array.from({ length: 5 }, (_, i) => {
           const counter = i + 1;
@@ -160,10 +144,7 @@ const Minting = () => {
       </Flex>
 
       <Box mt="2rem" borderRadius="4px" bgColor="rgba(0,0,0,0.7)" p="2rem">
-        <Flex
-          justifyContent="space-between"
-          flexWrap={isMobile ? "wrap" : "nowrap"}
-        >
+        <Flex justifyContent="space-between" flexWrap={["wrap", "nowrap"]}>
           <Box>
             <Text>PRICE</Text>
             <Text fontSize={32} fontWeight={700}>
@@ -187,7 +168,7 @@ const Minting = () => {
         {!isConnected ? (
           <MetamaskButton size="lg" mt="2rem" />
         ) : (
-          <Flex mt="2rem" gap="2rem" flexWrap={isMobile ? "wrap" : "nowrap"}>
+          <Flex mt="2rem" gap="2rem" flexWrap={["wrap", "nowrap"]}>
             <Box w="100%">
               <Text fontWeight={700}>CONNECTED TO</Text>
               <Text
