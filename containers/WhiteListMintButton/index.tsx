@@ -52,7 +52,7 @@ const WhiteListMintButton: React.FC<WhiteListMintButtonProps> = ({
       if (error && !isWhiteListed) {
         return toast({
           title: "Error",
-          description: "You're not white listed!",
+          description: "You're not Kitsulisted!",
           status: "error",
           isClosable: true,
           duration: 5000,
