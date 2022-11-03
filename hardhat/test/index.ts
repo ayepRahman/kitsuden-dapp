@@ -8,7 +8,7 @@ import { ethers } from "hardhat";
 import { generateMerkle, getMerkleProof } from "../utils/merkle";
 
 const mockHiddenURI =
-  "https://kitsuden.infura-ipfs.io/ipfs/QmcuoBkCv4EgFfEfMx81izNj6cY639JVi3etJiPuYvUXej/";
+  "https://kitsuden.infura-ipfs.io/ipfs/QmT8WwUuAzpeLqixJDfvVHx9KrxFo8wbG811JZBjkfr6Cg";
 const mockBaseURI = "";
 
 describe("KitsudenFoxfone", () => {

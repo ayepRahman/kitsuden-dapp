@@ -48,7 +48,7 @@ contract KitsudenFoxfone is ERC721A, Ownable, StringUtils {
     string public baseExtension = ".json";
     string public baseURI = "";
     string public baseHiddenUri =
-        "https://kitsuden.infura-ipfs.io/ipfs/QmcuoBkCv4EgFfEfMx81izNj6cY639JVi3etJiPuYvUXej/";
+        "https://kitsuden.infura-ipfs.io/ipfs/QmT8WwUuAzpeLqixJDfvVHx9KrxFo8wbG811JZBjkfr6Cg";
     uint256 public mintPhase;
     bool public paused = false;
     bool public revealed = false;

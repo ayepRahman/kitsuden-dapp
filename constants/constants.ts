@@ -9,7 +9,8 @@ export const SOCIAL_LINKS = {
 
 export const CONTRACT_ADDRESS: { [key: number]: string } = {
   1: "", // mainnet
-  5: "0x920A09067360E1132a6a2A8ad6A9d2968c023177", // goerli
+  // 5: "0x920A09067360E1132a6a2A8ad6A9d2968c023177", // goerli
+  5: "0xD3efC7336E63F3B1E99bd40Cb30E8F66554e57a0", // goerli
 };
 
 const PROD_WHITE_LIST_ADDRESSES = [
@@ -38,9 +39,9 @@ export const MINT_PHASE = {
 
 const uri = {
   preReveal:
-    "https://kitsuden.infura-ipfs.io/ipfs/QmcuoBkCv4EgFfEfMx81izNj6cY639JVi3etJiPuYvUXej",
+    "https://kitsuden.infura-ipfs.io/ipfs/QmT8WwUuAzpeLqixJDfvVHx9KrxFo8wbG811JZBjkfr6Cg",
   testReveal:
-    "https://kitsuden.infura-ipfs.io/ipfs/QmX6SsJznBGd4utKFmgteRJXnm6qL7MNXRNrSPbXZswXnh",
+    "https://kitsuden.infura-ipfs.io/ipfs/QmdXXS57RnDsyyDEMAPaF8rnKAZAkbRVBYwRUzzXSztEj6",
   reveal:
-    "https://kitsuden.infura-ipfs.io/ipfs/Qmctp442DNYMrZN6YLpEM8ZXKaQ8Q6qjAoPaCHSDqgFYBZ", // <==== to update
+    "https://kitsuden.infura-ipfs.io/ipfs/QmTJvaYiKvsv9jprmfb9Hw93FoyBVdmdKRmzVcB5T7Ck38", // <==== to update
 };

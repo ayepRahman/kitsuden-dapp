@@ -7,6 +7,7 @@ const convertData = (data: any) => {
     name: data?.name,
     attributes: JSON.parse(data?.attributes),
     animation_url: data?.animation_url,
+    image: data?.image,
     description: data?.description,
   };
 };
