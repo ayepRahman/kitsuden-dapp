@@ -10,7 +10,8 @@ export const SOCIAL_LINKS = {
 export const CONTRACT_ADDRESS: { [key: number]: string } = {
   1: "", // mainnet
   // 5: "0x920A09067360E1132a6a2A8ad6A9d2968c023177", // goerli
-  5: "0xD3efC7336E63F3B1E99bd40Cb30E8F66554e57a0", // goerli
+  // 5: "0xD3efC7336E63F3B1E99bd40Cb30E8F66554e57a0", // goerli
+  5: "0x1c56a059802F6ac544989e3CaFe07623da54FfB1", // goerli
 };
 
 const PROD_WHITE_LIST_ADDRESSES = [
