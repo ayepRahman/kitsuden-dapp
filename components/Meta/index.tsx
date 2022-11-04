@@ -52,7 +52,7 @@ export const Meta: React.FC<{
 }> = ({
   title,
   keywords = "nft, kitsuden, foxfone, project, nftproject, erc721, erc721a, web3, blockchain",
-  description = "Kitsuden is an NFT project that has multiple layers (Chapters) tied to its journey. For the first chapter, We are releasing 6,666 NFTs with 3 tiers of rarity. These NFTs will be grouped into the genesis Kitsuden NFT collection with the added utility of unlocking the rest of the Kitsuden Ecosystem and Metaverse.",
+  description = "Kitsuden is an NFT project that has multiple layers (Chapters) tied to its journey. For the first chapter, We are releasing 6,666 NFTs with 3 tiers of rarity.",
 }) => {
   return (
     <Head>
@@ -78,7 +78,6 @@ export const Meta: React.FC<{
       <meta property="og:description" content={description} />
       <meta property="og:site_name" content="Kitsuden" />
       <meta property="og:locale" content="en_US" />
-      <meta name="author" content="Kitsuden" />
 
       {/* <!-- twitter --> */}
       <meta name="twitter:title" content="Kitsuden" />
@@ -87,12 +86,13 @@ export const Meta: React.FC<{
       <meta
         property="twitter:image"
         content="https://superful-assets-prod.s3.amazonaws.com/images/9ed4e498-ebc5-4568-845a-0b7736f159e0.png"
-      ></meta>
+      />
       <meta name="twitter:image:alt" content="Kitsuden" />
       <meta name="twitter:site" content="@KitsudenNFT" />
 
       <meta name="apple-mobile-web-app-title" content="Kitsuden" />
       <meta name="application-name" content="Kitsuden" />
+      <meta name="author" content="Kitsuden" />
     </Head>
   );
 };
