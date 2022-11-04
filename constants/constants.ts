@@ -41,9 +41,9 @@ export const MINT_PHASE = {
 
 const uri = {
   preReveal:
-    "https://kitsuden.infura-ipfs.io/ipfs/QmT8WwUuAzpeLqixJDfvVHx9KrxFo8wbG811JZBjkfr6Cg",
+    "https://kitsuden.infura-ipfs.io/ipfs/QmT8WwUuAzpeLqixJDfvVHx9KrxFo8wbG811JZBjkfr6Cg/", // PRE REVEAL
   testReveal:
-    "https://kitsuden.infura-ipfs.io/ipfs/QmdXXS57RnDsyyDEMAPaF8rnKAZAkbRVBYwRUzzXSztEj6",
+    "https://kitsuden.infura-ipfs.io/ipfs/QmdXXS57RnDsyyDEMAPaF8rnKAZAkbRVBYwRUzzXSztEj6/", // TEST
   reveal:
-    "https://kitsuden.infura-ipfs.io/ipfs/QmTJvaYiKvsv9jprmfb9Hw93FoyBVdmdKRmzVcB5T7Ck38", // <==== to update
+    "https://kitsuden.infura-ipfs.io/ipfs/QmTJvaYiKvsv9jprmfb9Hw93FoyBVdmdKRmzVcB5T7Ck38/", // PRODUCTION
 };
