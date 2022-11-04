@@ -12,8 +12,8 @@ export const Meta: React.FC<{
 }> = ({
   title,
   keywords = "nft, kitsuden, foxfone, project, nftproject, erc721, erc721a, web3, blockchain",
-  // description = "Kitsuden is an NFT project that has multiple layers (Chapters) tied to its journey. For the first chapter, We are releasing 6,666 NFTs with 3 tiers of rarity. These NFTs will be grouped into the genesis Kitsuden NFT collection with the added utility of unlocking the rest of the Kitsuden Ecosystem and Metaverse.",
-  description = "Kitsuden is an NFT project that has multiple layers (Chapters) tied to its journey",
+  description = "Kitsuden is an NFT project that has multiple layers (Chapters) tied to its journey. For the first chapter, We are releasing 6,666 NFTs with 3 tiers of rarity. These NFTs will be grouped into the genesis Kitsuden NFT collection with the added utility of unlocking the rest of the Kitsuden Ecosystem and Metaverse.",
+  // description = "Kitsuden is an NFT project that has multiple layers (Chapters) tied to its journey",
 }) => {
   return (
     <NextSeo
