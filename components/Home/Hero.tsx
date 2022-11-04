@@ -29,6 +29,8 @@ const Hero = React.forwardRef<any>((_, ref) => {
         w="100%"
       >
         <Image
+          alt="heroBg"
+          priority
           src={heroBg.src}
           layout="fill"
           objectFit="cover"
@@ -62,6 +64,8 @@ const Hero = React.forwardRef<any>((_, ref) => {
       >
         <Box>
           <Image
+            alt="kitsudenLog"
+            priority
             placeholder="empty"
             height="372px"
             width="860px"

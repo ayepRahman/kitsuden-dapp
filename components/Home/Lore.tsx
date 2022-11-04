@@ -76,6 +76,7 @@ const Lore = React.forwardRef((_, ref) => {
       {/* desktop */}
       <Box h="inherit" w="inherit" display={["none", "none", "block"]}>
         <Image
+          alt="loreBg"
           layout="fill"
           placeholder="empty"
           src={loreBg}
@@ -85,6 +86,7 @@ const Lore = React.forwardRef((_, ref) => {
       {/* mobile */}
       <Box h="inherit" w="inherit" display={["block", "block", "none"]}>
         <Image
+          alt="loreBg"
           layout="fill"
           placeholder="empty"
           src={loreBg}
@@ -117,7 +119,13 @@ const Lore = React.forwardRef((_, ref) => {
               duration: 1.5,
             }}
           >
-            <Image src={loreBrushBg} layout="fill" placeholder="empty" />
+            <Image
+              alt="loreBrushBg"
+              priority
+              src={loreBrushBg}
+              layout="fill"
+              placeholder="empty"
+            />
           </ChakraBox>
 
           <Box width={["100%", "100%", "100%", "50%"]}>

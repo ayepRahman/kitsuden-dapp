@@ -28,6 +28,8 @@ const MintModelViewer = () => {
       w="100%"
     >
       <Image
+        alt="mintBrushImg"
+        priority
         src={mintBrushImg.src}
         height="700px"
         width="700px"

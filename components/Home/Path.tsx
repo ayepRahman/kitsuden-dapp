@@ -132,6 +132,7 @@ const Path = React.forwardRef((_, ref: any) => {
     <Box ref={ref} top="-8rem" width="full" position="relative" zIndex={4}>
       {/* bg img */}
       <Image
+        alt="pathBg"
         position="absolute"
         layout="fill"
         src={pathBg.src}
@@ -238,6 +239,7 @@ const Path = React.forwardRef((_, ref: any) => {
             variants={imgVariants}
           >
             <Image
+              alt="path_device"
               src="/img/path_device.png"
               position="absolute"
               top="0"

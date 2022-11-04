@@ -48,6 +48,7 @@ const Mint = () => {
         <Header />
         <Box position="relative" h="full">
           <Image
+            alt="mintFoxfoneBg"
             position="absolute"
             src={mintFoxfoneBg.src}
             height={["100%", "100vh"]}

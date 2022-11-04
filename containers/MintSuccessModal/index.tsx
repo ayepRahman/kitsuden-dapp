@@ -84,6 +84,8 @@ const MintSuccessModal: React.FC<MintSuccessModalProps> = ({
 
           <ModalImageWrapper>
             <Image
+              alt="kitsuden-prereveal"
+              priority
               src={"/img/kitsuden-prereveal.gif"}
               height="190px"
               width="190px"

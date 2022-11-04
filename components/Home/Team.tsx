@@ -114,6 +114,8 @@ const Team = React.forwardRef((_, ref) => {
   return (
     <Box top="-12rem" width="full" position="relative" zIndex={5}>
       <Image
+        alt="teamBg"
+        priority
         layout="fill"
         width="100%"
         src={teamBg}
