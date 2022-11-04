@@ -1,7 +1,3 @@
-import { ColorModeScript } from "@chakra-ui/react";
-import NextDocument, { Head, Html, Main, NextScript } from "next/document";
-import { Fonts } from "styles/Global";
-
 export default class Document extends NextDocument {
   render() {
     const title = "Kitsuden";
@@ -21,8 +17,6 @@ export default class Document extends NextDocument {
             backgroundColor: "black",
           }}
         >
-          {/* 👇 Here's the script */}
-          <ColorModeScript />
           <Fonts />
           <Main />
           <NextScript />

@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -14,15 +18,25 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "pages/api/graphql.ts",
+    "app/api/graphql.ts",
     "next.config.js",
-    "scripts/generateMetadata.ts"
+    "scripts/generateMetadata.ts",
+    ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules", "hardhat", "scripts"]
+  "exclude": [
+    "node_modules",
+    "hardhat",
+    "scripts"
+  ]
 }

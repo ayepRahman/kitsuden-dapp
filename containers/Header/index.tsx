@@ -1,12 +1,5 @@
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
-import {
-  Box,
-  Container,
-  Drawer,
-  DrawerContent,
-  Flex,
-  useDisclosure,
-} from "@chakra-ui/react";
+
 import ChakraBox from "components/ChakraBox";
 import Icon from "components/Icon";
 import { Desktop, Mobile } from "components/MediaQuery";
