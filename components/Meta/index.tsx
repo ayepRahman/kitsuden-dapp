@@ -82,9 +82,12 @@ export const Meta: React.FC<{
 
       {/* <!-- twitter --> */}
       <meta name="twitter:title" content="Kitsuden" />
-      <meta name="twitter:card" content="summary_large_image" />
       <meta property="twitter:card" content="summary_large_image" />
       <meta name="twitter:description" content={description} />
+      <meta
+        property="twitter:image"
+        content="https://superful-assets-prod.s3.amazonaws.com/images/9ed4e498-ebc5-4568-845a-0b7736f159e0.png"
+      ></meta>
       <meta name="twitter:image:alt" content="Kitsuden" />
       <meta name="twitter:site" content="@KitsudenNFT" />
 
