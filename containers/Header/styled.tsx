@@ -1,6 +1,6 @@
 import { Box, Link } from "@chakra-ui/react";
 import styled from "@emotion/styled";
-import Clip from "public/svg/header_clip.svg";
+import headerBg from "public/img/header_bg.png";
 
 export const HeaderLink = styled(Box)`
   font-size: 1.25rem;
@@ -15,36 +15,18 @@ export const HeaderLink = styled(Box)`
   }
 `;
 
-export const HeaderClip = styled(Clip)`
+export const HeaderClip = styled.div`
+  background: url(${headerBg.src});
+  background-repeat: no-repeat;
+  top: 2rem;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
   position: absolute;
   width: 100%;
+  height: 200%;
   z-index: 3;
-  bottom: -1rem;
-
-  /* Small devices (landscape phones, 576px and up) */
-  @media (min-width: 576px) {
-    bottom: -1rem;
-  }
-
-  /* Medium devices (tablets, 768px and up) */
-  @media (min-width: 768px) {
-    bottom: -2rem;
-  }
-
-  /* Large devices (desktops, 992px and up) */
-  @media (min-width: 992px) {
-    bottom: -3rem;
-  }
-
-  /* X-Large devices (large desktops, 1200px and up) */
-  @media (min-width: 1200px) {
-    bottom: -3.5rem;
-  }
-
-  /* XX-Large devices (larger desktops, 1400px and up) */
-  @media (min-width: 1400px) {
-    bottom: -4rem;
-  }
 `;
 
 export const HeadLinkIcon = styled(Link)`

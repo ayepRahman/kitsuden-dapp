@@ -45,6 +45,7 @@
     "web-vitals": "^0.2.2"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^13.0.2",
     "@types/chai": "^4.3.1",
     "@types/jest": "^25.0.0",
     "@types/json2csv": "^5.0.3",
@@ -57,6 +58,7 @@
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
     "chai": "^4.3.6",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.0.1",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.5.0",
@@ -75,6 +77,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "analyze": "ANALYZE=true next build",
     "dev-node": "npx hardhat node",
     "dev-console": "npx hardhat console --network localhost",
     "dev-deploy": "npx hardhat run scripts/deploy.ts --network localhost",

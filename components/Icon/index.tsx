@@ -16,7 +16,6 @@ export type IconNamesType =
   | "fire2"
   | "fire3"
   | "fire4"
-  | "headerClip"
   | "lock"
   | "modalMobile"
   | "modal"
@@ -36,7 +35,6 @@ const iconNames: {
   fire2: SvgIcons.Fire2Svg,
   fire3: SvgIcons.Fire3Svg,
   fire4: SvgIcons.Fire4Svg,
-  headerClip: SvgIcons.HeaderClipSvg,
   lock: SvgIcons.LockSvg,
   modalMobile: SvgIcons.ModalMobileSvg,
   modal: SvgIcons.ModalBgSvg,

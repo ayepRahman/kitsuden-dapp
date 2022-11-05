@@ -7,7 +7,7 @@ import {
   Flex,
   useDisclosure,
 } from "@chakra-ui/react";
-import ChakraBox from "components/ChakraBox";
+import ChakraBox from "@components/ChakraBox";
 import Icon from "components/Icon";
 import { Desktop, Mobile } from "components/MediaQuery";
 import ScrollLink from "components/ScrollLink";
@@ -48,10 +48,11 @@ const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
   };
 
   return (
-    <ChakraBox bg="brand.100" height="max-content" position="relative">
+    <ChakraBox bgColor="brand.100" height="max-content" position="relative">
+      <HeaderClip />
       <Container
         position="relative"
-        padding={{ base: "0.5rem 1rem", lg: "2rem" }}
+        padding={{ base: "1rem", lg: "1.5rem 2rem 1rem" }}
         maxW={1920}
         background="Background.100"
         zIndex={4}
@@ -194,8 +195,6 @@ const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
           </Flex>
         </Mobile>
       </Container>
-
-      <HeaderClip />
     </ChakraBox>
   );
 };
