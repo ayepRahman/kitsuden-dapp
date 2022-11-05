@@ -1,62 +1,77 @@
-import React from "react";
-import styled from "@emotion/styled";
-import { Button as CKButton, ButtonProps } from "@chakra-ui/react";
-import test from "public/img/button_bg.png";
+// @link - https://dev.to/gabrielmlinassi/a-more-stylish-way-to-write-conditional-tailwind-classes-5ae6
+import Icon from "@components/Icon";
+import { BeatLoader } from "@components/Loaders";
+import { theme } from "@styles/theme";
+import clsx from "clsx";
+import { buttonIconSizeStyle, loaderSizeStyle, sizeStyle } from "./constants";
+import { ButtonProps } from "./definitions";
+import styles from "./index.module.css";
 
-const CustomButton = styled(CKButton)`
-  position: relative;
-  color: #200000;
-  background: #cc8e3a;
-  box-shadow: 0 0 0 4px #8f2d14, 0 0 0 6px #b33f1c, 0 0 0 8px black;
-  border-radius: 2px;
-  background: url(${test.src});
-  background: linear-gradient(
-      360deg,
-      #cc8e3a 0%,
-      rgba(250, 227, 105, 0.69) 101.25%
-    ),
-    url(${test.src});
-  transition: none;
-
-  :hover {
-    background: #fcb046;
-    box-shadow: 0 0 0 4px #8f2d14, 0 0 0 6px #b33f1c, 0 0 0 8px black;
-  }
-
-  :focus {
-    background: #fcb046;
-    box-shadow: 0 0 0 4px #8f2d14, 0 0 0 6px #b33f1c, 0 0 0 8px black;
-  }
-
-  :active {
-    background: #cc8e3a;
-    box-shadow: 0 0 0 4px #8f2d14, 0 0 0 6px #b33f1c, 0 0 0 8px black;
-  }
-
-  :visited {
-    background: #fcb046;
-    box-shadow: 0 0 0 4px #8f2d14, 0 0 0 6px #b33f1c, 0 0 0 8px black;
-  }
-
-  :target {
-    background: #fcb046;
-    box-shadow: 0 0 0 4px #8f2d14, 0 0 0 6px #b33f1c, 0 0 0 8px black;
-  }
-
-  :disabled {
-    opacity: 0.8;
-    background: #fcb046;
-    box-shadow: 0 0 0 4px #8f2d14, 0 0 0 6px #b33f1c, 0 0 0 8px black;
-
-    :hover {
-      background: #fcb046;
-      box-shadow: 0 0 0 4px #8f2d14, 0 0 0 6px #b33f1c, 0 0 0 8px black;
-    }
-  }
-`;
-
-const Button: React.FC<ButtonProps> = ({ children, ...props }) => {
-  return <CustomButton {...props}>{children}</CustomButton>;
+/**
+ * Button component
+ */
+const Button: React.FC<ButtonProps> = ({
+  variants = "primary",
+  size = "md",
+  colorScheme = "default",
+  isLoading,
+  isFullWidth,
+  prefixIcon,
+  suffixIcon,
+  prefixIconMask,
+  suffixIconMask,
+  buttonIcon,
+  className,
+  children,
+  ...props
+}) => {
+  return (
+    <button
+      className={clsx(
+        "rounded-md inline-flex items-center justify-center",
+        styles.button,
+        sizeStyle[size],
+        buttonIcon && buttonIconSizeStyle[size],
+        isFullWidth && "w-full",
+        className
+      )}
+      {...props}
+    >
+      {isLoading ? (
+        <BeatLoader
+          color={theme.colors.neutral[50]}
+          size={loaderSizeStyle[size]}
+        />
+      ) : (
+        <>
+          {!!buttonIcon ? (
+            <Icon name={buttonIcon} size={size === "xl" ? "lg" : size} />
+          ) : (
+            <>
+              {prefixIcon && (
+                <Icon
+                  className="mr-3"
+                  name={prefixIcon}
+                  size={size === "xl" ? "lg" : size}
+                  isMask={prefixIconMask}
+                />
+              )}
+              {children}
+              {suffixIcon && (
+                <Icon
+                  className="ml-3"
+                  name={suffixIcon}
+                  size={size === "xl" ? "lg" : size}
+                  isMask={suffixIconMask}
+                />
+              )}
+            </>
+          )}
+        </>
+      )}
+    </button>
+  );
 };
 
 export default Button;
+export * from "./definitions";

@@ -1,0 +1,48 @@
+.button {
+  position: relative;
+  color: #200000;
+  background: #cc8e3a;
+  margin: 8px;
+  box-shadow: 0 0 0 4px #8f2d14, 0 0 0 6px #b33f1c, 0 0 0 8px black;
+  border-radius: 2px;
+  background: url("/public/images/button_bg.png");
+  background: linear-gradient(
+      360deg,
+      #cc8e3a 0%,
+      rgba(250, 227, 105, 0.69) 101.25%
+    ),
+    url("/public/images/button_bg.png");
+  transition: none;
+}
+
+.button:hover {
+  background: #fcb046;
+  box-shadow: 0 0 0 4px #8f2d14, 0 0 0 6px #b33f1c, 0 0 0 8px black;
+}
+.button:focus {
+  background: #fcb046;
+  box-shadow: 0 0 0 4px #8f2d14, 0 0 0 6px #b33f1c, 0 0 0 8px black;
+}
+.button:active {
+  background: #fcb046;
+  box-shadow: 0 0 0 4px #8f2d14, 0 0 0 6px #b33f1c, 0 0 0 8px black;
+}
+.button:visited {
+  background: #fcb046;
+  box-shadow: 0 0 0 4px #8f2d14, 0 0 0 6px #b33f1c, 0 0 0 8px black;
+}
+.button:target {
+  background: #fcb046;
+  box-shadow: 0 0 0 4px #8f2d14, 0 0 0 6px #b33f1c, 0 0 0 8px black;
+}
+
+.button:disabled {
+  opacity: 0.8;
+  background: #fcb046;
+  box-shadow: 0 0 0 4px #8f2d14, 0 0 0 6px #b33f1c, 0 0 0 8px black;
+}
+
+.button:disabled:hover {
+  background: #fcb046;
+  box-shadow: 0 0 0 4px #8f2d14, 0 0 0 6px #b33f1c, 0 0 0 8px black;
+}

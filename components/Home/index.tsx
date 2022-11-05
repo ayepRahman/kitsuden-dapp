@@ -1,4 +1,3 @@
-import { Box } from "@chakra-ui/react";
 import Footer from "components/Footer";
 import Header from "containers/Header";
 import useScrollTo from "hooks/useScrollTo";
@@ -26,7 +25,7 @@ export const Home = () => {
   };
 
   return (
-    <Box position="relative">
+    <div className="relative">
       <Header scrollTo={handleScrollTo} />
       <Hero ref={heroRef} />
       <Lore ref={loreRef} />
@@ -34,7 +33,7 @@ export const Home = () => {
         <Path />
       </div>
       <Footer scrollTo={handleScrollTo} />
-    </Box>
+    </div>
   );
 };
 

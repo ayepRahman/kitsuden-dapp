@@ -20,7 +20,7 @@ import { TimeLine, TimeLineItem } from "./path.styled";
 const timelineItems = [
   {
     title: "Chapter 1",
-    prefixUrl: "/svg/fire_1.svg",
+    prefixUrl: "/svgs/fire_1.svg",
     descOne:
       "The ancient tech known as the FOXFONE are available to be activated. who knows what it will uncover, Will the path to the hidden village finally be discovered?",
     descTwo:
@@ -31,7 +31,7 @@ const timelineItems = [
   },
   {
     title: "Chapter 2",
-    prefixUrl: "/svg/fire_2.svg",
+    prefixUrl: "/svgs/fire_2.svg",
     descOne: "",
     descTwo: "",
     isLock: true,
@@ -40,7 +40,7 @@ const timelineItems = [
   },
   {
     title: "Chapter 3",
-    prefixUrl: "/svg/fire_3.svg",
+    prefixUrl: "/svgs/fire_3.svg",
     descOne: "",
     descTwo: "",
     isLock: true,
@@ -49,7 +49,7 @@ const timelineItems = [
   },
   {
     title: "Chapter 4",
-    prefixUrl: "/svg/fire_4.svg",
+    prefixUrl: "/svgs/fire_4.svg",
     descOne: "",
     descTwo: "",
     isLock: true,

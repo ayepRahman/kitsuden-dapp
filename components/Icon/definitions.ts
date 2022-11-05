@@ -2,18 +2,19 @@ export const IconNames = [
   "discord",
   "etherscan",
   "fire_1",
-  "fire_2",
   "fire_3",
   "fire_4",
   "footer",
   "foxfone_logo",
-  "opensea",
-  "twitter",
+  "header_clip",
+  "kitsuden_logo_1",
   "lock",
   "logo_icon",
   "logo_name",
   "mobile_modal_bg",
   "modal_bg",
+  "opensea",
+  "twitter",
 ] as const;
 
 export type IconName = typeof IconNames[number];
