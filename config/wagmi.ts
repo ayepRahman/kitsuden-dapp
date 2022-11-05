@@ -4,8 +4,6 @@ import { chain, createClient } from "wagmi";
 
 import { alchemyProvider } from "wagmi/providers/alchemy";
 
-console.log("ALCHEMY_API_ID", ALCHEMY_API_ID);
-
 alchemyProvider();
 export const wagmiClient = createClient(
   getDefaultClient({
