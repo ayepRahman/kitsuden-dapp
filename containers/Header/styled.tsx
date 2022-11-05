@@ -17,7 +17,7 @@ export const HeaderLink = styled(Box)`
 
 export const HeaderClip = styled.div`
   background: url(${headerBg.src});
-  background-repeat: no-repeat;
+  background-repeat: repeat-x;
   top: 2rem;
   right: 0;
   bottom: 0;
