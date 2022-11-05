@@ -136,10 +136,7 @@ const Path = React.forwardRef((_, ref: any) => {
         position="absolute"
         layout="fill"
         src={pathBg.src}
-        objectFit={"fill"}
-        // objectFit={isMobile ? "cover" : "fill"}
-        objectPosition={isMobile ? "35% 50%" : "center"}
-        // objectPosition={isMobile ? "35% 50%" : "center"}
+        objectFit={isMobile ? "cover" : "fill"}
         placeholder="empty"
       />
       <Container
