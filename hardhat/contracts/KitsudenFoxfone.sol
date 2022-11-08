@@ -42,7 +42,7 @@ contract KitsudenFoxfone is ERC721A, Ownable, StringUtils {
 
     bytes32 public merkleRoot;
     uint256 public maxMints = 5;
-    uint256 public whiteListMaxMints = 2;
+    uint256 public whiteListMaxMints = 1;
     uint256 public maxSupply = 6666;
     uint256 public mintRate = 0.03 ether;
     string public baseExtension = ".json";
