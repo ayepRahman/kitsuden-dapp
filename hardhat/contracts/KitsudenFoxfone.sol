@@ -6,6 +6,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
+import "./operator-filter-registry/OperatorFilterer.sol";
 import "./StringUtils.sol";
 
 // @@@@@@@@@@@(@@@@@@@@@@@@@@@@@@@@@@@@@@@/@@@@@@@@@@
@@ -35,7 +36,7 @@ error NotEnoughTokensLeft();
 error WrongEther();
 error InvalidMerkle();
 
-contract KitsudenFoxfone is ERC721A, Ownable, StringUtils {
+contract KitsudenFoxfone is ERC721A, Ownable, StringUtils, OperatorFilterer {
     using Address for address;
     using MerkleProof for bytes32[];
     using Strings for uint256;
@@ -64,7 +65,10 @@ contract KitsudenFoxfone is ERC721A, Ownable, StringUtils {
         _;
     }
 
-    constructor() ERC721A("KitsudenFoxFone", "KSDFF") {}
+    constructor()
+        ERC721A("KitsudenFoxFone", "KSDFF")
+        OperatorFilterer(address(0), false)
+    {}
 
     function mint(uint256 quantity) external payable unpaused {
         // check if public sale is live
@@ -186,6 +190,35 @@ contract KitsudenFoxfone is ERC721A, Ownable, StringUtils {
 
     function withdraw() external onlyOwner {
         payable(owner()).transfer(address(this).balance);
+    }
+
+    //  ==========================================
+    //  ======== ROYALTIES SETTER FNS ============
+    //  ==========================================
+
+    function transferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) public payable override onlyAllowedOperator(from) {
+        super.transferFrom(from, to, tokenId);
+    }
+
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) public payable override onlyAllowedOperator(from) {
+        super.safeTransferFrom(from, to, tokenId);
+    }
+
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId,
+        bytes memory data
+    ) public payable override onlyAllowedOperator(from) {
+        super.safeTransferFrom(from, to, tokenId, data);
     }
 
     //  ==========================================

@@ -50,6 +50,17 @@ export const abi = [
     "type": "error"
   },
   {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      }
+    ],
+    "name": "OperatorNotAllowed",
+    "type": "error"
+  },
+  {
     "inputs": [],
     "name": "OwnerQueryForNonexistentToken",
     "type": "error"
@@ -554,7 +565,7 @@ export const abi = [
       },
       {
         "internalType": "bytes",
-        "name": "_data",
+        "name": "data",
         "type": "bytes"
       }
     ],
