@@ -52,7 +52,7 @@ describe("KitsudenFoxfone", () => {
 
       expect(contract).not.equal("");
       expect(maxMints.toNumber()).to.equal(5);
-      expect(whiteListMaxMints.toNumber()).to.equal(2);
+      expect(whiteListMaxMints.toNumber()).to.equal(1);
       expect(maxSupply.toNumber()).to.equal(6666);
       expect(ethers.utils.formatEther(mintRate)).to.equal("0.03");
       expect(baseExtension).to.equal(".json");
@@ -290,7 +290,7 @@ describe("KitsudenFoxfone", () => {
 
     it("should fail when whitelist is used", async () => {
       const { contract, owner } = await loadFixture(deployContractFixture);
-      const quantity = 2;
+      const quantity = 1;
       const merkle = generateMerkle([owner.address]);
       const hash = `${merkle?.merkleRootHash}`;
       const mintRate = await contract.mintRate();
@@ -314,7 +314,7 @@ describe("KitsudenFoxfone", () => {
     it("should succeed ", async () => {
       const { contract, owner } = await loadFixture(deployContractFixture);
 
-      const quantity = 2;
+      const quantity = 1;
       const merkle = generateMerkle([owner.address]);
       const hash = `${merkle?.merkleRootHash}`;
       const mintRate = await contract.mintRate();
@@ -349,7 +349,7 @@ describe("KitsudenFoxfone", () => {
 
     it("should get default hiddenTokenUri when is not revealed", async () => {
       const { contract, owner } = await loadFixture(deployContractFixture);
-      const quantity = 2;
+      const quantity = 1;
       const merkle = generateMerkle([owner.address]);
       const hash = `${merkle?.merkleRootHash}`;
       const mintRate = await contract.mintRate();
@@ -374,7 +374,7 @@ describe("KitsudenFoxfone", () => {
 
     it("should get default baseUri when revealed", async () => {
       const { contract, owner } = await loadFixture(deployContractFixture);
-      const quantity = 2;
+      const quantity = 1;
       const mockBasUri = "someCoolUri/";
       const merkle = generateMerkle([owner.address]);
       const hash = `${merkle?.merkleRootHash}`;
@@ -445,7 +445,7 @@ describe("KitsudenFoxfone", () => {
       const { contract, owner, addr1 } = await loadFixture(
         deployContractFixture
       );
-      const quantity = 2;
+      const quantity = 1;
       const merkle = generateMerkle([owner.address]);
       const hash = `${merkle?.merkleRootHash}`;
       const mintRate = await contract.mintRate();
@@ -471,7 +471,7 @@ describe("KitsudenFoxfone", () => {
     it("should succeed if owner ", async () => {
       const { contract, owner } = await loadFixture(deployContractFixture);
 
-      const quantity = 2;
+      const quantity = 1;
       const merkle = generateMerkle([owner.address]);
       const hash = `${merkle?.merkleRootHash}`;
       const mintRate = await contract.mintRate();

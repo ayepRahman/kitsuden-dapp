@@ -6,7 +6,8 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
-import "./operator-filter-registry/OperatorFilterer.sol";
+import "@openzeppelin/contracts/token/common/ERC2981.sol";
+import "./operator-filter-registry/DefaultOperatorFilterer.sol";
 import "./StringUtils.sol";
 
 // @@@@@@@@@@@(@@@@@@@@@@@@@@@@@@@@@@@@@@@/@@@@@@@@@@
@@ -36,7 +37,13 @@ error NotEnoughTokensLeft();
 error WrongEther();
 error InvalidMerkle();
 
-contract KitsudenFoxfone is ERC721A, Ownable, StringUtils, OperatorFilterer {
+contract KitsudenFoxfone is
+    ERC721A,
+    Ownable,
+    StringUtils,
+    ERC2981,
+    DefaultOperatorFilterer
+{
     using Address for address;
     using MerkleProof for bytes32[];
     using Strings for uint256;
@@ -65,10 +72,25 @@ contract KitsudenFoxfone is ERC721A, Ownable, StringUtils, OperatorFilterer {
         _;
     }
 
-    constructor()
-        ERC721A("KitsudenFoxFone", "KSDFF")
-        OperatorFilterer(address(0), false)
-    {}
+    constructor() ERC721A("KitsudenFoxFone", "KSDFF") {
+        // @dev setting the royalty fee for retrogression address.
+        _setDefaultRoyalty(0x1C0C70453C5eD96c7C4EC2EA98c3A99Fc1Dd27EF, 700); // 7% * 10000
+    }
+
+    /**
+     * @dev overrides contract supportInterface
+     */
+    function supportsInterface(bytes4 _interfaceId)
+        public
+        view
+        virtual
+        override(ERC721A, ERC2981)
+        returns (bool)
+    {
+        return
+            ERC721A.supportsInterface(_interfaceId) ||
+            ERC2981.supportsInterface(_interfaceId);
+    }
 
     function mint(uint256 quantity) external payable unpaused {
         // check if public sale is live
@@ -193,7 +215,7 @@ contract KitsudenFoxfone is ERC721A, Ownable, StringUtils, OperatorFilterer {
     }
 
     //  ==========================================
-    //  ======== ROYALTIES SETTER FNS ============
+    //  ======== OPERATOR FILTER OVERRIDES =======
     //  ==========================================
 
     function transferFrom(
