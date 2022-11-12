@@ -1,5 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import Button from "@components/Button";
+import CountdownButton from "@components/CountdownButton";
 import ChakraBox from "components/ChakraBox";
 import Image from "components/Image";
 import heroBg from "public/img/hero_bg.png";
@@ -73,10 +74,10 @@ const Hero = React.forwardRef<any>((_, ref) => {
           />
         </Box>
 
-        <Button size="lg" m="0 auto">
+        {/* <Button size="lg" m="0 auto">
           COMING SOON
-        </Button>
-        {/* <CountdownButton /> */}
+        </Button> */}
+        <CountdownButton />
       </ChakraBox>
     </Box>
   );
