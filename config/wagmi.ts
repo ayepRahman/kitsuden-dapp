@@ -1,5 +1,8 @@
 import { ALCHEMY_API_ID, INFURA_API_KEY } from "config";
 import { chain, configureChains, createClient } from "wagmi";
+import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
+import { InjectedConnector } from "wagmi/connectors/injected";
+import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import { publicProvider } from "wagmi/providers/public";
 
@@ -19,10 +22,24 @@ const { provider, chains } = configureChains(
 export const wagmiClient = createClient({
   autoConnect: true,
   connectors: [
+    new MetaMaskConnector({ chains }),
+    new CoinbaseWalletConnector({
+      chains,
+      options: {
+        appName: "Kitsuden",
+      },
+    }),
     new WalletConnectConnector({
-      chains: chains,
+      chains,
       options: {
         qrcode: true,
+      },
+    }),
+    new InjectedConnector({
+      chains,
+      options: {
+        name: "Kitsuden",
+        shimDisconnect: true,
       },
     }),
   ],
