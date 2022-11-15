@@ -50,6 +50,8 @@ const useCountdown = (targetDate: string | Date | number) => {
   return [...getReturnValues(countDown), isComplete];
 };
 
+const prefixZero = (value: number) => (value < 10 ? `0${value}` : value);
+
 const getReturnValues = (countDown: number) => {
   // calculate time left
   const days = Math.floor(countDown / (1000 * 60 * 60 * 24));
@@ -59,7 +61,7 @@ const getReturnValues = (countDown: number) => {
   const minutes = Math.floor((countDown % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((countDown % (1000 * 60)) / 1000);
 
-  return [days, hours, minutes, seconds];
+  return [days, hours, minutes, seconds].map((v) => prefixZero(v));
 };
 
 const CountdownButtton = () => {

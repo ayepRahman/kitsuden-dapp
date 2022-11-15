@@ -6,8 +6,6 @@ import { publicProvider } from "wagmi/providers/public";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { infuraProvider } from "wagmi/providers/infura";
 
-console.log({ ALCHEMY_API_ID, INFURA_API_KEY });
-
 const { provider, chains } = configureChains(
   [chain.mainnet, chain.goerli],
   [
