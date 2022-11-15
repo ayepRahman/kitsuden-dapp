@@ -73,7 +73,6 @@ contract KitsudenFoxfone is
     }
 
     constructor() ERC721A("KitsudenFoxFone", "KSDFF") {
-        // @dev setting the royalty fee for retrogression address.
         _setDefaultRoyalty(0x1C0C70453C5eD96c7C4EC2EA98c3A99Fc1Dd27EF, 700); // 7% * 10000
     }
 
