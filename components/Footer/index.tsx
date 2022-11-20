@@ -24,7 +24,7 @@ const Footer: React.FC<FooterProps> = ({ scrollTo }) => {
     <Box
       width="full"
       position="absolute"
-      bottom={["-30rem", "-4rem"]}
+      bottom={["-25rem", "-10rem"]}
       bgColor="black"
       zIndex={6}
       // marginTop="-8rem"

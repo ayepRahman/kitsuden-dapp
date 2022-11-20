@@ -129,7 +129,13 @@ const Path = React.forwardRef((_, ref: any) => {
   if (!isMounted) return null;
 
   return (
-    <Box ref={ref} top="-8rem" width="full" position="relative" zIndex={4}>
+    <Box
+      ref={ref}
+      top={["-12rem", "-8rem"]}
+      width="full"
+      position="relative"
+      zIndex={4}
+    >
       {/* bg img */}
       <Image
         alt="pathBg"
@@ -143,6 +149,7 @@ const Path = React.forwardRef((_, ref: any) => {
         position="relative"
         zIndex={1}
         maxW="container.xl"
+        // marginBottom="4rem"
         background="Background.100"
         py={isMobile ? "10rem" : "8rem"}
       >

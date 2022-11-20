@@ -26,8 +26,16 @@ const lines2 = {
 };
 
 const Lore = React.forwardRef((_, ref) => {
-  const [boxRefOne, inView] = useInView();
-  const [boxRefTwo, inViewTwo] = useInView();
+  const { ref: boxRefOne, inView: inView, entry: E1 } = useInView();
+  const {
+    ref: boxRefTwo,
+    inView: inViewTwo,
+    entry: E2,
+  } = useInView({
+    rootMargin: "100px",
+    // trackVisibility: true,
+  });
+
   const refs = useMergeRefs(ref, boxRefOne);
   // 1
   const controlsHeader = useAnimation();
@@ -91,7 +99,7 @@ const Lore = React.forwardRef((_, ref) => {
 
   return (
     <Box
-      top="-4rem"
+      top={["-6rem", "-4rem"]}
       h="calc(100% + 4rem)"
       width="full"
       position="relative"
@@ -127,7 +135,7 @@ const Lore = React.forwardRef((_, ref) => {
         zIndex={1}
         maxW="1440px"
         background="Background.100"
-        marginTop={["7rem"]}
+        marginTop={["4rem", "7rem"]}
         marginBottom={["4rem", "4rem", "4rem", "14.5rem"]}
       >
         <Flex
@@ -273,15 +281,15 @@ const Lore = React.forwardRef((_, ref) => {
             </ChakraText>
           </Box>
         </Flex>
+        <div ref={boxRefTwo} />
       </Container>
       {/* bottom */}
       <Container
-        ref={boxRefTwo}
         position="relative"
         zIndex={1}
         maxW="1440px"
         background="Background.100"
-        marginBottom={["7rem"]}
+        marginBottom={["4rem", "7rem"]}
       >
         <Flex
           gap="70px"
