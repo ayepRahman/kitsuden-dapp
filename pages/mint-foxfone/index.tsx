@@ -1,10 +1,9 @@
-import { Box, Container, Flex, Image, Link } from "@chakra-ui/react";
+import { Box, Container, Flex, Image } from "@chakra-ui/react";
+import NetworkDetectorBanner from "@components/NetworkDetectorBanner";
 import { Meta } from "components/Meta";
 import Header from "containers/Header";
 import dynamic from "next/dynamic";
 import mintFoxfoneBg from "public/img/mint_foxfone_bg.png";
-import React from "react";
-import { useAccount, useNetwork, useSwitchNetwork } from "wagmi";
 
 const Minting = dynamic(() => import("containers/Minting"), { ssr: false });
 const MintModelViewer = dynamic(() => import("components/MintModelViewer"), {
@@ -12,39 +11,11 @@ const MintModelViewer = dynamic(() => import("components/MintModelViewer"), {
 });
 
 const Mint = () => {
-  const [isShowWarning, setIsShowWarning] = React.useState<boolean>(false);
-  const { isConnected } = useAccount();
-  const { chain } = useNetwork();
-  const { switchNetwork } = useSwitchNetwork();
-
-  React.useEffect(() => {
-    if (chain?.id !== 1 && isConnected) {
-      setIsShowWarning(true);
-    } else {
-      setIsShowWarning(false);
-    }
-  }, [chain, chain?.id]);
-
   return (
     <>
       <Meta title="Kitsuden | Mint Foxfone" />
       <Box h="full">
-        {isShowWarning && (
-          <Box
-            position="relative"
-            textAlign="center"
-            color="white"
-            p={3}
-            bg="brand.200"
-            zIndex={1000}
-          >
-            Please switch to{" "}
-            <Link textDecor="underline" onClick={() => switchNetwork?.(1)}>
-              mainnet
-            </Link>{" "}
-            , currently connected to {chain?.name}
-          </Box>
-        )}
+        <NetworkDetectorBanner />
         <Header />
         <Box position="relative" h="full">
           <Image

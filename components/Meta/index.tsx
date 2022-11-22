@@ -5,12 +5,22 @@ import { NextSeo } from "next-seo";
  * keywords and description of the page. This will be used on every page of the website taking in the title,
  * keywords and description as props, useful for SEO.
  */
+
+const defaultImages = [
+  {
+    url: "https://kitsuden.s3.amazonaws.com/images/kitsuden-metabackground.webp",
+    alt: "kitsuden alt",
+  },
+];
+
 export const Meta: React.FC<{
   title?: string;
   keywords?: string;
   description?: string;
+  images?: { url: string; alt: string }[];
 }> = ({
   title,
+  images = defaultImages,
   keywords = "nft, kitsuden, foxfone, project, nftproject, erc721, erc721a, web3, blockchain",
   description = "Kitsuden is a multi-chapter NFT project that takes its community on a magical adventure through fantastical story-telling and world-building. Starting from our first release, holders of our NFT will take part in an ever-evolving narrative and are key to unraveling the mysterious hidden village and its forgotten history. Take part as Curious explorers, Brave adventurers, and Astute architects, and help Kitsuden regain its former glory!",
 }) => {
@@ -26,12 +36,7 @@ export const Meta: React.FC<{
         locale: "en_IE",
         url: "https://kitsuden.com/",
         siteName: "Kitsuden",
-        images: [
-          {
-            url: "https://kitsuden.s3.amazonaws.com/images/kitsuden-metabackground.webp",
-            alt: "kitsuden alt",
-          },
-        ],
+        images: images,
       }}
       twitter={{
         cardType: "summary_large_image",

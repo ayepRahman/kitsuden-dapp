@@ -7,6 +7,7 @@ import {
   ModalOverlay,
   Text,
 } from "@chakra-ui/react";
+import { SOCIAL_LINKS } from "@constants/constants";
 import Button from "components/Button";
 import Icon from "components/Icon";
 import Image from "next/image";
@@ -27,7 +28,7 @@ const MintSuccessModal: React.FC<MintSuccessModalProps> = ({
   const osLink = React.useMemo(() => {
     // TODO: update opensea url
     if (chain?.id === 1) {
-      return `https://opensea.io/opensea/<need-to-update>`;
+      return SOCIAL_LINKS.opensea;
     }
 
     return `https://testnets.opensea.io/collection/kitsuden-foxfone-v2`;

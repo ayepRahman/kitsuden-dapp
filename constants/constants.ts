@@ -1,7 +1,8 @@
+import { getAndConvertAddresses } from "@utils/ethers";
+
 export const SOCIAL_LINKS = {
   twitter: "https://twitter.com/kitsudennft",
   // discord: "https://discord.gg/XNYvaFcw",
-  discord: "",
   instagram: "https://www.instagram.com/kitsudennft/",
   etherscan: "", // link to
   opensea: "", // link to
@@ -32,8 +33,8 @@ const TESTNET_WHITE_LIST_ADDRESSES = [
 ];
 
 export const WHITE_LIST_ADDRESSES: { [key: number]: string[] } = {
-  1: PROD_WHITE_LIST_ADDRESSES,
-  5: TESTNET_WHITE_LIST_ADDRESSES,
+  1: getAndConvertAddresses(PROD_WHITE_LIST_ADDRESSES),
+  5: getAndConvertAddresses(TESTNET_WHITE_LIST_ADDRESSES),
 };
 
 export const MINT_PHASE = {

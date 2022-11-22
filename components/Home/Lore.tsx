@@ -33,7 +33,6 @@ const Lore = React.forwardRef((_, ref) => {
     entry: E2,
   } = useInView({
     rootMargin: "100px",
-    // trackVisibility: true,
   });
 
   const refs = useMergeRefs(ref, boxRefOne);

@@ -3,7 +3,7 @@ import Button from "components/Button";
 import { ConnectKitButton } from "connectkit";
 import React from "react";
 
-const MetamaskButton: React.FC<ButtonProps> = ({ ...props }) => {
+const MetamaskButton: React.FC<ButtonProps> = ({ children, ...props }) => {
   return (
     <ConnectKitButton.Custom>
       {({
@@ -17,7 +17,6 @@ const MetamaskButton: React.FC<ButtonProps> = ({ ...props }) => {
         return (
           <Button
             size="sm"
-            w="100%"
             colorScheme="orange"
             display="flex"
             alignItems="center"
@@ -26,7 +25,9 @@ const MetamaskButton: React.FC<ButtonProps> = ({ ...props }) => {
             onClick={show}
             {...props}
           >
-            {isConnected ? ensName ?? truncatedAddress : "Connect Wallet"}
+            {isConnected
+              ? ensName ?? truncatedAddress
+              : children || "Connect Wallet"}
           </Button>
         );
       }}
