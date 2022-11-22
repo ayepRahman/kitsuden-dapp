@@ -19,7 +19,7 @@ export const Meta: React.FC<{
   keywords?: string;
   description?: string;
   images?: { url: string; alt: string }[];
-  openGraph: OpenGraph;
+  openGraph?: OpenGraph;
 }> = ({
   title,
   openGraph,
