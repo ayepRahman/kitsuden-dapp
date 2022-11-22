@@ -32,7 +32,7 @@ const Hero = React.forwardRef<any>((_, ref) => {
         h="100%"
         w="100%"
       >
-        <AspectRatio ratio={[9 / 16, 16 / 9]} zIndex={0}>
+        <AspectRatio h="inherit" ratio={[9 / 16, 16 / 9]} zIndex={0}>
           <video
             muted
             autoPlay
