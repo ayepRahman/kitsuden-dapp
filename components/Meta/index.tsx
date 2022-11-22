@@ -1,4 +1,5 @@
 import { NextSeo } from "next-seo";
+import { OpenGraph } from "next-seo/lib/types";
 
 /**
  * A component to makes use of the Head component from Next.js to display the title,
@@ -18,14 +19,12 @@ export const Meta: React.FC<{
   keywords?: string;
   description?: string;
   images?: { url: string; alt: string }[];
+  openGraph: OpenGraph;
 }> = ({
   title,
-  images = defaultImages,
-  keywords = "nft, kitsuden, foxfone, project, nftproject, erc721, erc721a, web3, blockchain",
+  openGraph,
   description = "Kitsuden is a multi-chapter NFT project that takes its community on a magical adventure through fantastical story-telling and world-building. Starting from our first release, holders of our NFT will take part in an ever-evolving narrative and are key to unraveling the mysterious hidden village and its forgotten history. Take part as Curious explorers, Brave adventurers, and Astute architects, and help Kitsuden regain its former glory!",
 }) => {
-  // <link rel="shortcut icon" href="https://your-site.com/your-logo.png" />
-
   return (
     <NextSeo
       title={title}
@@ -36,7 +35,8 @@ export const Meta: React.FC<{
         locale: "en_IE",
         url: "https://kitsuden.com/",
         siteName: "Kitsuden",
-        images: images,
+        images: defaultImages,
+        ...openGraph,
       }}
       twitter={{
         cardType: "summary_large_image",

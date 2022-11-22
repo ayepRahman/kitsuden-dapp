@@ -37,12 +37,18 @@ const WalletCheckPage: React.FC = () => {
     <>
       <Meta
         title="Kitsuden | Wallet Checker"
-        images={[
-          {
-            url: "https://kitsuden.s3.amazonaws.com/images/wallet-checker-meta.png",
-            alt: "kitsuden wallet checker",
-          },
-        ]}
+        openGraph={{
+          type: "website",
+          locale: "en_IE",
+          url: "https://kitsuden.com/wallet-checker",
+          siteName: "Kitsuden",
+          images: [
+            {
+              url: "https://kitsuden.s3.amazonaws.com/images/wallet-checker-meta.png",
+              alt: "kitsuden wallet checker",
+            },
+          ],
+        }}
       />
       <NetworkDetectorBanner />
       <ChakraBox h="100vh" w="100vw" padding="2rem" position="relative">
