@@ -114,7 +114,7 @@ const WalletCheckPage: React.FC = () => {
               >
                 YOU HAVE a KITSULIST
               </Heading>
-              <Text fontWeight={600}>
+              <Text fontWeight={600} color="black">
                 You are in possesion of a Kitsulist. The path to the hidden
                 village lies in front of you, Be present for the Kitsulist mint
                 on the 26th of November at 10PM SGT (9am EST) . Kitsuden awaits.
@@ -137,7 +137,7 @@ const WalletCheckPage: React.FC = () => {
               >
                 YOU do not HAVE a KITSULIST
               </Heading>
-              <Text fontWeight={600}>
+              <Text fontWeight={600} color="black">
                 You are not in possesion of a Kitsulist. The path to the hidden
                 village is dangerous, Be present for the Public mint on the 27th
                 of November at 1AM SGT (12PM EST). There is still hope.
