@@ -41,21 +41,42 @@ const getReturnValues = (countDown: number) => {
 
 const CountdownButtton = () => {
   const isMounted = useIsMounted();
+  const [showChecker, setShowChecker] = useState<boolean>(false);
   const [days, hours, minutes, seconds, isComplete] =
     useCountdown(1669478400000);
 
   if (!isMounted) return null;
 
+  const handleRedirect = () => {
+    if (isComplete) {
+      router.push("/mint-foxfone");
+    } else {
+      router.push("/wallet-checker");
+    }
+  };
+
   return (
     <Button
-      onClick={() => isComplete && router.push("/mint-foxfone")}
+      onMouseOver={() => {
+        setShowChecker(true);
+      }}
+      onMouseLeave={() => {
+        setShowChecker(false);
+      }}
+      onClick={() => handleRedirect()}
       size="lg"
       fontSize={32}
       m="0 auto"
     >
       {!isComplete ? (
         <>
-          {days} : {hours} : {minutes} : {seconds}
+          {!showChecker ? (
+            <>
+              {days} : {hours} : {minutes} : {seconds}
+            </>
+          ) : (
+            <>CHECK WALLET</>
+          )}
         </>
       ) : (
         <>Enter Now</>

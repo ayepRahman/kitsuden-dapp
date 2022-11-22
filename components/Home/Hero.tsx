@@ -1,13 +1,15 @@
 import { Box } from "@chakra-ui/react";
-import Button from "@components/Button";
 import CountdownButton from "@components/CountdownButton";
 import ChakraBox from "components/ChakraBox";
 import Image from "components/Image";
+import { useRouter } from "next/router";
 import heroBg from "public/img/hero_bg.png";
 import kitsudenLog from "public/img/kitsuden_logo_0.png";
 import React from "react";
 
 const Hero = React.forwardRef<any>((_, ref) => {
+  const router = useRouter();
+
   return (
     <Box
       ref={ref}
@@ -74,9 +76,6 @@ const Hero = React.forwardRef<any>((_, ref) => {
           />
         </Box>
 
-        {/* <Button size="lg" m="0 auto">
-          COMING SOON
-        </Button> */}
         <CountdownButton />
       </ChakraBox>
     </Box>
