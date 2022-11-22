@@ -98,7 +98,7 @@ const Lore = React.forwardRef((_, ref) => {
 
   return (
     <Box
-      top={["-6rem", "-4rem"]}
+      top={["-12rem", "-6rem"]}
       h="calc(100% + 4rem)"
       width="full"
       position="relative"

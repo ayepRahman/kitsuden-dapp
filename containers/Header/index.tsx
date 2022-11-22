@@ -13,9 +13,10 @@ import { Desktop, Mobile } from "components/MediaQuery";
 import ScrollLink from "components/ScrollLink";
 import { navLinks, socialLinks } from "constants/links";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { useRouter } from "next/router";
+import headerBg from "public/img/header_bg.png";
 import React from "react";
-import { HeaderClip } from "./styled";
 
 const MetamaskButton = dynamic(() => import("containers/MetamaskButton"), {
   ssr: false,
@@ -49,7 +50,19 @@ const Header: React.FC<HeaderProps> = ({ scrollTo }) => {
 
   return (
     <ChakraBox bgColor="brand.100" height="max-content" position="relative">
-      <HeaderClip />
+      <ChakraBox
+        w={["100%", "100%"]}
+        position="absolute"
+        zIndex={3}
+        height="200%"
+        top="1rem"
+        right={0}
+        bottom={0}
+        left={0}
+      >
+        <Image priority src={headerBg.src} alt="adas" layout="fill" />
+      </ChakraBox>
+
       <Container
         position="relative"
         padding={{ base: "1rem", lg: "1.5rem 2rem 1rem" }}

@@ -131,7 +131,7 @@ const Path = React.forwardRef((_, ref: any) => {
   return (
     <Box
       ref={ref}
-      top={["-12rem", "-8rem"]}
+      top={["-18rem", "-12rem"]}
       width="full"
       position="relative"
       zIndex={4}

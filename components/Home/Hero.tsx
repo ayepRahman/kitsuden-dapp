@@ -1,11 +1,12 @@
-import { Box } from "@chakra-ui/react";
+import { AspectRatio, Box } from "@chakra-ui/react";
 import CountdownButton from "@components/CountdownButton";
 import ChakraBox from "components/ChakraBox";
 import Image from "components/Image";
 import { useRouter } from "next/router";
-import heroBg from "public/img/hero_bg.png";
 import kitsudenLog from "public/img/kitsuden_logo_0.png";
 import React from "react";
+
+// https://kitsuden.s3.amazonaws.com/images/kisuden_landing.mp4
 
 const Hero = React.forwardRef<any>((_, ref) => {
   const router = useRouter();
@@ -31,23 +32,22 @@ const Hero = React.forwardRef<any>((_, ref) => {
         h="100%"
         w="100%"
       >
-        <Image
-          alt="heroBg"
-          priority
-          src={heroBg.src}
-          layout="fill"
-          objectFit="cover"
-          placeholder="empty"
-          zIndex={0}
-        />
-        <Box
+        <AspectRatio ratio={[9 / 16, 16 / 9]} zIndex={0}>
+          <video
+            muted
+            autoPlay
+            loop
+            src="https://kitsuden.s3.amazonaws.com/images/kisuden_landing.mp4"
+          />
+        </AspectRatio>
+        {/* <Box
           position="relative"
           h="100%"
           w="100%"
           opacity="50%"
           zIndex={1}
           background="black"
-        />
+        /> */}
       </ChakraBox>
       <ChakraBox
         initial={{ opacity: 0, top: "65%" }}

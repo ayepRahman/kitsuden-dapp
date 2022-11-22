@@ -1,6 +1,7 @@
 import { Container, Heading, Text } from "@chakra-ui/react";
 import Button from "@components/Button";
 import ChakraBox from "@components/ChakraBox";
+import Icon from "@components/Icon";
 import { Meta } from "@components/Meta";
 import NetworkDetectorBanner from "@components/NetworkDetectorBanner";
 import MetamaskButton from "@containers/MetamaskButton";
@@ -69,8 +70,35 @@ const WalletCheckPage: React.FC = () => {
               />
             </ChakraBox>
 
+            {/* 
+            position: absolute;
+            margin-left: auto;
+            margin-right: auto;
+            left: 0;
+            right: 0;
+            text-align: center; */}
+
+            <ChakraBox
+              cursor="pointer"
+              marginLeft={!isConnected ? "auto" : "none"}
+              marginRight={!isConnected ? "auto" : "none"}
+              position="absolute"
+              top={["2rem", "2rem"]}
+              left={!isConnected ? "0" : ["1rem", "2rem"]}
+              right={!isConnected ? "0" : "none"}
+              onClick={() => router.push("/")}
+              textAlign="center"
+              flex={1}
+            >
+              <Icon name="kitsudenName" width="111px" height="33px" />
+            </ChakraBox>
+
             {isConnected && (
-              <ChakraBox position="absolute" top="2rem" right="2rem">
+              <ChakraBox
+                position="absolute"
+                top={["2rem", "2rem"]}
+                right={["1rem", "2rem"]}
+              >
                 <MetamaskButton />
               </ChakraBox>
             )}
@@ -90,7 +118,7 @@ const WalletCheckPage: React.FC = () => {
                     animate={{ scale: [0.8, 1], opacity: [0, 1] }}
                     transition={{ duration: 1.5 }}
                   >
-                    <ChakraBox w="100%" maxW="620px" marginBottom="2rem">
+                    <ChakraBox w="100%" maxW="620px" marginBottom="4rem">
                       <Image src={wcFoxImg} />
                     </ChakraBox>
                   </motion.div>
