@@ -4,6 +4,7 @@ import ChakraBox from "@components/ChakraBox";
 import { Meta } from "@components/Meta";
 import NetworkDetectorBanner from "@components/NetworkDetectorBanner";
 import MetamaskButton from "@containers/MetamaskButton";
+import styled from "@emotion/styled";
 import useCheckIsAddressWhiteListed from "@hooks/useCheckIsAddressWhiteListed";
 import useIsMounted from "@hooks/useIsMounted";
 import { motion } from "framer-motion";
@@ -14,7 +15,15 @@ import wcImg from "public/img/wallet_checker_bg.png";
 import wcFoxImg from "public/img/wallet_checker_fox_bg.png";
 import { useAccount } from "wagmi";
 
-const WalletCheckPage = () => {
+export const WalletCheckerBox = styled(ChakraBox)`
+  height: 100%;
+  width: 100%;
+  background: url(${wcImg.src});
+  background-repeat: no-repeat;
+  object-fit: fill;
+`;
+
+const WalletCheckPage: React.FC = () => {
   const router = useRouter();
   const isMounted = useIsMounted();
   const { isConnected } = useAccount();
