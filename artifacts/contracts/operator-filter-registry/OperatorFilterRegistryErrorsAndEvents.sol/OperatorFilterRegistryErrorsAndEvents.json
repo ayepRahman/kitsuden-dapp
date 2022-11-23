@@ -1,0 +1,310 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "OperatorFilterRegistryErrorsAndEvents",
+  "sourceName": "contracts/operator-filter-registry/OperatorFilterRegistryErrorsAndEvents.sol",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "operator",
+          "type": "address"
+        }
+      ],
+      "name": "AddressAlreadyFiltered",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "filtered",
+          "type": "address"
+        }
+      ],
+      "name": "AddressFiltered",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "operator",
+          "type": "address"
+        }
+      ],
+      "name": "AddressNotFiltered",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "AlreadyRegistered",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "subscription",
+          "type": "address"
+        }
+      ],
+      "name": "AlreadySubscribed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CannotCopyFromSelf",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CannotFilterEOAs",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "registrant",
+          "type": "address"
+        }
+      ],
+      "name": "CannotSubscribeToRegistrantWithSubscription",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CannotSubscribeToSelf",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CannotSubscribeToZeroAddress",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "subscription",
+          "type": "address"
+        }
+      ],
+      "name": "CannotUpdateWhileSubscribed",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "codeHash",
+          "type": "bytes32"
+        }
+      ],
+      "name": "CodeHashAlreadyFiltered",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "codeHash",
+          "type": "bytes32"
+        }
+      ],
+      "name": "CodeHashFiltered",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "codeHash",
+          "type": "bytes32"
+        }
+      ],
+      "name": "CodeHashNotFiltered",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotOwnable",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "registrant",
+          "type": "address"
+        }
+      ],
+      "name": "NotRegistered",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotSubscribed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "OnlyAddressOrOwner",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "registrant",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "codeHash",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "internalType": "bool",
+          "name": "filtered",
+          "type": "bool"
+        }
+      ],
+      "name": "CodeHashUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "registrant",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes32[]",
+          "name": "codeHashes",
+          "type": "bytes32[]"
+        },
+        {
+          "indexed": true,
+          "internalType": "bool",
+          "name": "filtered",
+          "type": "bool"
+        }
+      ],
+      "name": "CodeHashesUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "registrant",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "operator",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "bool",
+          "name": "filtered",
+          "type": "bool"
+        }
+      ],
+      "name": "OperatorUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "registrant",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address[]",
+          "name": "operators",
+          "type": "address[]"
+        },
+        {
+          "indexed": true,
+          "internalType": "bool",
+          "name": "filtered",
+          "type": "bool"
+        }
+      ],
+      "name": "OperatorsUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "registrant",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "bool",
+          "name": "registered",
+          "type": "bool"
+        }
+      ],
+      "name": "RegistrationUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "registrant",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "subscription",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "bool",
+          "name": "subscribed",
+          "type": "bool"
+        }
+      ],
+      "name": "SubscriptionUpdated",
+      "type": "event"
+    }
+  ],
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea2646970667358221220c86b49fac872c2b9b232eef7a72d04776d367a2ef5b99933095f2b2f656aeb1064736f6c634300080d0033",
+  "deployedBytecode": "0x6080604052600080fdfea2646970667358221220c86b49fac872c2b9b232eef7a72d04776d367a2ef5b99933095f2b2f656aeb1064736f6c634300080d0033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

@@ -5,6 +5,21 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@pages/*": ["pages/*"],
+      "@styles/*": ["styles/*"],
+      "@components/*": ["components/*"],
+      "@hooks/*": ["hooks/*"],
+      "@images/*": ["public/images/*"],
+      "@icons/*": ["public/icons/*"],
+      "@svgs/*": ["public/svgs/*"],
+      "@config/*": ["config/*"],
+      "@contexts/*": ["contexts/*"],
+      "@containers/*": ["containers/*"],
+      "@constants/*": ["constants/*"],
+      "@utils/*": ["utils/*"]
+    }
   }
 }

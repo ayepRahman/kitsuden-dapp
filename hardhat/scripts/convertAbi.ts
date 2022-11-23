@@ -1,6 +1,5 @@
 import * as fs from "fs";
 import path from "path";
-// artifacts/contracts/KitsudenFoxfone.sol/KitsudenFoxfone.json
 
 const main = async () => {
   try {

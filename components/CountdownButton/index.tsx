@@ -53,7 +53,7 @@ const CountdownButtton = () => {
     if (isComplete) {
       router.push("/mint-foxfone");
     } else {
-      router.push("/wallet-checker");
+      router.push("/kitsulist");
     }
   };
 

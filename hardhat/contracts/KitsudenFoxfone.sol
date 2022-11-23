@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.9;
+pragma solidity ^0.8.13;
 
 import "erc721a/contracts/ERC721A.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -56,7 +56,7 @@ contract KitsudenFoxfone is
     string public baseExtension = ".json";
     string public baseURI = "";
     string public baseHiddenUri =
-        "https://kitsuden.infura-ipfs.io/ipfs/QmT8WwUuAzpeLqixJDfvVHx9KrxFo8wbG811JZBjkfr6Cg/";
+        "https://kitsuden.infura-ipfs.io/ipfs/QmT7tsvigAix4AQvsfvHtJJV7U8JFYUu9MM3j4cESkVSPJ/";
     uint256 public mintPhase;
     bool public paused = false;
     bool public revealed = false;
@@ -216,6 +216,23 @@ contract KitsudenFoxfone is
     //  ==========================================
     //  ======== OPERATOR FILTER OVERRIDES =======
     //  ==========================================
+
+    function setApprovalForAll(address operator, bool approved)
+        public
+        override
+        onlyAllowedOperatorApproval(operator)
+    {
+        super.setApprovalForAll(operator, approved);
+    }
+
+    function approve(address operator, uint256 tokenId)
+        public
+        payable
+        override
+        onlyAllowedOperatorApproval(operator)
+    {
+        super.approve(operator, tokenId);
+    }
 
     function transferFrom(
         address from,

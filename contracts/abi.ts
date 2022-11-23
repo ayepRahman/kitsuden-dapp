@@ -236,10 +236,23 @@ export const abi = [
     "type": "event"
   },
   {
+    "inputs": [],
+    "name": "OPERATOR_FILTER_REGISTRY",
+    "outputs": [
+      {
+        "internalType": "contract IOperatorFilterRegistry",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "address",
-        "name": "to",
+        "name": "operator",
         "type": "address"
       },
       {

@@ -55,9 +55,9 @@ const unrevealMetadata = {
   name: "Foxfone ???",
   description: desc,
   animation_url:
-    "https://kitsuden.infura-ipfs.io/ipfs/QmTaQGxwKKnD1oWY383wum8ox1aAXYJADxT17WNLasa4Su/kitsuden-prereveal.mp4",
+    "https://kitsuden.infura-ipfs.io/ipfs/QmbTkDc3Ge23LqWpN51Zp591v5yh3MQ6wdSDRcCBmKrGaV/kitsuden-prereveal.mp4",
   image:
-    "https://kitsuden.infura-ipfs.io/ipfs/QmTaQGxwKKnD1oWY383wum8ox1aAXYJADxT17WNLasa4Su/kitsuden-prereveal.gif",
+    "https://kitsuden.infura-ipfs.io/ipfs/QmbTkDc3Ge23LqWpN51Zp591v5yh3MQ6wdSDRcCBmKrGaV/kitsuden-prereveal.gif",
   attributes: [
     {
       trait_type: "Status",
@@ -71,9 +71,9 @@ const metadataType = {
     name: "Foxfone “KT-1”",
     description: desc,
     animation_url:
-      "https://kitsuden.infura-ipfs.io/ipfs/QmTaQGxwKKnD1oWY383wum8ox1aAXYJADxT17WNLasa4Su/Foxfone-1.mp4",
+      "https://kitsuden.infura-ipfs.io/ipfs/QmbTkDc3Ge23LqWpN51Zp591v5yh3MQ6wdSDRcCBmKrGaV/foxfone-1.mp4",
     image:
-      "https://kitsuden.infura-ipfs.io/ipfs/QmTaQGxwKKnD1oWY383wum8ox1aAXYJADxT17WNLasa4Su/Foxfone-1.gif",
+      "https://kitsuden.infura-ipfs.io/ipfs/QmbTkDc3Ge23LqWpN51Zp591v5yh3MQ6wdSDRcCBmKrGaV/foxfone-1.gif",
     attributes: [
       {
         trait_type: "Version",
@@ -105,9 +105,9 @@ const metadataType = {
     name: "Foxfone “FF-66”",
     description: desc,
     animation_url:
-      "https://kitsuden.infura-ipfs.io/ipfs/QmTaQGxwKKnD1oWY383wum8ox1aAXYJADxT17WNLasa4Su/Foxfone-2.mp4",
+      "https://kitsuden.infura-ipfs.io/ipfs/QmbTkDc3Ge23LqWpN51Zp591v5yh3MQ6wdSDRcCBmKrGaV/foxfone-2.mp4",
     image:
-      "https://kitsuden.infura-ipfs.io/ipfs/QmTaQGxwKKnD1oWY383wum8ox1aAXYJADxT17WNLasa4Su/foxfone-2.gif",
+      "https://kitsuden.infura-ipfs.io/ipfs/QmbTkDc3Ge23LqWpN51Zp591v5yh3MQ6wdSDRcCBmKrGaV/foxfone-2.gif",
     attributes: [
       {
         trait_type: "Version",
@@ -139,9 +139,9 @@ const metadataType = {
     name: "Foxfone “ELDR-9T”",
     description: desc,
     animation_url:
-      "https://kitsuden.infura-ipfs.io/ipfs/QmTaQGxwKKnD1oWY383wum8ox1aAXYJADxT17WNLasa4Su/Foxfone-3.mp4",
+      "https://kitsuden.infura-ipfs.io/ipfs/QmbTkDc3Ge23LqWpN51Zp591v5yh3MQ6wdSDRcCBmKrGaV/foxfone-3.mp4",
     image:
-      "https://kitsuden.infura-ipfs.io/ipfs/QmTaQGxwKKnD1oWY383wum8ox1aAXYJADxT17WNLasa4Su/foxfone-3.gif",
+      "https://kitsuden.infura-ipfs.io/ipfs/QmbTkDc3Ge23LqWpN51Zp591v5yh3MQ6wdSDRcCBmKrGaV/foxfone-3.gif",
     attributes: [
       {
         trait_type: "Version",
@@ -255,6 +255,7 @@ const genTestReveal = async () => {
 (async () => {
   try {
     await genUnreveal();
+    // @desc - hiding this as not to shuffle again
     // await genReveal();
     await genTestReveal();
   } catch (error) {

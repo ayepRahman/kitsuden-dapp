@@ -39,11 +39,11 @@ const WalletCheckPage: React.FC = () => {
         openGraph={{
           type: "website",
           locale: "en_IE",
-          url: "https://kitsuden.com/wallet-checker",
+          url: "https://kitsuden.com/kitsulist",
           siteName: "Kitsuden",
           images: [
             {
-              url: "https://kitsuden.s3.amazonaws.com/images/wallet-checker-meta.png",
+              url: "https://kitsuden.s3.amazonaws.com/images/kitsulist-meta.png",
               alt: "kitsuden wallet checker",
             },
           ],

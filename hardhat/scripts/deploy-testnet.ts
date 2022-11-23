@@ -10,46 +10,31 @@ const KITSUDEN = "KitsudenFoxfone";
 async function main() {
   console.log(`deploying on TESTNET ${KITSUDEN} smart contract.......`);
 
-  // Hardhat always runs the compile task when running scripts with its command
-  // line interface.
-  //
-  // If this script is run directly using `node` you may want to call compile
-  // manually to make sure everything is compiled
-  // await hre.run('compile');
+  const [owner] = await ethers.getSigners();
+  const feeData = await ethers.provider.getFeeData();
 
-  // We get the contract to deploy
+  console.log("FEE", feeData);
+
+  // {
+  //   lastBaseFeePerGas: BigNumber { value: "71577905947" },
+  //   maxFeePerGas: BigNumber { value: "144655811894" },
+  //   maxPriorityFeePerGas: BigNumber { value: "1500000000" },
+  //   gasPrice: BigNumber { value: "72367167985" }
+  // }
+
+  // feeData?.gasPrice;
+
   const contractFactory = await ethers.getContractFactory(KITSUDEN);
-  const contract = await contractFactory.deploy();
+  const contract = await contractFactory.deploy({
+    // nonce: 42,
+    maxFeePerGas: feeData?.maxFeePerGas,
+  });
 
   await contract.deployed();
 
   console.log(`${KITSUDEN} deployed to:`, contract.address);
-  // saveFrontendFiles(contract);
+  console.log(`${KITSUDEN} deployed by:`, owner.address);
 }
-
-// function saveFrontendFiles(token: any) {
-//   const fs = require("fs");
-//   const contractsDir = path.join(__dirname, "..", "abi");
-
-//   if (!fs.existsSync(contractsDir)) {
-//     fs.mkdirSync(contractsDir);
-//   }
-
-//   fs.writeFileSync(
-//     path.join(contractsDir, "contract-address.json"),
-//     JSON.stringify({ Token: token.address }, undefined, 2)
-//   );
-
-//   const ContractArtifacts = artifacts.readArtifactSync(KITSUDEN);
-
-//   const abiTs = `export const abi = ${JSON.stringify(
-//     ContractArtifacts.abi,
-//     null,
-//     2
-//   )} as const`;
-
-//   fs.writeFileSync(path.join(contractsDir, "abi.ts"), abiTs);
-// }
 
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.

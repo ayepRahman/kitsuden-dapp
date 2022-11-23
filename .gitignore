@@ -47,6 +47,17 @@ cache
 *.tsbuildinfo
 
 
+# scripts
+/scripts/assets
+/scripts/cid
+/scripts/pre-reveal
+/scripts/reveal
+/scripts/test-reveal
+/scripts/pre-reveal.*
+/scripts/reveal.*
+/scripts/test-reveal.*
+
+
 
 # hardhat
 /hardhat/cache

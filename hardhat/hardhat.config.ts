@@ -21,6 +21,7 @@ dotenv.config();
 // });
 
 const GOERLI_URL = process.env.GOERLI_URL || "";
+const MAINNET_URL = process.env.MAINNET_URL || "";
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
 const REPORT_GAS = process.env.REPORT_GAS;
@@ -35,15 +36,15 @@ console.log({
 });
 
 const config: HardhatUserConfig = {
-  solidity: "0.8.9",
+  solidity: "0.8.13",
   networks: {
     goerli: {
       url: GOERLI_URL,
       accounts: PRIVATE_KEY !== undefined ? [PRIVATE_KEY] : [],
     },
     mainnet: {
-      url: "",
-      accounts: [],
+      url: MAINNET_URL,
+      accounts: PRIVATE_KEY !== undefined ? [PRIVATE_KEY] : [],
     },
   },
   gasReporter: {
