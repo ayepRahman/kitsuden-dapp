@@ -67,7 +67,7 @@ const CountdownButtton = () => {
       }}
       onClick={() => handleRedirect()}
       size="lg"
-      fontSize={32}
+      fontSize={showChecker ? 24 : 32}
       m="0 auto"
     >
       {!isComplete ? (
