@@ -27,7 +27,7 @@ export const WalletCheckerBox = styled(ChakraBox)`
 const WalletCheckPage: React.FC = () => {
   const router = useRouter();
   const isMounted = useIsMounted();
-  const { isConnected } = useAccount();
+  const { isConnected, address } = useAccount();
   const { isWhiteListed } = useCheckIsAddressWhiteListed();
 
   const handleRedirect = () => router.push("/");

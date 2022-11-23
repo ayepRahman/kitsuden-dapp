@@ -1,4 +1,5 @@
 import { getAndConvertAddresses } from "@utils/ethers";
+import { PROD_WHITE_LIST_ADDRESSES } from "./addresses";
 
 export const SOCIAL_LINKS = {
   twitter: "https://twitter.com/kitsudennft",
@@ -17,10 +18,6 @@ export const CONTRACT_ADDRESS: { [key: number]: string } = {
   5: "0x20703586F654CAf50bfa70F905Db2fed15BCA78F", // goerli
 };
 
-const PROD_WHITE_LIST_ADDRESSES = [
-  "0x0Aa32Ace6A4e447310cc145dda5D984A6B5733ea",
-  "0x1C0C70453C5eD96c7C4EC2EA98c3A99Fc1Dd27EF",
-];
 const TESTNET_WHITE_LIST_ADDRESSES = [
   "0x6d8610a39D293E9397103f95a3E7562b8d1BE186", // adri
   "0x11a54D0B10A5755bb732c3448222d450a0a34945", // adri
