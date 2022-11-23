@@ -5,6 +5,8 @@ import useIsMounted from "@hooks/useIsMounted";
 import router from "next/router";
 import { useEffect, useState } from "react";
 
+const COUNTDOWN_TIMESTAMP = 1669384800000;
+
 const useCountdown = (targetDate: string | Date | number) => {
   const countDownDate = new Date(targetDate).getTime();
 
@@ -43,7 +45,7 @@ const CountdownButtton = () => {
   const isMounted = useIsMounted();
   const [showChecker, setShowChecker] = useState<boolean>(false);
   const [days, hours, minutes, seconds, isComplete] =
-    useCountdown(1669478400000);
+    useCountdown(COUNTDOWN_TIMESTAMP);
 
   if (!isMounted) return null;
 

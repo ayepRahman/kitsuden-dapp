@@ -70,14 +70,6 @@ const WalletCheckPage: React.FC = () => {
               />
             </ChakraBox>
 
-            {/* 
-            position: absolute;
-            margin-left: auto;
-            margin-right: auto;
-            left: 0;
-            right: 0;
-            text-align: center; */}
-
             <ChakraBox
               cursor="pointer"
               marginLeft={!isConnected ? "auto" : "none"}
@@ -86,11 +78,15 @@ const WalletCheckPage: React.FC = () => {
               top={["2rem", "2rem"]}
               left={!isConnected ? "0" : ["1rem", "2rem"]}
               right={!isConnected ? "0" : "none"}
-              onClick={() => router.push("/")}
               textAlign="center"
               flex={1}
             >
-              <Icon name="kitsudenName" width="111px" height="33px" />
+              <Icon
+                onClick={handleRedirect}
+                name="kitsudenName"
+                width="111px"
+                height="33px"
+              />
             </ChakraBox>
 
             {isConnected && (
