@@ -77,7 +77,7 @@ const CountdownButtton = () => {
               {days} : {hours} : {minutes} : {seconds}
             </>
           ) : (
-            <>CHECK WALLET</>
+            <>CHECK KITSULIST</>
           )}
         </>
       ) : (

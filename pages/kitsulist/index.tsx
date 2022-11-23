@@ -35,7 +35,7 @@ const WalletCheckPage: React.FC = () => {
   return (
     <>
       <Meta
-        title="Kitsuden | Wallet Checker"
+        title="Kitsuden | Kitsulist"
         openGraph={{
           type: "website",
           locale: "en_IE",
@@ -44,7 +44,7 @@ const WalletCheckPage: React.FC = () => {
           images: [
             {
               url: "https://kitsuden.s3.amazonaws.com/images/kitsulist-meta.png",
-              alt: "kitsuden wallet checker",
+              alt: "kitsulist",
             },
           ],
         }}
