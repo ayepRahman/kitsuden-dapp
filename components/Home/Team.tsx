@@ -14,45 +14,36 @@ import Image from "components/Image";
 import { useAnimation } from "framer-motion";
 import teamBg from "public/img/team_bg.png";
 import React from "react";
-import { FaLinkedin, FaTwitter } from "react-icons/fa";
+import { FaTwitter } from "react-icons/fa";
 import { useInView } from "react-intersection-observer";
 
 const teams = [
   {
-    name: "ADRI",
-    title: "FOUNDER",
+    name: "ADRI DWITOMO",
+    title: "FOUNDER & ART DIRECTOR",
     img: "/img/team_1.png",
     links: {
       twitter: "https://twitter.com/adridwitomo",
-      linkedin: "https://www.linkedin.com/in/adridwitomo/",
+      handle: "@adridwitomo",
     },
   },
   {
-    name: "ONLYAYEP",
-    title: "FOUNDER",
+    name: "ARIF RAHMAN",
+    title: "LEAD DEVELOPER",
     img: "/img/team_2.png",
 
     links: {
       twitter: "https://twitter.com/onlyayep",
-      linkedin: "https://www.linkedin.com/in/ayeprahman/",
-    },
-  },
-  {
-    name: "DISZ",
-    title: "FOUNDER",
-    img: "/img/team_3.png",
-    links: {
-      twitter: "https://twitter.com/Diszazter8",
-      linkedin: "",
+      handle: "@onlyayep",
     },
   },
   {
     name: "GEFI",
-    title: "FOUNDER",
-    img: "/img/team_4.png",
+    title: "LEAD ARTIST",
+    img: "/img/team_3.png",
     links: {
       twitter: "https://twitter.com/gefiction",
-      linkedin: "",
+      handle: "@gefiction",
     },
   },
 ];
@@ -109,10 +100,8 @@ const Team = React.forwardRef((_, ref) => {
 
   const handlOnHover = (value: number | null) => setShow(value);
 
-  // if (!isMounted) return null;
-
   return (
-    <Box top="-12rem" width="full" position="relative" zIndex={5}>
+    <Box top={["-22rem", "-16rem"]} width="full" position="relative" zIndex={5}>
       <Image
         alt="teamBg"
         priority
@@ -145,10 +134,10 @@ const Team = React.forwardRef((_, ref) => {
         <ChakraBox
           ref={refs}
           display="flex"
-          justifyContent="space-around"
+          justifyContent="center"
           alignItems="center"
           flexWrap={isMobile ? "wrap" : "nowrap"}
-          gap="1rem"
+          gap="4rem"
           initial="hidden"
           animate={controlsTeam}
           variants={teamsVariants}
@@ -179,40 +168,38 @@ const Team = React.forwardRef((_, ref) => {
                     alignItems="center"
                     textAlign="center"
                   >
-                    <Text fontSize={36} fontWeight={700}>
+                    <Text fontSize={24} fontWeight={700}>
                       {t.name}
                     </Text>
-                    <Text fontSize={20} fontWeight={400}>
+                    <Text fontSize={16} fontWeight={400}>
                       {t.title}
                     </Text>
-                    <Box width="120px" height="1px" bg="white" />
+                    <Box marginY="1rem" width="120px" height="1px" bg="white" />
                     <Flex
                       gap="1rem"
-                      mt="1rem"
                       alignItems="center"
                       justifyContent="space-around"
                     >
                       {Object.keys(t.links).map((k) => {
                         if (k === "twitter" && t.links[k]) {
                           return (
-                            <Icon
-                              cursor="pointer"
-                              w="24px"
-                              height="24px"
-                              as={FaTwitter}
+                            <Flex
+                              gap="0.5rem"
                               onClick={() => window.open(t.links[k])}
-                            />
-                          );
-                        }
-                        if (k === "linkedin" && t.links[k]) {
-                          return (
-                            <Icon
                               cursor="pointer"
-                              w="24px"
-                              height="24px"
-                              as={FaLinkedin}
-                              onClick={() => window.open(t.links[k])}
-                            />
+                              _hover={{
+                                color: "#F36800",
+                                textDecoration: "underline",
+                              }}
+                            >
+                              <Icon
+                                cursor="pointer"
+                                w="24px"
+                                height="24px"
+                                as={FaTwitter}
+                              />
+                              <Text>{t.links.handle}</Text>
+                            </Flex>
                           );
                         }
 

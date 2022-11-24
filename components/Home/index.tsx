@@ -5,6 +5,7 @@ import useScrollTo from "hooks/useScrollTo";
 import dynamic from "next/dynamic";
 import Hero from "./Hero";
 import Lore from "./Lore";
+import Team from "./Team";
 
 const Path = dynamic(() => import("./Path"), { ssr: false });
 
@@ -12,6 +13,7 @@ export const Home = () => {
   const [heroRef, scrollToHero] = useScrollTo<HTMLDivElement>();
   const [loreRef, scrollToLore] = useScrollTo<HTMLDivElement>();
   const [pathRef, scrollToPath] = useScrollTo<HTMLDivElement>();
+  const [teamRef, scrollToTeam] = useScrollTo<HTMLDivElement>();
 
   const handleScrollTo = (to: string) => {
     if (to === "hero") {
@@ -23,6 +25,9 @@ export const Home = () => {
     if (to === "path") {
       scrollToPath(true);
     }
+    if (to === "team") {
+      scrollToTeam(true);
+    }
   };
 
   return (
@@ -33,6 +38,7 @@ export const Home = () => {
       <div ref={pathRef}>
         <Path />
       </div>
+      <Team ref={teamRef} />
       <Footer scrollTo={handleScrollTo} />
     </Box>
   );

@@ -26,7 +26,7 @@ const Footer: React.FC<FooterProps> = ({ scrollTo }) => {
       position="absolute"
       bgColor="black"
       zIndex={6}
-      marginTop={["-18rem", "-12rem"]}
+      marginTop={["-22rem", "-16rem"]}
     >
       <Icon
         top="-4rem"

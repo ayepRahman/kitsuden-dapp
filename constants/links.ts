@@ -32,8 +32,8 @@ export const navLinks = [
     title: "THE PATH",
     link: "path",
   },
-  // {
-  //   title: "THE TEAM",
-  //   link: "team",
-  // },
+  {
+    title: "THE TEAM",
+    link: "team",
+  },
 ];
