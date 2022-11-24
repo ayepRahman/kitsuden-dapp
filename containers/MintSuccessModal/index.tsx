@@ -104,17 +104,23 @@ const MintSuccessModal: React.FC<MintSuccessModalProps> = ({
           <Flex justifyContent="center" gap="1rem" my="1rem">
             <Icon
               cursor="pointer"
-              height="1.5rem"
-              width="1.5rem"
+              height="1.6rem"
+              width="1.6rem"
               name="opensea"
               onClick={() => window.open(osLink)}
+              _hover={{
+                fill: "#444",
+              }}
             />
             <Icon
               cursor="pointer"
-              height="1.5rem"
-              width="1.5rem"
+              height="1.6rem"
+              width="1.6rem"
               name="etherscan"
               onClick={() => window.open(esLink)}
+              _hover={{
+                fill: "#444",
+              }}
             />
           </Flex>
 

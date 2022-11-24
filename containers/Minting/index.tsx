@@ -28,6 +28,8 @@ const Minting = () => {
   const maxSupply = ethers.BigNumber.from(maxSupplyBn || 0).toNumber() || 0;
   const isWhitelistSale = mintPhase === MINT_PHASE.WHITE_LIST;
   const isPublicSale = mintPhase === MINT_PHASE.PUBLIC;
+  // const isFullyMintedOut = totalSupply >= maxSupply;
+  const isFullyMintedOut = true;
 
   // @desc - value to be pass when mint
   const totalMintPriceInWei =
@@ -45,7 +47,22 @@ const Minting = () => {
         <Text>{`${maxSupply} FOXFONE MINTED`}</Text>
       </Flex>
 
-      {isLive && !whiteListMintLimit && isWhitelistSale && (
+      {isFullyMintedOut && (
+        <>
+          <Heading fontSize={[42, 84]} lineHeight={["42px", "84px"]}>
+            ALL OUR FOXFONES
+          </Heading>
+          <Heading
+            fontSize={[42, 84]}
+            lineHeight={["42px", "84px]"]}
+            textAlign="right"
+          >
+            HAS BEEN MINTED
+          </Heading>
+        </>
+      )}
+
+      {isLive && !whiteListMintLimit && isWhitelistSale && !isFullyMintedOut && (
         <>
           <Heading fontSize={[42, 84]} lineHeight={["42px", "84px"]}>
             Rejoice you are
@@ -60,7 +77,7 @@ const Minting = () => {
         </>
       )}
 
-      {isLive && !mintLimit && isPublicSale && (
+      {isLive && !mintLimit && isPublicSale && !isFullyMintedOut && (
         <>
           <Heading fontSize={[42, 84]} lineHeight={["42px", "84px"]}>
             Rejoice you are
@@ -75,7 +92,7 @@ const Minting = () => {
         </>
       )}
 
-      {isLive && !!whiteListMintLimit && isWhitelistSale && (
+      {isLive && !!whiteListMintLimit && isWhitelistSale && !isFullyMintedOut && (
         <>
           <Heading fontSize={[42, 84]} lineHeight={["42px", "84px"]}>
             HOW MANY FOXFONES
@@ -89,7 +106,7 @@ const Minting = () => {
           </Heading>
         </>
       )}
-      {isLive && !!mintLimit && isPublicSale && (
+      {isLive && !!mintLimit && isPublicSale && !isFullyMintedOut && (
         <>
           <Heading fontSize={[42, 84]} lineHeight={["42px", "84px"]}>
             HOW MANY FOXFONES
@@ -104,7 +121,7 @@ const Minting = () => {
         </>
       )}
 
-      {!isLive && (
+      {!isLive && !isFullyMintedOut && (
         <Heading fontSize={[42, 84]} lineHeight={["42px", "84px"]}>
           MINTING NOT LIVE
         </Heading>
@@ -199,17 +216,20 @@ const Minting = () => {
             )}
             {isLive && !selected && (
               <Button disabled={!selected} w="100%" py="1rem">
-                {isWhitelistSale && whiteListMintLimit === 0 && (
-                  <Text>You've have minted out!</Text>
-                )}
-                {isPublicSale && mintLimit === 0 && (
-                  <Text>You've have minted out!</Text>
+                {isWhitelistSale &&
+                  whiteListMintLimit === 0 &&
+                  !isFullyMintedOut && <Text>You've minted out!</Text>}
+                {isPublicSale && mintLimit === 0 && !isFullyMintedOut && (
+                  <Text>You've minted out!</Text>
                 )}
 
-                {isWhitelistSale && whiteListMintLimit > 0 && (
+                {isWhitelistSale &&
+                  whiteListMintLimit > 0 &&
+                  !isFullyMintedOut && <Text>SELECT MIN 1</Text>}
+                {isPublicSale && mintLimit > 0 && !isFullyMintedOut && (
                   <Text>SELECT MIN 1</Text>
                 )}
-                {isPublicSale && mintLimit > 0 && <Text>SELECT MIN 1</Text>}
+                {isFullyMintedOut && <Text>MINTED OUT</Text>}
               </Button>
             )}
             {/* white list mint button */}
