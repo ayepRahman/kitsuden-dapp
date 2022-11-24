@@ -40,11 +40,11 @@ const WalletCheckPage: React.FC = () => {
           type: "website",
           locale: "en_IE",
           url: "https://kitsuden.com/kitsulist",
-          siteName: "Kitsuden",
+          siteName: "Kitsuden - kitsulist",
           images: [
             {
               url: "https://kitsuden.s3.amazonaws.com/images/wallet-checker-meta.png",
-              alt: "kitsulist",
+              alt: "kitsulist-alt",
             },
           ],
         }}
