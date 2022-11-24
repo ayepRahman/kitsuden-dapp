@@ -28,7 +28,7 @@ const teams = [
     },
   },
   {
-    name: "ARIF RAHMAN",
+    name: "ONLYAYEP",
     title: "LEAD DEVELOPER",
     img: "/img/team_2.png",
 
