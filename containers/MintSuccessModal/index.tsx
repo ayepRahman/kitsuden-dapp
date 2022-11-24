@@ -31,7 +31,7 @@ const MintSuccessModal: React.FC<MintSuccessModalProps> = ({
       return SOCIAL_LINKS.opensea;
     }
 
-    return `https://testnets.opensea.io/collection/kitsuden-foxfone-v2`;
+    return `https://testnets.opensea.io/collection/kitsudenfoxfone-v10`;
   }, [chain, chain?.id, contractAddress]);
 
   const esLink = React.useMemo(() => {
@@ -54,7 +54,7 @@ const MintSuccessModal: React.FC<MintSuccessModalProps> = ({
   };
 
   return (
-    <Modal trapFocus={false} isCentered isOpen={isOpen} onClose={onClose}>
+    <Modal trapFocus={false} isCentered isOpen={isOpen} onClose={() => {}}>
       <ModalOverlay />
       <KitsudenModalContent>
         <ModalBody>

@@ -42,7 +42,7 @@ const Minting = () => {
     <Box color="white" width="100%">
       <Flex fontSize={["1rem", "22px"]} fontWeight={600} mb="1rem">
         <Text color="brand.200">{totalSupply}</Text>&nbsp;/&nbsp;
-        <Text>{`${maxSupply} FOXFONE REMAINING`}</Text>
+        <Text>{`${maxSupply} FOXFONE MINTED`}</Text>
       </Flex>
 
       {isLive && !whiteListMintLimit && isWhitelistSale && (
@@ -142,7 +142,7 @@ const Minting = () => {
           <Text fontWeight={600}>NOTE:</Text>
           &nbsp;
           <Text>
-            You can only mint a maximum of 2 NFTs in the kitsulited mint
+            You can only mint a maximum of 1 NFTs in the kitsulist mint
           </Text>
         </Flex>
       )}
