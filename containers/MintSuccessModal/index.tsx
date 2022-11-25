@@ -26,7 +26,6 @@ const MintSuccessModal: React.FC<MintSuccessModalProps> = ({
   const { chain } = useNetwork();
 
   const osLink = React.useMemo(() => {
-    // TODO: update opensea url
     if (chain?.id === 1) {
       return SOCIAL_LINKS.opensea;
     }
@@ -43,8 +42,6 @@ const MintSuccessModal: React.FC<MintSuccessModalProps> = ({
   }, [chain, chain?.id, txHash]);
 
   const generateTwitterLink = () => {
-    // Successfully minted my unrevealed @KitsudenNFT Foxfone! This will sure to help me uncover the hidden village! Hey, extra hands never hurt, Help us on the search by minting your own! https://www.kitsuden.com/mint-foxfone #Kitsuden
-
     const text =
       "Successfully minted my unrevealed @KitsudenNFT Foxfone! This will sure to help me uncover the hidden village! Hey, extra hands never hurt, Help us on the search by minting your own!";
     const url = "https://www.kitsuden.com";
