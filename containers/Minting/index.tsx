@@ -18,18 +18,17 @@ import { useAccount } from "wagmi";
 const Minting = () => {
   const [selected, setSelected] = React.useState<number | null>(null);
   const { address, isConnected } = useAccount();
-  const { data: maxSupplyBn } = useGetMaxSupply();
+  const { data: _maxSupply } = useGetMaxSupply();
   const { totalSupply } = useGetTotalSupply();
   const { data: mintPhaseData } = useCheckMintPhase();
   const { mintLimit, whiteListMintLimit } = useGetMintAvailable();
   const { currentMintRateEth, currentMintRateWei } = useGetMintRate();
 
   const mintPhase = Number(mintPhaseData || 0);
-  const maxSupply = ethers.BigNumber.from(maxSupplyBn || 0).toNumber() || 0;
+  const maxSupply = ethers.BigNumber.from(_maxSupply || 0).toNumber() || 0;
   const isWhitelistSale = mintPhase === MINT_PHASE.WHITE_LIST;
   const isPublicSale = mintPhase === MINT_PHASE.PUBLIC;
-  // const isFullyMintedOut = totalSupply >= maxSupply;
-  const isFullyMintedOut = true;
+  const isFullyMintedOut = totalSupply >= maxSupply;
 
   // @desc - value to be pass when mint
   const totalMintPriceInWei =
