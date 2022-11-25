@@ -10,21 +10,18 @@ const KITSUDEN = "KitsudenFoxfone";
 async function main() {
   console.log(`deploying on MAINNET ${KITSUDEN} smart contract.......`);
 
-  // Hardhat always runs the compile task when running scripts with its command
-  // line interface.
-  //
-  // If this script is run directly using `node` you may want to call compile
-  // manually to make sure everything is compiled
-  // await hre.run('compile');
+  const [owner] = await ethers.getSigners();
+  const feeData = await ethers.provider.getFeeData();
 
-  // We get the contract to deploy
+  console.log("FEE", feeData);
+
   const contractFactory = await ethers.getContractFactory(KITSUDEN);
   const contract = await contractFactory.deploy();
 
   await contract.deployed();
 
   console.log(`${KITSUDEN} deployed to:`, contract.address);
-  // saveFrontendFiles(contract);
+  console.log(`${KITSUDEN} deployed by:`, owner.address);
 }
 
 main().catch((error) => {

@@ -29,6 +29,7 @@ const CMC_API_KEY = process.env.CMC_API_KEY;
 
 console.log({
   GOERLI_URL,
+  MAINNET_URL,
   PRIVATE_KEY,
   ETHERSCAN_API_KEY,
   REPORT_GAS,

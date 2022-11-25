@@ -25,10 +25,7 @@ async function main() {
   // feeData?.gasPrice;
 
   const contractFactory = await ethers.getContractFactory(KITSUDEN);
-  const contract = await contractFactory.deploy({
-    // nonce: 42,
-    maxFeePerGas: feeData?.maxFeePerGas,
-  });
+  const contract = await contractFactory.deploy({});
 
   await contract.deployed();
 

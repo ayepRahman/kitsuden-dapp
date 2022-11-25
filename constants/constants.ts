@@ -5,12 +5,13 @@ export const SOCIAL_LINKS = {
   twitter: "https://twitter.com/kitsudennft",
   // discord: "https://discord.gg/XNYvaFcw",
   instagram: "https://www.instagram.com/kitsudennft/",
-  etherscan: "", // link to
+  etherscan:
+    "https://etherscan.io/address/0xE0E9223F8c243b1EbFA4A07A0f7a9D3285710D15", // link to
   opensea: "", // link to
 };
 
 export const CONTRACT_ADDRESS: { [key: number]: string } = {
-  1: "", // mainnet
+  1: "0xE0E9223F8c243b1EbFA4A07A0f7a9D3285710D15", // mainnet
   // 5: "0x920A09067360E1132a6a2A8ad6A9d2968c023177", // goerli
   // 5: "0xD3efC7336E63F3B1E99bd40Cb30E8F66554e57a0", // goerli
   // 5: "0x1c56a059802F6ac544989e3CaFe07623da54FfB1", // goerli
@@ -45,8 +46,8 @@ export const MINT_PHASE = {
 const uri = {
   preReveal:
     "https://kitsuden.infura-ipfs.io/ipfs/QmT7tsvigAix4AQvsfvHtJJV7U8JFYUu9MM3j4cESkVSPJ/", // PRE REVEAL
-  testReveal:
-    "https://kitsuden.infura-ipfs.io/ipfs/QmPr4GBmeZJcMWQSQ8yViosVbmufztKCN2hS5Hs2HV6V2h/", // TEST
+  // testReveal:
+  //   "https://kitsuden.infura-ipfs.io/ipfs/QmPr4GBmeZJcMWQSQ8yViosVbmufztKCN2hS5Hs2HV6V2h/", // TEST
   reveal:
     "https://kitsuden.infura-ipfs.io/ipfs/QmS7mooQX1TmtatbW4bGmqvdvwwENMJvsqj8ZcZPEFTZUa/", // PRODUCTION
 };
