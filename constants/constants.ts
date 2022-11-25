@@ -7,7 +7,7 @@ export const SOCIAL_LINKS = {
   instagram: "https://www.instagram.com/kitsudennft/",
   etherscan:
     "https://etherscan.io/address/0xE0E9223F8c243b1EbFA4A07A0f7a9D3285710D15", // link to
-  opensea: "", // link to
+  opensea: "https://opensea.io/collection/kitsudenfoxfone", // link to
 };
 
 export const CONTRACT_ADDRESS: { [key: number]: string } = {
