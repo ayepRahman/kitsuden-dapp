@@ -11,11 +11,11 @@ export const socialLinks: {
   },
   {
     name: "opensea",
-    link: SOCIAL_LINKS.twitter,
+    link: SOCIAL_LINKS.opensea,
   },
   {
     name: "etherscan",
-    link: SOCIAL_LINKS.twitter,
+    link: SOCIAL_LINKS.etherscan,
   },
 ];
 

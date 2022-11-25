@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
 import { Link } from "@chakra-ui/react";
+import styled from "@emotion/styled";
 
 export const SocialLink = styled(Link)<{ size?: string; fill?: string }>`
   height: ${(p) => p.size || "20px"};
