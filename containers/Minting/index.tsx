@@ -16,7 +16,7 @@ import { truncateAddress } from "utils/address";
 import { useAccount } from "wagmi";
 
 const Minting = () => {
-  const [selected, setSelected] = React.useState<number | null>(null);
+  const [selected, setSelected] = React.useState<number | null>(1);
   const { address, isConnected } = useAccount();
   const { data: _maxSupply } = useGetMaxSupply();
   const { totalSupply } = useGetTotalSupply();
