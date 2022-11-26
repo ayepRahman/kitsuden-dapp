@@ -42,10 +42,10 @@ const MintSuccessModal: React.FC<MintSuccessModalProps> = ({
   }, [chain, chain?.id, txHash]);
 
   const generateTwitterLink = () => {
-    const text =
-      "Successfully minted my unrevealed @KitsudenNFT Foxfone! This will sure to help me uncover the hidden village! Hey, extra hands never hurt, Help us on the search by minting your own!";
-    const url = "https://www.kitsuden.com";
-    const hashtages = "Kitsuden,NFT";
+    const text = "My search has ended..I am now ready to enter ⛩️✨";
+    const url =
+      "https://twitter.com/KitsudenNFT/status/1596501712864309248/video/1";
+    const hashtages = "Kitsuden";
 
     return `https://twitter.com/intent/tweet?text=${text}&url=${url}&hashtags=${hashtages}`;
   };
