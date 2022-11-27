@@ -6,7 +6,7 @@ const main = async () => {
     const dir = path.join(process.cwd(), "..", "artifacts");
 
     const file = fs.readFileSync(
-      path.join(dir, "contracts/KitsudenFoxfone.sol/KitsudenFoxfone.json"),
+      path.join(dir, "contracts/Foxfone.sol/Foxfone.json"),
       "utf-8"
     );
 

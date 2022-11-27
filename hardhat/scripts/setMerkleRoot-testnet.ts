@@ -11,7 +11,7 @@ import {
 import { generateMerkle } from "../../utils/merkle";
 
 async function main() {
-  const KITSUDEN = "KitsudenFoxfone";
+  const KITSUDEN = "Kitsuden FOXFONE";
   const address = CONTRACT_ADDRESS[5];
   console.log(
     `setting merkleRoot testnet for ${KITSUDEN} smart contract ${address}`

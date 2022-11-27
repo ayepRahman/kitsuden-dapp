@@ -5,7 +5,7 @@
 // Runtime Environment's members available in the global scope.
 import { ethers } from "hardhat";
 
-const KITSUDEN = "KitsudenFoxfone";
+const KITSUDEN = "Foxfone";
 
 async function main() {
   console.log(`deploying on MAINNET ${KITSUDEN} smart contract.......`);

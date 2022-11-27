@@ -3,7 +3,6 @@ pragma solidity ^0.8.13;
 
 import "erc721a/contracts/ERC721A.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/token/common/ERC2981.sol";
@@ -31,13 +30,11 @@ import "./StringUtils.sol";
 // @@@@@@@@@@@@@@@@@@@@@@%/////&@@@@@@@@@@@@@@@@@@@@@
 
 error PublicSaleNotLive();
-error WhitelistNotLive();
-error ExceededLimit();
 error NotEnoughTokensLeft();
 error WrongEther();
-error InvalidMerkle();
+error ExceededLimit();
 
-contract KitsudenFoxfone is
+contract Foxfone is
     ERC721A,
     Ownable,
     StringUtils,
@@ -45,14 +42,12 @@ contract KitsudenFoxfone is
     DefaultOperatorFilterer
 {
     using Address for address;
-    using MerkleProof for bytes32[];
     using Strings for uint256;
 
     bytes32 public merkleRoot;
-    uint256 public maxMints = 5;
-    uint256 public whiteListMaxMints = 1;
+    uint256 public maxMints = 10;
     uint256 public maxSupply = 6666;
-    uint256 public mintRate = 0.03 ether;
+    uint256 public mintRate = 0.0066 ether;
     string public baseExtension = ".json";
     string public baseURI = "";
     string public baseHiddenUri =
@@ -60,9 +55,6 @@ contract KitsudenFoxfone is
     uint256 public mintPhase;
     bool public paused = false;
     bool public revealed = false;
-
-    mapping(address => uint256) public whiteListUsedAddresses;
-    mapping(address => uint256) public usedAddresses;
 
     //  ==========================================
     //  ========== FAIL SAFE STRATEGY ============
@@ -72,7 +64,7 @@ contract KitsudenFoxfone is
         _;
     }
 
-    constructor() ERC721A("KitsudenFoxFone", "KSDFF") {
+    constructor() ERC721A("Foxfone", "KFF") {
         _setDefaultRoyalty(0x1C0C70453C5eD96c7C4EC2EA98c3A99Fc1Dd27EF, 700); // 7% * 10000
     }
 
@@ -105,68 +97,22 @@ contract KitsudenFoxfone is
             revert WrongEther();
         }
 
-        // check for user mint limit
-        if (quantity + usedAddresses[msg.sender] > maxMints) {
+        if (quantity > maxMints) {
             revert ExceededLimit();
         }
 
-        usedAddresses[msg.sender] += quantity;
-        _mint(msg.sender, quantity);
-    }
-
-    /**
-     * @dev a function that only allow whitelisted addresses to mint
-     */
-    function whiteListMint(uint256 quantity, bytes32[] calldata proof)
-        external
-        payable
-        unpaused
-    {
-        // check if white list sale is live
-        if (mintPhase != 1) revert WhitelistNotLive();
-
-        // check if the user is white listed.
-        if (!isWhiteListed(msg.sender, proof)) revert InvalidMerkle();
-
-        // check if enough token balance
-        if (totalSupply() + quantity > maxSupply) {
-            revert NotEnoughTokensLeft();
-        }
-
-        // check for the value user pass is equal to the quantity and the mintRate
-        if (mintRate * quantity != msg.value) {
-            revert WrongEther();
-        }
-
-        // cehck if user exceeded mint limit
-        if (whiteListUsedAddresses[msg.sender] + quantity > whiteListMaxMints) {
-            revert ExceededLimit();
-        }
-
-        whiteListUsedAddresses[msg.sender] += quantity;
         _mint(msg.sender, quantity);
     }
 
     /**
      * @dev a function that only allow owner to reserve nft for marketing/giveaway purpose
      */
-    function reserveMint(uint256 quantity) public onlyOwner {
+    function teamMint(uint256 quantity) public onlyOwner {
         if (totalSupply() + quantity > maxSupply) {
             revert NotEnoughTokensLeft();
         }
 
         _mint(msg.sender, quantity);
-    }
-
-    /**
-     * @dev a function that check for user address and verify its proof
-     */
-    function isWhiteListed(address _account, bytes32[] calldata _proof)
-        internal
-        view
-        returns (bool)
-    {
-        return _verify(leaf(_account), _proof);
     }
 
     function tokenURI(uint256 _tokenId)
@@ -195,18 +141,6 @@ contract KitsudenFoxfone is
                     )
                 );
         }
-    }
-
-    function leaf(address _account) internal pure returns (bytes32) {
-        return keccak256(abi.encodePacked(_account));
-    }
-
-    function _verify(bytes32 _leaf, bytes32[] memory _proof)
-        internal
-        view
-        returns (bool)
-    {
-        return MerkleProof.verify(_proof, merkleRoot, _leaf);
     }
 
     function withdraw() external onlyOwner {
@@ -264,13 +198,6 @@ contract KitsudenFoxfone is
     //  ==========================================
 
     /**
-     * @dev a function to set white list merkle root
-     */
-    function setMerkleRoot(bytes32 _root) external onlyOwner {
-        merkleRoot = _root;
-    }
-
-    /**
      * @dev a function to set mint phase
      */
     function setMintPhase(uint256 _phase) external onlyOwner {
@@ -282,6 +209,13 @@ contract KitsudenFoxfone is
      */
     function setTogglePaused() external onlyOwner {
         paused = !paused;
+    }
+
+    /**
+     * @dev a function to update mint price.
+     */
+    function setMintRate(uint256 _mintRate) public onlyOwner {
+        mintRate = _mintRate;
     }
 
     /**

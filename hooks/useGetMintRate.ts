@@ -1,4 +1,4 @@
-import FoxfoneContract from "artifacts/contracts/KitsudenFoxfone.sol/KitsudenFoxfone.json";
+import FoxfoneContract from "artifacts/contracts/Foxfone.sol/Foxfone.json";
 import { BigNumber, utils } from "ethers";
 import { useContractRead } from "wagmi";
 import useCheckMintPhase from "./useCheckMintPhase";

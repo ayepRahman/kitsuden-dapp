@@ -1,4 +1,4 @@
-import FoxfoneContract from "artifacts/contracts/KitsudenFoxfone.sol/KitsudenFoxfone.json";
+import FoxfoneContract from "artifacts/contracts/Foxfone.sol/Foxfone.json";
 import * as ethers from "ethers";
 import { useAccount, useContractRead } from "wagmi";
 import useGetContractAddress from "./useGetContractAddress";

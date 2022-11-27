@@ -10,7 +10,7 @@ import {
 } from "../../constants/constants";
 import { generateMerkle } from "../../utils/merkle";
 
-const KITSUDEN = "KitsudenFoxfone";
+const KITSUDEN = "Foxfone";
 const address = CONTRACT_ADDRESS[1];
 
 async function main() {
@@ -23,7 +23,7 @@ async function main() {
   const contractFactory = await ethers.getContractFactory(KITSUDEN);
   const contract = contractFactory.attach(address);
 
-  await contract.setMerkleRoot(merkle?.merkleRootHash || "");
+  // await contract.setMerkleRoot(merkle?.merkleRootHash || "");
 
   console.log("setMerkleRoot: success", merkle?.merkleRootHash || "");
 }

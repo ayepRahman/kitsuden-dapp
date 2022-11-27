@@ -4,29 +4,25 @@ import ButtonCount from "components/ButtonCount";
 import { MINT_PHASE } from "constants/constants";
 import MetamaskButton from "containers/MetamaskButton";
 import MintButton from "containers/MintButton";
-import WhiteListMintButton from "containers/WhiteListMintButton";
 import * as ethers from "ethers";
 import useCheckMintPhase from "hooks/useCheckMintPhase";
 import useGetMaxSupply from "hooks/useGetMaxSupply";
-import useGetMintAvailable from "hooks/useGetMintAvailable";
 import useGetMintRate from "hooks/useGetMintRate";
 import useGetTotalSupply from "hooks/useGetTotalSupply";
-import React from "react";
+import React, { useEffect } from "react";
 import { truncateAddress } from "utils/address";
 import { useAccount } from "wagmi";
 
 const Minting = () => {
-  const [selected, setSelected] = React.useState<number | null>(1);
+  const [selected, setSelected] = React.useState<number>(1);
   const { address, isConnected } = useAccount();
   const { data: _maxSupply } = useGetMaxSupply();
-  const { totalSupply } = useGetTotalSupply();
+  const { totalSupply, refetch: refetchTotalSupply } = useGetTotalSupply();
   const { data: mintPhaseData } = useCheckMintPhase();
-  const { mintLimit, whiteListMintLimit } = useGetMintAvailable();
   const { currentMintRateEth, currentMintRateWei } = useGetMintRate();
 
   const mintPhase = Number(mintPhaseData || 0);
   const maxSupply = ethers.BigNumber.from(_maxSupply || 0).toNumber() || 0;
-  const isWhitelistSale = mintPhase === MINT_PHASE.WHITE_LIST;
   const isPublicSale = mintPhase === MINT_PHASE.PUBLIC;
   const isFullyMintedOut = totalSupply >= maxSupply;
 
@@ -38,6 +34,19 @@ const Minting = () => {
     ethers.BigNumber.from(0);
   const totalMintPriceText = ethers.utils.formatEther(totalMintPriceInWei);
   const isLive = !!mintPhase;
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      refetchTotalSupply();
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (isFullyMintedOut) {
+      setSelected(0);
+    }
+  }, [isFullyMintedOut]);
 
   return (
     <Box color="white" width="100%">
@@ -61,51 +70,7 @@ const Minting = () => {
         </>
       )}
 
-      {isLive && !whiteListMintLimit && isWhitelistSale && !isFullyMintedOut && (
-        <>
-          <Heading fontSize={[42, 84]} lineHeight={["42px", "84px"]}>
-            Rejoice you are
-          </Heading>
-          <Heading
-            fontSize={[42, 84]}
-            lineHeight={["42px", "84px]"]}
-            textAlign="right"
-          >
-            fully minted out
-          </Heading>
-        </>
-      )}
-
-      {isLive && !mintLimit && isPublicSale && !isFullyMintedOut && (
-        <>
-          <Heading fontSize={[42, 84]} lineHeight={["42px", "84px"]}>
-            Rejoice you are
-          </Heading>
-          <Heading
-            fontSize={[42, 84]}
-            lineHeight={["42px", "84px"]}
-            textAlign="right"
-          >
-            fully minted out
-          </Heading>
-        </>
-      )}
-
-      {isLive && !!whiteListMintLimit && isWhitelistSale && !isFullyMintedOut && (
-        <>
-          <Heading fontSize={[42, 84]} lineHeight={["42px", "84px"]}>
-            HOW MANY FOXFONES
-          </Heading>
-          <Heading
-            fontSize={[42, 84]}
-            lineHeight={["42px", "84px"]}
-            textAlign="right"
-          >
-            ARE YOU TAKING?
-          </Heading>
-        </>
-      )}
-      {isLive && !!mintLimit && isPublicSale && !isFullyMintedOut && (
+      {isLive && isPublicSale && !isFullyMintedOut && (
         <>
           <Heading fontSize={[42, 84]} lineHeight={["42px", "84px"]}>
             HOW MANY FOXFONES
@@ -125,43 +90,30 @@ const Minting = () => {
           MINTING NOT LIVE
         </Heading>
       )}
+
       <Flex
         mt="3rem"
         alignItems="center"
         width="100%"
+        gap="0.5rem"
         justifyContent="space-between"
         flexWrap={["wrap", "nowrap"]}
       >
-        {Array.from({ length: 5 }, (_, i) => {
+        {Array.from({ length: 10 }, (_, i) => {
           const counter = i + 1;
-          const disabled = !isLive
-            ? true
-            : isWhitelistSale
-            ? counter > whiteListMintLimit
-            : counter > mintLimit;
 
           return (
             <ButtonCount
               key={i}
               active={selected ? selected === counter : false}
               onClick={() => setSelected(counter)}
-              disabled={disabled}
+              disabled={isFullyMintedOut}
             >
               {counter}
             </ButtonCount>
           );
         })}
       </Flex>
-
-      {mintPhase === 1 && (
-        <Flex mt="1rem">
-          <Text fontWeight={600}>NOTE:</Text>
-          &nbsp;
-          <Text>
-            You can only mint a maximum of 1 NFTs in the kitsulist mint
-          </Text>
-        </Flex>
-      )}
 
       {mintPhase === 2 && (
         <Flex mt="1rem">
@@ -215,34 +167,15 @@ const Minting = () => {
             )}
             {isLive && !selected && (
               <Button disabled={!selected} w="100%" py="1rem">
-                {isWhitelistSale &&
-                  whiteListMintLimit === 0 &&
-                  !isFullyMintedOut && <Text>You've minted out!</Text>}
-                {isPublicSale && mintLimit === 0 && !isFullyMintedOut && (
-                  <Text>You've minted out!</Text>
-                )}
-
-                {isWhitelistSale &&
-                  whiteListMintLimit > 0 &&
-                  !isFullyMintedOut && <Text>SELECT MIN 1</Text>}
-                {isPublicSale && mintLimit > 0 && !isFullyMintedOut && (
+                {isPublicSale && !isFullyMintedOut && selected <= 0 && (
                   <Text>SELECT MIN 1</Text>
                 )}
                 {isFullyMintedOut && <Text>MINTED OUT</Text>}
               </Button>
             )}
-            {/* white list mint button */}
-            {isLive &&
-              !!selected &&
-              isWhitelistSale &&
-              whiteListMintLimit > 0 && (
-                <WhiteListMintButton
-                  count={selected}
-                  price={totalMintPriceInWei}
-                />
-              )}
+
             {/* mint button */}
-            {isLive && !!selected && isPublicSale && mintLimit > 0 && (
+            {isLive && !!selected && isPublicSale && (
               <MintButton count={selected} price={totalMintPriceInWei} />
             )}
           </Flex>

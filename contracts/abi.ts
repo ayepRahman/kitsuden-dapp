@@ -21,16 +21,6 @@ export const abi = [
   },
   {
     "inputs": [],
-    "name": "ExceededLimit",
-    "type": "error"
-  },
-  {
-    "inputs": [],
-    "name": "InvalidMerkle",
-    "type": "error"
-  },
-  {
-    "inputs": [],
     "name": "MintERC2309QuantityExceedsLimit",
     "type": "error"
   },
@@ -98,11 +88,6 @@ export const abi = [
   {
     "inputs": [],
     "name": "URIQueryForNonexistentToken",
-    "type": "error"
-  },
-  {
-    "inputs": [],
-    "name": "WhitelistNotLive",
     "type": "error"
   },
   {
@@ -369,19 +354,6 @@ export const abi = [
   },
   {
     "inputs": [],
-    "name": "maxMints",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
     "name": "maxSupply",
     "outputs": [
       {
@@ -506,19 +478,6 @@ export const abi = [
   {
     "inputs": [],
     "name": "renounceOwnership",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "quantity",
-        "type": "uint256"
-      }
-    ],
-    "name": "reserveMint",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -650,12 +609,12 @@ export const abi = [
   {
     "inputs": [
       {
-        "internalType": "bytes32",
-        "name": "_root",
-        "type": "bytes32"
+        "internalType": "uint256",
+        "name": "_phase",
+        "type": "uint256"
       }
     ],
-    "name": "setMerkleRoot",
+    "name": "setMintPhase",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -664,11 +623,11 @@ export const abi = [
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_phase",
+        "name": "_mintRate",
         "type": "uint256"
       }
     ],
-    "name": "setMintPhase",
+    "name": "setMintRate",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -745,7 +704,20 @@ export const abi = [
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_tokenId",
+        "name": "quantity",
+        "type": "uint256"
+      }
+    ],
+    "name": "teamMint",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
         "type": "uint256"
       }
     ],
@@ -807,75 +779,6 @@ export const abi = [
     "name": "transferOwnership",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "name": "usedAddresses",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "whiteListMaxMints",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "quantity",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bytes32[]",
-        "name": "proof",
-        "type": "bytes32[]"
-      }
-    ],
-    "name": "whiteListMint",
-    "outputs": [],
-    "stateMutability": "payable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "name": "whiteListUsedAddresses",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   },
   {

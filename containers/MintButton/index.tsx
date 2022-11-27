@@ -42,7 +42,7 @@ const MintButton: React.FC<MintButtonProps> = ({ count, price }) => {
     overrides: {
       value: price,
     },
-    enabled: count > 0 && !!price,
+    enabled: count > 0,
     onSettled(data, error: any) {
       if (error) {
         toast({
