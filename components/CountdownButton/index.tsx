@@ -5,7 +5,7 @@ import useIsMounted from "@hooks/useIsMounted";
 import router from "next/router";
 import { useEffect, useState } from "react";
 
-const COUNTDOWN_TIMESTAMP = 1669471200000;
+const COUNTDOWN_TIMESTAMP = 1669816800000;
 
 const useCountdown = (targetDate: string | Date | number) => {
   const countDownDate = new Date(targetDate).getTime();
