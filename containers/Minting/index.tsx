@@ -91,29 +91,31 @@ const Minting = () => {
         </Heading>
       )}
 
-      <Flex
-        mt="3rem"
-        alignItems="center"
-        width="100%"
-        gap="0.5rem"
-        justifyContent="space-between"
-        flexWrap={["wrap", "nowrap"]}
-      >
-        {Array.from({ length: 10 }, (_, i) => {
-          const counter = i + 1;
+      {isLive && (
+        <Flex
+          mt="3rem"
+          alignItems="center"
+          width="100%"
+          gap="0.5rem"
+          justifyContent="space-between"
+          flexWrap={["wrap", "nowrap"]}
+        >
+          {Array.from({ length: 10 }, (_, i) => {
+            const counter = i + 1;
 
-          return (
-            <ButtonCount
-              key={i}
-              active={selected ? selected === counter : false}
-              onClick={() => setSelected(counter)}
-              disabled={isFullyMintedOut}
-            >
-              {counter}
-            </ButtonCount>
-          );
-        })}
-      </Flex>
+            return (
+              <ButtonCount
+                key={i}
+                active={selected ? selected === counter : false}
+                onClick={() => setSelected(counter)}
+                disabled={isFullyMintedOut}
+              >
+                {counter}
+              </ButtonCount>
+            );
+          })}
+        </Flex>
+      )}
 
       {mintPhase === 2 && (
         <Flex mt="1rem">
@@ -161,7 +163,7 @@ const Minting = () => {
               </Text>
             </Box>
             {!isLive && (
-              <Button disabled={!selected} w="100%" py="1rem">
+              <Button disabled={!isLive} w="100%" py="1rem">
                 <Text>MINTING NOT LIVE</Text>
               </Button>
             )}
@@ -176,7 +178,11 @@ const Minting = () => {
 
             {/* mint button */}
             {isLive && !!selected && isPublicSale && (
-              <MintButton count={selected} price={totalMintPriceInWei} />
+              <MintButton
+                isLive={isLive}
+                count={selected}
+                price={totalMintPriceInWei}
+              />
             )}
           </Flex>
         )}

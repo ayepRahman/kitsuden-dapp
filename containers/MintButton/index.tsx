@@ -13,6 +13,7 @@ import { useContractWrite, usePrepareContractWrite } from "wagmi";
 export interface MintButtonProps {
   count: number;
   price: BigNumber;
+  isLive: boolean;
 }
 
 const MintButton: React.FC<MintButtonProps> = ({ count, price }) => {
