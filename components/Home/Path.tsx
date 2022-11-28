@@ -24,7 +24,7 @@ const timelineItems = [
     descOne:
       "The ancient tech known as the FOXFONE are available to be activated. who knows what it will uncover, Will the path to the hidden village finally be discovered?",
     descTwo:
-      "6,666 FOXFONE NFTs will be available to mint. There will be 3 tiers of rarity (Common, Uncommon and Rare) that can be randomly minted.",
+      "6.666 FOXFONE NFTs will be available to mint. There will be 3 tiers of rarity (Common, Uncommon and Rare) that can be randomly minted.These NFTs will be grouped into the genesis Kitsuden NFT collection with the added utility of unlocking the rest of the kitsuden Ecosystem",
     isLock: false,
     size: 44,
     headerMargin: "0 0 1rem",
@@ -32,29 +32,32 @@ const timelineItems = [
   {
     title: "Chapter 2",
     prefixUrl: "/svg/fire_2.svg",
-    descOne: "",
+    descOne:
+      "The release of Kitsuden's Generative collection using the FOXFONEs hidden ability to summon the village champions.",
     descTwo: "",
     isLock: true,
     size: 44,
-    headerMargin: "0 0 3rem",
+    headerMargin: "0 0 1rem",
   },
   {
     title: "Chapter 3",
     prefixUrl: "/svg/fire_3.svg",
-    descOne: "",
+    descOne:
+      "Item and Token Airdrops with direct utility for the Kitsuden Ecosystem.",
     descTwo: "",
     isLock: true,
     size: 46,
-    headerMargin: "0 0 3rem",
+    headerMargin: "0 0 1rem",
   },
   {
     title: "Chapter 4",
     prefixUrl: "/svg/fire_4.svg",
-    descOne: "",
+    descOne:
+      "The development of a Play and Earn indie game leveraging the Kitsuden NET Collection in a non destructive manner.",
     descTwo: "",
     isLock: true,
     size: 48,
-    headerMargin: "0 0 -1rem",
+    headerMargin: "0 0 1rem",
   },
 ];
 
