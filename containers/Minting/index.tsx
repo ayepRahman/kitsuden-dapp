@@ -36,13 +36,6 @@ const Minting = () => {
   const isLive = !!mintPhase;
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      refetchTotalSupply();
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
     if (isFullyMintedOut) {
       setSelected(0);
     }
