@@ -117,14 +117,6 @@ const Minting = () => {
         </Flex>
       )}
 
-      {mintPhase === 2 && (
-        <Flex mt="1rem">
-          <Text fontWeight={600}>NOTE:</Text>
-          &nbsp;
-          <Text>You can only mint a maximum of 5 NFTs in the public mint</Text>
-        </Flex>
-      )}
-
       <Box mt="1rem" borderRadius="4px" bgColor="rgba(0,0,0,0.7)" p="2rem">
         <Flex justifyContent="space-between" flexWrap={["wrap", "nowrap"]}>
           <Box>
