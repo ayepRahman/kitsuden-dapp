@@ -68,7 +68,7 @@ const unrevealMetadata = {
 
 const metadataType = {
   common: {
-    name: "Foxfone “KT-1”",
+    name: "FOXFONE “KT-1”",
     description: desc,
     animation_url:
       "https://kitsuden.infura-ipfs.io/ipfs/QmbTkDc3Ge23LqWpN51Zp591v5yh3MQ6wdSDRcCBmKrGaV/foxfone-1.mp4",
@@ -102,7 +102,7 @@ const metadataType = {
     ],
   },
   uncommon: {
-    name: "Foxfone “FF-66”",
+    name: "FOXFONE “FF-66”",
     description: desc,
     animation_url:
       "https://kitsuden.infura-ipfs.io/ipfs/QmbTkDc3Ge23LqWpN51Zp591v5yh3MQ6wdSDRcCBmKrGaV/foxfone-2.mp4",
@@ -136,7 +136,7 @@ const metadataType = {
     ],
   },
   rare: {
-    name: "Foxfone “ELDR-9T”",
+    name: "FOXFONE “ELDR-9T”",
     description: desc,
     animation_url:
       "https://kitsuden.infura-ipfs.io/ipfs/QmbTkDc3Ge23LqWpN51Zp591v5yh3MQ6wdSDRcCBmKrGaV/foxfone-3.mp4",
@@ -230,7 +230,7 @@ const genReveal = async () => {
 
   fs.writeFileSync(dir, csv);
 
-  console.log("COMPLATE REVEAL");
+  console.log("COMPLETE REVEAL");
 };
 
 const genTestReveal = async () => {

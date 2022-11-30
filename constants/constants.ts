@@ -50,5 +50,5 @@ const uri = {
   // testReveal:
   //   "https://kitsuden.infura-ipfs.io/ipfs/QmPr4GBmeZJcMWQSQ8yViosVbmufztKCN2hS5Hs2HV6V2h/", // TEST
   reveal:
-    "https://kitsuden.infura-ipfs.io/ipfs/QmS7mooQX1TmtatbW4bGmqvdvwwENMJvsqj8ZcZPEFTZUa/", // PRODUCTION
+    "https://kitsuden.infura-ipfs.io/ipfs/QmW4uRkdzSGvHUux6CD2DkED4m3R7KWpZLT4s1xdTNN2wV/", // PRODUCTION
 };

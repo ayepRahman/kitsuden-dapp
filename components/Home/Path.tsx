@@ -53,7 +53,7 @@ const timelineItems = [
     title: "Chapter 4",
     prefixUrl: "/svg/fire_4.svg",
     descOne:
-      "The development of a Play and Earn indie game leveraging the Kitsuden NET Collection in a non destructive manner.",
+      "The development of a Play and Earn indie game leveraging the Kitsuden NFT Collection in a non-destructive manner.",
     descTwo: "",
     isLock: true,
     size: 48,
